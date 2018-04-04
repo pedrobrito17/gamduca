@@ -4,7 +4,7 @@ package br.com.ifma.view.components.config;
  *
  * @author Pedro Brito
  */
-public enum FonteMenu {
+public enum Fonte {
     
     FONTE("Verdana"),
     TAMANHO(12);
@@ -12,11 +12,11 @@ public enum FonteMenu {
     private String fonte;
     private int tamanhoDaFonte;
     
-    FonteMenu(String fonte){
+    Fonte(String fonte){
         this.fonte = fonte;
     }
     
-    FonteMenu(int tamanho){
+    Fonte(int tamanho){
         this.tamanhoDaFonte = tamanho;
     }
 

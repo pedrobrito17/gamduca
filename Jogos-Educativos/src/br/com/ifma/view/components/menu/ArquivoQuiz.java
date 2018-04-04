@@ -4,37 +4,31 @@ import br.com.ifma.view.components.config.Fonte;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.KeyStroke;
 
 /**
  *
  * @author Pedro Brito
  */
-public class Opcoes extends JMenu{
+public class ArquivoQuiz extends JMenu{
     
-    private JMenuItem configuracao;
+    private JMenuItem sair;
 
-    public Opcoes(String s) {
+    public ArquivoQuiz(String s) {
         super(s);
     }
     
     public void configurarMenu(){
         configurarItemMenu();
         this.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
-        this.add(configuracao);
+        this.add(sair);
     }
     
-    public void configurarItemMenu(){
-        configuracao = new JMenuItem("Configuração", KeyEvent.VK_N);
-        KeyStroke ctrlVKeyStroke = KeyStroke.getKeyStroke("control N");
-        configuracao.setAccelerator(ctrlVKeyStroke);
-        configuracao.addActionListener(new MenuItemActionListener(configuracao));
-        configuracao.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
-        configuracao.setToolTipText("Configuração geral da aplicação");
+    public void configurarItemMenu(){        
+        sair = new JMenuItem("Sair");
+        sair.addActionListener(new MenuItemActionListener(this));
+        sair.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
     }
     
     public class MenuItemActionListener implements ActionListener {
@@ -49,14 +43,13 @@ public class Opcoes extends JMenu{
         public void actionPerformed(java.awt.event.ActionEvent e) {
             JMenuItem item = (JMenuItem) e.getSource();
             switch(item.getActionCommand()){
-                case "Configuração":
-                    JOptionPane.showMessageDialog(parent, item.getActionCommand() + " foi selecionado.");
+                case "Sair":
+                    System.exit(0);
                     break;
                 default:
                     break;
             }
         }
     }
-    
-}
 
+}

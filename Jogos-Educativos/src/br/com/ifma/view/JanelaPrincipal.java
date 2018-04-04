@@ -17,7 +17,6 @@ import javax.swing.JPanel;
  */
 public class JanelaPrincipal extends JFrame{
     
-    private final JFrame jframe;
     private final JPanel jpanel;
     private final JMenuBar menuBar;
     private final Arquivo arquivo;
@@ -25,8 +24,6 @@ public class JanelaPrincipal extends JFrame{
     private final Ajuda ajuda;
     
     public JanelaPrincipal(){
-        jframe = new JFrame();       
-        
         menuBar = new JMenuBar();
         arquivo = new Arquivo("Arquivo");
         arquivo.configurarMenu();
@@ -55,16 +52,16 @@ public class JanelaPrincipal extends JFrame{
     }
     
     private void inicializarFrame(){
-        jframe.setSize(508, 505);
-        jframe.setLayout(new GridLayout(1,1));
-        jframe.setLocationRelativeTo(null);
-        jframe.setResizable(false);
-        jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(508, 505);
+        this.setLayout(new GridLayout(1,1));
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        jframe.setJMenuBar(menuBar);
-        jframe.add(jpanel);
+        this.setJMenuBar(menuBar);
+        this.add(jpanel);
         
-        jframe.setVisible(true);
+        this.setVisible(true);
     }   
 
 }

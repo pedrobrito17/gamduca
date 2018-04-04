@@ -1,6 +1,6 @@
 package br.com.ifma.view.components.menu;
 
-import br.com.ifma.view.components.config.FonteMenu;
+import br.com.ifma.view.components.config.Fonte;
 import com.sun.glass.events.KeyEvent;
 import java.awt.Component;
 import java.awt.Font;
@@ -24,7 +24,7 @@ public class Arquivo extends JMenu{
     
     public void configurarMenu(){
         configurarItemMenu();
-        this.setFont(new Font(FonteMenu.FONTE.getFonte(), Font.PLAIN, FonteMenu.TAMANHO.getTamanhoDaFonte()));
+        this.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
         this.add(forca);
         this.add(palavrasCruzadas);
         this.add(quiz);
@@ -36,28 +36,26 @@ public class Arquivo extends JMenu{
         KeyStroke ctrlVKeyStroke = KeyStroke.getKeyStroke("control F");
         forca.setAccelerator(ctrlVKeyStroke);
         forca.addActionListener(new MenuItemActionListener(forca));
-        forca.setFont(new Font(FonteMenu.FONTE.getFonte(), Font.PLAIN, FonteMenu.TAMANHO.getTamanhoDaFonte()));
+        forca.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
         forca.setToolTipText("Inicia a configuração do jogo da forca");
         
         palavrasCruzadas = new JMenuItem("Palavras Cruzadas", KeyEvent.VK_P);
         KeyStroke ctrlVKeyStrok = KeyStroke.getKeyStroke("control P");
         palavrasCruzadas.setAccelerator(ctrlVKeyStrok);
         palavrasCruzadas.addActionListener(new MenuItemActionListener(palavrasCruzadas));
-        palavrasCruzadas.setFont(new Font(FonteMenu.FONTE.getFonte(), Font.PLAIN, FonteMenu.TAMANHO.getTamanhoDaFonte()));
+        palavrasCruzadas.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
         palavrasCruzadas.setToolTipText("Inicia a configuração do jogo palavras cruzadas");
         
-        quiz = new JMenuItem("Quiz", KeyEvent.VK_U);
-        KeyStroke ctrlVKeyStro = KeyStroke.getKeyStroke("control U");
+        quiz = new JMenuItem("Quiz", KeyEvent.VK_Q);
+        KeyStroke ctrlVKeyStro = KeyStroke.getKeyStroke("control Q");
         quiz.setAccelerator(ctrlVKeyStro);
         quiz.addActionListener(new MenuItemActionListener(quiz));
-        quiz.setFont(new Font(FonteMenu.FONTE.getFonte(), Font.PLAIN, FonteMenu.TAMANHO.getTamanhoDaFonte()));
+        quiz.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
         quiz.setToolTipText("Inicia a configuração do jogo quiz");
         
-        sair = new JMenuItem("Sair", KeyEvent.VK_Q);
-        KeyStroke ctrlVKeyStr = KeyStroke.getKeyStroke("control Q");
-        sair.setAccelerator(ctrlVKeyStr);
+        sair = new JMenuItem("Sair");
         sair.addActionListener(new MenuItemActionListener(this));
-        sair.setFont(new Font(FonteMenu.FONTE.getFonte(), Font.PLAIN, FonteMenu.TAMANHO.getTamanhoDaFonte()));
+        sair.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
     }
     
     public class MenuItemActionListener implements ActionListener {
