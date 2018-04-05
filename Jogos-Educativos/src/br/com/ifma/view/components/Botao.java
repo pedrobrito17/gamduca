@@ -21,10 +21,6 @@ public class Botao extends JButton{
         super(icon);
     }
     
-    
-    
-    
-    
     public void configurarBotao(){
         this.setFont(new Font("Verdana", Font.PLAIN, 12));
         this.setFocusPainted(false);

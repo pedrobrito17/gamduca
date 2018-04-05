@@ -10,12 +10,8 @@ import java.awt.EventQueue;
 public class JogosEducativos {
 
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
-            }
+        EventQueue.invokeLater(() -> {
+            JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
         });
     }
     

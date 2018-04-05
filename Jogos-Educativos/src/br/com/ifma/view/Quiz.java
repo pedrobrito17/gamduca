@@ -33,18 +33,7 @@ public class Quiz extends JFrame{
     JTextField textTitulo;
     JLabel labelTitulo;
     
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                Quiz quiz = new Quiz("Quiz");
-            }
-        });
-    }
-    
-    public Quiz(String title) throws HeadlessException {
-        super(title);
+    public Quiz() {
         menuBar = new JMenuBar();
         arquivo = new ArquivoQuiz("Arquivo");
         arquivo.configurarMenu();
@@ -89,7 +78,6 @@ public class Quiz extends JFrame{
         this.setLayout(new BorderLayout());
         this.setLocationRelativeTo(null);
         this.setResizable(true);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setJMenuBar(menuBar);
         this.add(jpanelTitulo, BorderLayout.NORTH);
         this.add(jpanelTabbed, BorderLayout.CENTER);

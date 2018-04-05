@@ -1,16 +1,19 @@
 package br.com.ifma.view.components.jpanel;
 
-import br.com.ifma.view.components.Botao;
 import br.com.ifma.view.components.config.Fonte;
+import br.com.ifma.view.components.dialog.DialogMidia;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import javax.swing.JButton;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,9 +33,10 @@ public class JpPergunta extends JPanel implements ItemListener{
     private JTextArea textAreaPergunta;
     private JScrollPane sp;
     private JComboBox cbtipoQuestao;
-    private Botao img, audio, video, link;
+    private JLabel midia;
     private final String[] tipos = {"Múltipla escolha", "Pergunta direta", "Verdadeiro ou falso"};
     private final JPanel cardTipoResposta;
+    private final String URL = "img/multimedia.png";
 
     public JpPergunta(JPanel cardTipoResposta) {
         this.cardTipoResposta = cardTipoResposta;
@@ -59,20 +63,12 @@ public class JpPergunta extends JPanel implements ItemListener{
         cbtipoQuestao.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
         cbtipoQuestao.addItemListener(this);
                 
-        img = new Botao("imagem");
-        img.configurarBotao();
-        audio = new Botao("audio");
-        audio.configurarBotao();
-        video = new Botao("video");
-        video.configurarBotao();
-        link = new Botao("link");
-        link.configurarBotao();
+        midia = new JLabel(new ImageIcon(URL));
+        midia.setBorder(new EmptyBorder(0, 10 , 0, 0));
+        midia.addMouseListener(new EventoMouse());
         
-        jpOpcoes = new JPanel(new FlowLayout(5));
-        jpOpcoes.add(img);
-        jpOpcoes.add(audio);
-        jpOpcoes.add(video);
-        jpOpcoes.add(link);
+        jpOpcoes = new JPanel(new FlowLayout(5, 15, 5));
+        jpOpcoes.add(midia);
         jpOpcoes.add(cbtipoQuestao);
 
         jpgridOpcoes = new JPanel(new BorderLayout());
@@ -101,4 +97,33 @@ public class JpPergunta extends JPanel implements ItemListener{
     public void setTituloQuestao(String titulo) {
         labelQuestao.setText(titulo);
     }
+
+    
+}
+
+class EventoMouse implements MouseListener{
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        EventQueue.invokeLater(() -> {
+            DialogMidia dialog = new DialogMidia();
+        });
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
+
 }
