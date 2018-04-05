@@ -1,12 +1,11 @@
 package br.com.ifma.view;
 
 import br.com.ifma.view.components.config.Fonte;
+import br.com.ifma.view.components.jpanel.JpFase;
 import br.com.ifma.view.components.menu.Ajuda;
 import br.com.ifma.view.components.menu.ArquivoQuiz;
 import br.com.ifma.view.components.menu.EditarQuiz;
-import br.com.ifma.view.components.panel.Questao;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -69,7 +68,7 @@ public class Quiz extends JFrame{
         jpanelTitulo = new JPanel(new GridLayout(2,1));
         jpanelTitulo.setBorder(new EmptyBorder(10, 10, 10, 10));
         labelTitulo = new JLabel("Título do Quiz");
-        labelTitulo.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        labelTitulo.setFont(new Font(Fonte.FONTE.getFonte(), Font.BOLD, Fonte.TAMANHO.getTamanhoDaFonte()));
         jpanelTitulo.add(labelTitulo);
         textTitulo = new JTextField(100);
         textTitulo.setPreferredSize(new Dimension(100, 25));
@@ -79,31 +78,21 @@ public class Quiz extends JFrame{
         JTabbedPane tabbed = new JTabbedPane();
         tabbed.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
         
-        JPanel p = new JPanel(new BorderLayout());
-        p.add(new JLabel("Testando"), BorderLayout.NORTH);
-        p.setBackground(Color.red);
-        
-        
-        tabbed.addTab("1ª Fase", new Questao());
-        tabbed.addTab("2ª Fase", new JPanel());
-        tabbed.addTab("3ª Fase", new JPanel());
+        tabbed.addTab("1ª Fase", new JpFase());
+        tabbed.addTab("2ª Fase", new JpFase());
+        tabbed.addTab("3ª Fase", new JpFase());
         jpanelTabbed.add(tabbed);
     }
     
     private void inicializarFrame(){
-        this.setSize(800, 680);
+        this.setSize(700, 580);
         this.setLayout(new BorderLayout());
         this.setLocationRelativeTo(null);
         this.setResizable(true);
-        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
         this.setJMenuBar(menuBar);
         this.add(jpanelTitulo, BorderLayout.NORTH);
         this.add(jpanelTabbed, BorderLayout.CENTER);
-        
         this.setVisible(true);
     }   
-    
-    
 }
