@@ -29,7 +29,6 @@ public final class DialogMidia extends JFrame {
 
     private JLabel selecao, caminho;
     private final String TEXTO = "Selecione o tipo de multimídia desejada para adicionar à pergunta da questão.";
-    private final String URL = "img/select.png";
     private JRadioButton img, audio, video, link;
     private ButtonGroup group;
     private Botao btnCancelar, btnOk;
@@ -46,7 +45,7 @@ public final class DialogMidia extends JFrame {
     }
 
     public void configText() {
-        selecao = new JLabel(TEXTO, new ImageIcon(URL), JLabel.LEFT);
+        selecao = new JLabel(TEXTO, new ImageIcon(getClass().getClassLoader().getResource("icones/select.png")), JLabel.LEFT);
         selecao.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
 
         jpTexto = new JPanel(new FlowLayout());

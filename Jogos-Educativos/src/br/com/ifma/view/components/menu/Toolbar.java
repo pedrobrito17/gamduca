@@ -32,49 +32,49 @@ public final class Toolbar extends JToolBar{
     }
     
     public void configBotoes(){
-        exportJogo = new JButton(new ImageIcon("img/export-jogo.png"));
+        exportJogo = new JButton(new ImageIcon(getClass().getClassLoader().getResource("icones/export-jogo.png")));
         exportJogo.setToolTipText("Exportar jogo");
         exportJogo.setFocusPainted(false);
-        exportApp = new JButton(new ImageIcon("img/export-app.png"));
+        exportApp = new JButton(new ImageIcon(getClass().getClassLoader().getResource("icones/export-app.png")));
         exportApp.setToolTipText("Exportar pacote scorm");
         exportApp.setFocusPainted(false);
         
-        copy = new JButton(new ImageIcon("img/copy.png"));
+        copy = new JButton(new ImageIcon(getClass().getClassLoader().getResource("icones/copy.png")));
         copy.setToolTipText("Copiar");
         copy.setFocusPainted(false);
-        cut = new JButton(new ImageIcon("img/cut.png"));
+        cut = new JButton(new ImageIcon(getClass().getClassLoader().getResource("icones/cut.png")));
         cut.setToolTipText("Recortar");
         cut.setFocusPainted(false);
-        paste = new JButton(new ImageIcon("img/paste.png"));
+        paste = new JButton(new ImageIcon(getClass().getClassLoader().getResource("icones/paste.png")));
         paste.setToolTipText("Colar");
         paste.setFocusPainted(false);
-        selectAll = new JButton(new ImageIcon("img/select-all.png"));
+        selectAll = new JButton(new ImageIcon(getClass().getClassLoader().getResource("icones/select-all.png")));
         selectAll.setToolTipText("Selecionar tudo");
         selectAll.setFocusPainted(false);
         
-        adicionarFase = new JButton(new ImageIcon("img/adicionar-fase.png"));
+        adicionarFase = new JButton(new ImageIcon(getClass().getClassLoader().getResource("icones/adicionar-fase.png")));
         adicionarFase.setToolTipText("Adicionar fase");
         adicionarFase.setFocusPainted(false);
         adicionarFase.addActionListener((ActionEvent e) -> {
             tabbedInterface.adicionarFase();
         });
-        personalizarQuiz = new JButton(new ImageIcon("img/personalizar-quiz.png"));
+        personalizarQuiz = new JButton(new ImageIcon(getClass().getClassLoader().getResource("icones/personalizar-quiz.png")));
         personalizarQuiz.setToolTipText("Personalizar quiz");
         personalizarQuiz.setFocusPainted(false);
         personalizarQuiz.addActionListener((ActionEvent e) -> {
             tabbedInterface.personalizarQuiz();
         });
         
-        addQuestao = new JButton(new ImageIcon("img/add-questao.png"));
+        addQuestao = new JButton(new ImageIcon(getClass().getClassLoader().getResource("icones/add-questao.png")));
         addQuestao.setToolTipText("Adicionar questão");
         addQuestao.setFocusPainted(false);
-        deletarQuestao = new JButton(new ImageIcon("img/deletar-questao.png"));
+        deletarQuestao = new JButton(new ImageIcon(getClass().getClassLoader().getResource("icones/deletar-questao.png")));
         deletarQuestao.setToolTipText("Deletar questão");
         deletarQuestao.setFocusPainted(false);
-        moverQuestao = new JButton(new ImageIcon("img/mover-questao.png"));
+        moverQuestao = new JButton(new ImageIcon(getClass().getClassLoader().getResource("icones/mover-questao.png")));
         moverQuestao.setToolTipText("Mover questão");
         moverQuestao.setFocusPainted(false);
-        tutorial = new JButton(new ImageIcon("img/tutorial.png"));
+        tutorial = new JButton(new ImageIcon(getClass().getClassLoader().getResource("icones/tutorial.png")));
         tutorial.setToolTipText("Tutorial");
     }
     

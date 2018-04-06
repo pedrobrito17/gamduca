@@ -30,11 +30,11 @@ public final class JpFase extends JPanel {
 
     public void configPanelBotoes() {
         anterior = new Botao("Anterior");
-        anterior.setIcon(new ImageIcon("img/back.png"));
+        anterior.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icones/back.png")));
         anterior.setToolTipText("Questão anterior");
         anterior.configurarBotao();
         proxima = new Botao("Próxima");
-        proxima.setIcon(new ImageIcon("img/next.png"));
+        proxima.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icones/next.png")));
         proxima.setToolTipText("Próxima questão");
         proxima.setVerticalTextPosition(SwingConstants.CENTER);
         proxima.setHorizontalTextPosition(SwingConstants.LEFT);

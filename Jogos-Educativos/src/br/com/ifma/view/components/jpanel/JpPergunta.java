@@ -36,7 +36,6 @@ public class JpPergunta extends JPanel implements ItemListener{
     private JLabel midia;
     private final String[] tipos = {"Múltipla escolha", "Pergunta direta", "Verdadeiro ou falso"};
     private final JPanel cardTipoResposta;
-    private final String URL = "img/multimedia.png";
 
     public JpPergunta(JPanel cardTipoResposta) {
         this.cardTipoResposta = cardTipoResposta;
@@ -63,7 +62,7 @@ public class JpPergunta extends JPanel implements ItemListener{
         cbtipoQuestao.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
         cbtipoQuestao.addItemListener(this);
                 
-        midia = new JLabel(new ImageIcon(URL));
+        midia = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("icones/multimedia.png")));
         midia.setBorder(new EmptyBorder(0, 10 , 0, 0));
         midia.addMouseListener(new EventoMouse());
         midia.setToolTipText("Selecionar multimídia");

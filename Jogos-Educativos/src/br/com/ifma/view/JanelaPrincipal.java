@@ -46,7 +46,11 @@ public class JanelaPrincipal extends JFrame{
     }
     
     private void configuracaoDoJPanel(){
-        ImageIcon imagemForca = new ImageIcon("img/img-main.png");
+
+        System.out.println(JanelaPrincipal.class.getClassLoader().getResource("icones/img-main.png"));
+        
+        
+        ImageIcon imagemForca = new ImageIcon(JanelaPrincipal.class.getClassLoader().getResource("icones/img-main.png"));
         jpanel.setLayout(new BorderLayout());
         jpanel.add(new JLabel(null, imagemForca, JLabel.LEFT), BorderLayout.CENTER);
     }
