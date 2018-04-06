@@ -33,7 +33,7 @@ public class FiltroFileChooserImagem extends FileFilter {
 
     @Override
     public String getDescription() {
-        return "Imagem";
+        return "Arquivos de imagem (.gif, .jpeg, .jpg, .png)";
     }
 
 }

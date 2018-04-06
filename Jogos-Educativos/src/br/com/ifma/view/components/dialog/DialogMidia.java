@@ -28,7 +28,7 @@ import javax.swing.filechooser.FileFilter;
 public final class DialogMidia extends JFrame {
 
     private JLabel selecao, caminho;
-    private final String TEXTO = "Selecione o tipo de mídia desejada para adicionar à pergunta da questão.";
+    private final String TEXTO = "Selecione o tipo de multimídia desejada para adicionar à pergunta da questão.";
     private final String URL = "img/select.png";
     private JRadioButton img, audio, video, link;
     private ButtonGroup group;
@@ -110,7 +110,7 @@ public final class DialogMidia extends JFrame {
 
             this.dispose();
             if (link.isSelected()) {
-                new DialogLink();
+                DialogLink dialogLink = new DialogLink();
             } else {
                 fileChooser = new JFileChooser();
                 fileChooser.addChoosableFileFilter(getFiltroDoRadioButtonSelected());
@@ -137,6 +137,7 @@ public final class DialogMidia extends JFrame {
         this.add(jpTextMedia, BorderLayout.NORTH);
         this.add(jpCaminho, BorderLayout.CENTER);
         this.add(jpBotoes, BorderLayout.SOUTH);
+        this.setTitle("Selecionar multimídia");
         this.setVisible(true);
     }
 

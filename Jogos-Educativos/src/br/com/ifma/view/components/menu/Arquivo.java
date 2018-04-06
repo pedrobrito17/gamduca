@@ -1,6 +1,5 @@
 package br.com.ifma.view.components.menu;
 
-import br.com.ifma.view.JanelaPrincipal;
 import br.com.ifma.view.Quiz;
 import br.com.ifma.view.components.config.Fonte;
 import com.sun.glass.events.KeyEvent;
@@ -11,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
 
 /**
@@ -31,6 +31,7 @@ public class Arquivo extends JMenu {
         this.add(forca);
         this.add(palavrasCruzadas);
         this.add(quiz);
+        this.add(new JSeparator());
         this.add(sair);
     }
 

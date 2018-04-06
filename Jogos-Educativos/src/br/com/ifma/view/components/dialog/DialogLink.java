@@ -66,6 +66,7 @@ public final class DialogLink extends JFrame {
         this.setResizable(false);
         this.add(jpTextField, BorderLayout.CENTER);
         this.add(jpBotoes, BorderLayout.SOUTH);
+        this.setTitle("Inserir url");
         this.setVisible(true);
     }
 

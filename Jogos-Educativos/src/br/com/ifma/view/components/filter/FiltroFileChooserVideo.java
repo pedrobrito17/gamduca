@@ -35,7 +35,7 @@ public class FiltroFileChooserVideo extends FileFilter {
 
     @Override
     public String getDescription() {
-        return "Video";
+        return "Arquivos de vídeo (.avi, .flv, .mkv, .mov, .wav, .mp4)";
     }
     
 }

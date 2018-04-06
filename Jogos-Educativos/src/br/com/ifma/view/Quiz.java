@@ -4,16 +4,18 @@ import br.com.ifma.view.components.config.Fonte;
 import br.com.ifma.view.components.jpanel.JpFase;
 import br.com.ifma.view.components.menu.Ajuda;
 import br.com.ifma.view.components.menu.ArquivoQuiz;
+import br.com.ifma.view.components.menu.OpcoesQuiz;
 import br.com.ifma.view.components.menu.EditarQuiz;
+import br.com.ifma.view.components.menu.GerenciadorQuiz;
+import br.com.ifma.view.components.utils.TabbedInterface;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.HeadlessException;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
@@ -23,15 +25,18 @@ import javax.swing.border.EmptyBorder;
  *
  * @author Pedro Brito
  */
-public class Quiz extends JFrame{
+public class Quiz extends JFrame implements TabbedInterface{
     
     private JPanel jpanelTitulo, jpanelTabbed;
     private final JMenuBar menuBar;
     private final ArquivoQuiz arquivo;
     private final EditarQuiz editar;
+    private final OpcoesQuiz opcoesQuiz;
+    private final GerenciadorQuiz gerenciadorQuiz;
     private final Ajuda ajuda;
-    JTextField textTitulo;
-    JLabel labelTitulo;
+    private JTextField textTitulo;
+    private JLabel labelTitulo;
+    private JTabbedPane tabbed;
     
     public Quiz() {
         menuBar = new JMenuBar();
@@ -41,6 +46,11 @@ public class Quiz extends JFrame{
         editar.configurarMenu();
         ajuda = new Ajuda("Ajuda");
         ajuda.configurarMenu();
+        opcoesQuiz = new OpcoesQuiz(this);
+        opcoesQuiz.setText("Opções");
+        opcoesQuiz.configurarMenu();
+        gerenciadorQuiz = new GerenciadorQuiz("Gerenciador");
+        gerenciadorQuiz.configurarMenu();
         
         configuracaoDoMenu();
         configuracaoDoJPanel();
@@ -50,6 +60,8 @@ public class Quiz extends JFrame{
     private void configuracaoDoMenu(){
         menuBar.add(arquivo);
         menuBar.add(editar);
+        menuBar.add(opcoesQuiz);
+        menuBar.add(gerenciadorQuiz);
         menuBar.add(ajuda);
     }
     
@@ -64,13 +76,12 @@ public class Quiz extends JFrame{
         jpanelTitulo.add(textTitulo);
         
         jpanelTabbed = new JPanel(new BorderLayout());
-        JTabbedPane tabbed = new JTabbedPane();
+        tabbed = new JTabbedPane();
         tabbed.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
         
         tabbed.addTab("1ª Fase", new JpFase());
-        tabbed.addTab("2ª Fase", new JpFase());
-        tabbed.addTab("3ª Fase", new JpFase());
         jpanelTabbed.add(tabbed);
+  
     }
     
     private void inicializarFrame(){
@@ -81,6 +92,23 @@ public class Quiz extends JFrame{
         this.setJMenuBar(menuBar);
         this.add(jpanelTitulo, BorderLayout.NORTH);
         this.add(jpanelTabbed, BorderLayout.CENTER);
+        this.setTitle("Quiz");
         this.setVisible(true);
     }   
+
+    @Override
+    public void adicionarFase() {
+        switch(tabbed.getComponentCount()){
+            case 1:
+                tabbed.add("2ª Fase", new JpFase());
+                break;
+            case 2:
+                tabbed.add("3ª Fase", new JpFase());
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "Não é possível adicionar mais de 3 fases ao quiz.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                break;
+        }
+    }
+
 }

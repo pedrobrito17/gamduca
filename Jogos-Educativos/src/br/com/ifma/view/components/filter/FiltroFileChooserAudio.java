@@ -34,7 +34,7 @@ public class FiltroFileChooserAudio extends FileFilter {
 
     @Override
     public String getDescription() {
-        return "Áudio";
+        return "Arquivos de áudio (.mp3, .aac, .ogc, .wav, .wma)";
     }
     
 }

@@ -66,6 +66,7 @@ public class JpPergunta extends JPanel implements ItemListener{
         midia = new JLabel(new ImageIcon(URL));
         midia.setBorder(new EmptyBorder(0, 10 , 0, 0));
         midia.addMouseListener(new EventoMouse());
+        midia.setToolTipText("Selecionar multimídia");
         
         jpOpcoes = new JPanel(new FlowLayout(5, 15, 5));
         jpOpcoes.add(midia);
