@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  */
 public class GerenciadorQuiz extends JMenu{
     
-    private JMenuItem inserirQuestao, deletarQuestao, moverQuestao;
+    private JMenuItem addQuestao, deletarQuestao, moverQuestao;
 
     public GerenciadorQuiz(String s) {
         super(s);
@@ -23,15 +23,15 @@ public class GerenciadorQuiz extends JMenu{
      public void configurarMenu() {
         configurarItemMenu();
         this.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
-        this.add(inserirQuestao);
+        this.add(addQuestao);
         this.add(deletarQuestao);
         this.add(moverQuestao);
     }
 
     private void configurarItemMenu() {
-        inserirQuestao = new JMenuItem("Inserir questão");
-        inserirQuestao.addActionListener(new GerenciadorQuiz.MenuItemActionListener(inserirQuestao));
-        inserirQuestao.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        addQuestao = new JMenuItem("Adicionar questão");
+        addQuestao.addActionListener(new GerenciadorQuiz.MenuItemActionListener(addQuestao));
+        addQuestao.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
         
         deletarQuestao = new JMenuItem("Deletar questão");
         deletarQuestao.addActionListener(new GerenciadorQuiz.MenuItemActionListener(deletarQuestao));

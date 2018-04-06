@@ -2,7 +2,6 @@ package br.com.ifma.view.components.utils;
 
 import java.io.File;
 import javax.swing.ImageIcon;
-import org.jcp.xml.dsig.internal.dom.Utils;
 
 /**
  *
@@ -40,7 +39,7 @@ public class FilterUtils {
     }
 
     protected static ImageIcon createImageIcon(String path) {
-        java.net.URL imgURL = Utils.class.getResource(path);
+        java.net.URL imgURL = FilterUtils.class.getResource(path);
         if (imgURL != null) {
             return new ImageIcon(imgURL);
         } else {

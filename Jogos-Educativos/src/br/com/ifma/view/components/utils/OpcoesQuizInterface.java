@@ -4,8 +4,9 @@ package br.com.ifma.view.components.utils;
  *
  * @author Pedro Brito
  */
-public interface TabbedInterface {
+public interface OpcoesQuizInterface {
     
     public void adicionarFase();
+    public void personalizarQuiz();
     
 }

@@ -1,7 +1,7 @@
 package br.com.ifma.view.components.menu;
 
 import br.com.ifma.view.components.config.Fonte;
-import br.com.ifma.view.components.utils.TabbedInterface;
+import br.com.ifma.view.components.dialog.DialogMidia;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import br.com.ifma.view.components.utils.OpcoesQuizInterface;
+import java.awt.EventQueue;
 
 /**
  *
@@ -16,16 +18,16 @@ import javax.swing.JOptionPane;
  */
 public class OpcoesQuiz extends JMenu{
     
-    private JMenuItem adicionarFase, configurarQuiz;
-    private TabbedInterface tabbedInterface;
+    private JMenuItem adicionarFase, personalizarQuiz;
+    private OpcoesQuizInterface tabbedInterface;
     
     public OpcoesQuiz(String s) {
         super(s);
     }
     
     public OpcoesQuiz(JFrame quiz){
-        if(quiz instanceof TabbedInterface){
-            tabbedInterface = (TabbedInterface) quiz;
+        if(quiz instanceof OpcoesQuizInterface){
+            tabbedInterface = (OpcoesQuizInterface) quiz;
         }else{
             throw new RuntimeException(quiz.toString()
                     + " deve implementar onLoginCompletedListener");
@@ -36,7 +38,7 @@ public class OpcoesQuiz extends JMenu{
         configurarItemMenu();
         this.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
         this.add(adicionarFase);
-        this.add(configurarQuiz);
+        this.add(personalizarQuiz);
     }
 
     private void configurarItemMenu() {
@@ -44,9 +46,9 @@ public class OpcoesQuiz extends JMenu{
         adicionarFase.addActionListener(new OpcoesQuiz.MenuItemActionListener(adicionarFase));
         adicionarFase.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
         
-        configurarQuiz = new JMenuItem("Configurar quiz");
-        configurarQuiz.addActionListener(new OpcoesQuiz.MenuItemActionListener(configurarQuiz));
-        configurarQuiz.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        personalizarQuiz = new JMenuItem("Personalizar quiz");
+        personalizarQuiz.addActionListener(new OpcoesQuiz.MenuItemActionListener(personalizarQuiz));
+        personalizarQuiz.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
     }
     
     public class MenuItemActionListener implements ActionListener {
@@ -64,8 +66,8 @@ public class OpcoesQuiz extends JMenu{
                 case "Adicionar fase":
                     tabbedInterface.adicionarFase();
                     break;
-                case "Configuração do quiz":
-                    JOptionPane.showMessageDialog(parent, item.getActionCommand() + " foi selecionado.");
+                case "Personalizar quiz":
+                    tabbedInterface.personalizarQuiz();
                     break;
                 default:
                     break;
