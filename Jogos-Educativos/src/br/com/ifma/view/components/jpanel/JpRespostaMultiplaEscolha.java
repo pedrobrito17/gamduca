@@ -7,7 +7,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -29,9 +28,10 @@ public class JpRespostaMultiplaEscolha extends JPanel{
     private ButtonGroup group;
     
     public JpRespostaMultiplaEscolha() {
+        configRespostas();
     }
     
-    public void configRespostas(){
+    private void configRespostas(){
         this.setBorder(BorderFactory.createTitledBorder("Respostas"));
         this.setLayout(new GridLayout(4,1));
         configRespostaA();
@@ -41,7 +41,7 @@ public class JpRespostaMultiplaEscolha extends JPanel{
         configButtonGroup();
     }
 
-    public void configRespostaA(){
+    private void configRespostaA(){
         jpRespostaA = new JPanel(new BorderLayout());
         jpRespostaA.setBorder(new EmptyBorder(5, 5, 5, 5));
         this.add(jpRespostaA);
@@ -66,7 +66,7 @@ public class JpRespostaMultiplaEscolha extends JPanel{
         jpRespostaA.add(rbRespA, BorderLayout.EAST);
     }
     
-    public void configRespostaB(){
+    private void configRespostaB(){
         jpRespostaB = new JPanel(new BorderLayout());
         jpRespostaB.setBorder(new EmptyBorder(5, 5, 5, 5));
         this.add(jpRespostaB);
@@ -91,7 +91,7 @@ public class JpRespostaMultiplaEscolha extends JPanel{
         jpRespostaB.add(rbRespB, BorderLayout.EAST);
     }
     
-    public void configRespostaC(){
+    private void configRespostaC(){
         jpRespostaC = new JPanel(new BorderLayout());
         jpRespostaC.setBorder(new EmptyBorder(5, 5, 5, 5));
         this.add(jpRespostaC);
@@ -116,7 +116,7 @@ public class JpRespostaMultiplaEscolha extends JPanel{
         jpRespostaC.add(rbRespC, BorderLayout.EAST);
     }
     
-    public void configRespostaD(){
+    private void configRespostaD(){
         jpRespostaD = new JPanel(new BorderLayout());
         jpRespostaD.setBorder(new EmptyBorder(5, 5, 5, 5));
         this.add(jpRespostaD);
@@ -141,7 +141,7 @@ public class JpRespostaMultiplaEscolha extends JPanel{
         jpRespostaD.add(rbRespD, BorderLayout.EAST);
     }
     
-    public void configButtonGroup(){
+    private void configButtonGroup(){
         group = new ButtonGroup();
         group.add(rbRespA);
         group.add(rbRespB);

@@ -26,11 +26,8 @@ public class JanelaPrincipal extends JFrame{
     public JanelaPrincipal(){
         menuBar = new JMenuBar();
         arquivo = new Arquivo("Arquivo");
-        arquivo.configurarMenu();
         opcoes = new Opcoes("Opções");
-        opcoes.configurarMenu();
         ajuda = new Ajuda("Ajuda");
-        ajuda.configurarMenu();
         
         jpanel = new JPanel();
         
@@ -46,11 +43,7 @@ public class JanelaPrincipal extends JFrame{
     }
     
     private void configuracaoDoJPanel(){
-
-        System.out.println(JanelaPrincipal.class.getClassLoader().getResource("icones/img-main.png"));
-        
-        
-        ImageIcon imagemForca = new ImageIcon(JanelaPrincipal.class.getClassLoader().getResource("icones/img-main.png"));
+        ImageIcon imagemForca = createImageIcon("icones/img-main.png");
         jpanel.setLayout(new BorderLayout());
         jpanel.add(new JLabel(null, imagemForca, JLabel.LEFT), BorderLayout.CENTER);
     }
@@ -66,6 +59,16 @@ public class JanelaPrincipal extends JFrame{
         this.add(jpanel);
         
         this.setVisible(true);
-    }   
+    }  
+    
+    protected static ImageIcon createImageIcon(String path) {
+        java.net.URL imgURL = JanelaPrincipal.class.getClassLoader().getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL);
+        } else {
+            System.err.println("Arquivo não encontrado: " + path);
+            return null;
+        }
+    }
 
 }

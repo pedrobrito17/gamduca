@@ -13,8 +13,8 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -25,7 +25,7 @@ import javax.swing.filechooser.FileFilter;
  *
  * @author Pedro Brito
  */
-public final class DialogMidia extends JFrame {
+public class DialogMidia extends JDialog {
 
     private JLabel selecao, caminho;
     private final String TEXTO = "Selecione o tipo de multimídia desejada para adicionar à pergunta da questão.";
@@ -41,11 +41,12 @@ public final class DialogMidia extends JFrame {
         configJPTextMedia();
         configCaminho();
         configBotoes();
-        inicializarFrame();
+        inicializarDialog();
     }
 
-    public void configText() {
-        selecao = new JLabel(TEXTO, new ImageIcon(getClass().getClassLoader().getResource("icones/select.png")), JLabel.LEFT);
+    private void configText() {
+        ImageIcon imgIcon = createImageIcon("icones/select.png");
+        selecao = new JLabel(TEXTO, imgIcon, JLabel.LEFT);
         selecao.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
 
         jpTexto = new JPanel(new FlowLayout());
@@ -53,7 +54,7 @@ public final class DialogMidia extends JFrame {
         jpTexto.add(selecao);
     }
 
-    public void configRadioButton() {
+    private void configRadioButton() {
         img = new JRadioButton("Imagem");
         img.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
         img.setFocusPainted(false);
@@ -81,13 +82,13 @@ public final class DialogMidia extends JFrame {
         jpMidia.add(link);
     }
 
-    public void configJPTextMedia() {
+    private void configJPTextMedia() {
         jpTextMedia = new JPanel(new BorderLayout());
         jpTextMedia.add(jpTexto, BorderLayout.NORTH);
         jpTextMedia.add(jpMidia, BorderLayout.CENTER);
     }
 
-    public void configCaminho() {
+    private void configCaminho() {
         caminho = new JLabel("http://www.youtube.com.br/teste");
         caminho.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
 
@@ -96,7 +97,7 @@ public final class DialogMidia extends JFrame {
         jpCaminho.add(caminho);
     }
 
-    public void configBotoes() {
+    private void configBotoes() {
         btnCancelar = new Botao("Cancelar");
         btnCancelar.configurarBotao();
         btnCancelar.addActionListener((ActionEvent e) -> {
@@ -127,8 +128,18 @@ public final class DialogMidia extends JFrame {
         jpBotoes.add(btnCancelar);
         jpBotoes.add(btnOk);
     }
+    
+    private static ImageIcon createImageIcon(String path) {
+        java.net.URL imgURL = DialogMidia.class.getClassLoader().getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL);
+        } else {
+            System.err.println("Arquivo não encontrado: " + path);
+            return null;
+        }
+    }
 
-    public void inicializarFrame() {
+    private void inicializarDialog() {
         this.setSize(550, 180);
         this.setLayout(new BorderLayout());
         this.setLocationRelativeTo(null);
@@ -137,10 +148,11 @@ public final class DialogMidia extends JFrame {
         this.add(jpCaminho, BorderLayout.CENTER);
         this.add(jpBotoes, BorderLayout.SOUTH);
         this.setTitle("Selecionar multimídia");
+        this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         this.setVisible(true);
     }
 
-    public FileFilter getFiltroDoRadioButtonSelected() {
+    private FileFilter getFiltroDoRadioButtonSelected() {
         if (img.isSelected()) {
             return new FiltroFileChooserImagem();
         } else if (audio.isSelected()) {

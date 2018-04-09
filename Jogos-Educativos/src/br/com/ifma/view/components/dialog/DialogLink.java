@@ -10,7 +10,7 @@ import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -18,7 +18,7 @@ import javax.swing.border.EmptyBorder;
  *
  * @author Pedro Brito
  */
-public final class DialogLink extends JFrame {
+public class DialogLink extends JDialog {
 
     private Botao btnCancelar, btnOk;
     private JPanel jpBotoes, jpTextField;
@@ -27,10 +27,10 @@ public final class DialogLink extends JFrame {
     public DialogLink() throws HeadlessException {
         configTextField();
         configBotoes();
-        inicializarFrame();
+        inicializarDialog();
     }
 
-    public void configTextField() {
+    private void configTextField() {
         textField = new TextField();
         textField.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
 
@@ -40,7 +40,7 @@ public final class DialogLink extends JFrame {
         jpTextField.setPreferredSize(new Dimension(100, 25));
     }
 
-    public void configBotoes() {
+    private void configBotoes() {
         btnCancelar = new Botao("Cancelar");
         btnCancelar.configurarBotao();
         btnCancelar.addActionListener((ActionEvent e) -> {
@@ -59,7 +59,7 @@ public final class DialogLink extends JFrame {
         jpBotoes.add(btnOk);
     }
 
-    public void inicializarFrame() {
+    private void inicializarDialog() {
         this.setSize(400, 90);
         this.setLayout(new BorderLayout());
         this.setLocationRelativeTo(null);

@@ -8,5 +8,6 @@ public interface OpcoesQuizInterface {
     
     public void adicionarFase();
     public void personalizarQuiz();
+    public void deletarFase();
     
 }

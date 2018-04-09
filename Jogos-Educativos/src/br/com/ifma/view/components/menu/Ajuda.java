@@ -19,16 +19,17 @@ public class Ajuda extends JMenu{
 
     public Ajuda(String s) {
         super(s);
+        configurarMenu();
     }
     
-    public void configurarMenu(){
+    private void configurarMenu(){
         configurarItemMenu();
         this.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
         this.add(tutorial);
         this.add(sobre);
     }
     
-    public void configurarItemMenu(){
+    private void configurarItemMenu(){
         tutorial = new JMenuItem("Tutorial");
         tutorial.addActionListener(new MenuItemActionListener(tutorial));
         tutorial.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
@@ -40,7 +41,7 @@ public class Ajuda extends JMenu{
         sobre.setToolTipText("Selecione para visualizar");
     }
     
-    public class MenuItemActionListener implements ActionListener {
+    private class MenuItemActionListener implements ActionListener {
 
         Component parent;
 

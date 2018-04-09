@@ -15,7 +15,7 @@ import javax.swing.border.EmptyBorder;
  *
  * @author Pedro Brito
  */
-public final class JpFase extends JPanel {
+public class JpFase extends JPanel {
 
     private JPanel jpBotoes, jpCardQuestoes;
     private ArrayList<JpQuestao> jpQuestoes;
@@ -28,13 +28,16 @@ public final class JpFase extends JPanel {
         configPanelFase();
     }
 
-    public void configPanelBotoes() {
+    private void configPanelBotoes() {
         anterior = new Botao("Anterior");
-        anterior.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icones/back.png")));
+        ImageIcon imgIconAnt = createImageIcon("icones/back.png");
+        anterior.setIcon(imgIconAnt);
         anterior.setToolTipText("Questão anterior");
         anterior.configurarBotao();
+        anterior.setEnabled(false);
         proxima = new Botao("Próxima");
-        proxima.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icones/next.png")));
+        ImageIcon imgIconProx = createImageIcon("icones/next.png");
+        proxima.setIcon(imgIconProx);
         proxima.setToolTipText("Próxima questão");
         proxima.setVerticalTextPosition(SwingConstants.CENTER);
         proxima.setHorizontalTextPosition(SwingConstants.LEFT);
@@ -48,17 +51,47 @@ public final class JpFase extends JPanel {
         anterior.addActionListener((ActionEvent e) -> {
             CardLayout cl = (CardLayout) jpCardQuestoes.getLayout();
             cl.show(jpCardQuestoes, cont > 0 ? "Questão " + (cont - 1) : "Questão");
-            cont--;
+            
+            if(cont==1){
+                proxima.setEnabled(true);
+                anterior.setEnabled(false);
+                cont--;
+            }
+            else if(cont>0 || cont<9){
+                proxima.setEnabled(true);
+                anterior.setEnabled(true);
+                cont--;
+            }
         });
 
         proxima.addActionListener((ActionEvent e) -> {
             CardLayout cls = (CardLayout) jpCardQuestoes.getLayout();
             cls.show(jpCardQuestoes, cont < 10 ? "Questão " + (cont + 1) : "Questão");
-            cont++;
+            
+            if(cont==8){
+                proxima.setEnabled(false);
+                anterior.setEnabled(true);
+                cont++;
+            }
+            else if(cont>=0 || cont<9){
+                proxima.setEnabled(true);
+                anterior.setEnabled(true);
+                cont++;
+            }
         });
     }
+    
+    private static ImageIcon createImageIcon(String path) {
+        java.net.URL imgURL = JpFase.class.getClassLoader().getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL);
+        } else {
+            System.err.println("Arquivo não encontrado: " + path);
+            return null;
+        }
+    }
 
-    public void configQuestoes() {
+    private void configQuestoes() {
         jpQuestoes = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             jpQuestoes.add(new JpQuestao(i + 1));
@@ -70,7 +103,7 @@ public final class JpFase extends JPanel {
         }
     }
 
-    public void configPanelFase() {
+    private void configPanelFase() {
         this.setLayout(new BorderLayout());
         this.add(jpCardQuestoes, BorderLayout.CENTER);
         this.add(jpBotoes, BorderLayout.SOUTH);

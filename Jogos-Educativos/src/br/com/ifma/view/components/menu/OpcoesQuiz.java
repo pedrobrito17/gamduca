@@ -1,16 +1,13 @@
 package br.com.ifma.view.components.menu;
 
 import br.com.ifma.view.components.config.Fonte;
-import br.com.ifma.view.components.dialog.DialogMidia;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import br.com.ifma.view.components.utils.OpcoesQuizInterface;
-import java.awt.EventQueue;
 
 /**
  *
@@ -18,7 +15,7 @@ import java.awt.EventQueue;
  */
 public class OpcoesQuiz extends JMenu{
     
-    private JMenuItem adicionarFase, personalizarQuiz;
+    private JMenuItem adicionarFase, deletarFase, personalizarQuiz;
     private OpcoesQuizInterface tabbedInterface;
     
     public OpcoesQuiz(String s) {
@@ -32,30 +29,35 @@ public class OpcoesQuiz extends JMenu{
             throw new RuntimeException(quiz.toString()
                     + " deve implementar onLoginCompletedListener");
         }
+        configurarMenu();
     }
     
-    public void configurarMenu() {
+    private void configurarMenu() {
         configurarItemMenu();
         this.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
         this.add(adicionarFase);
+        this.add(deletarFase);
         this.add(personalizarQuiz);
     }
 
     private void configurarItemMenu() {
-        adicionarFase = new JMenuItem("Adicionar fase");
-        adicionarFase.addActionListener(new OpcoesQuiz.MenuItemActionListener(adicionarFase));
-        adicionarFase.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
-        
-        personalizarQuiz = new JMenuItem("Personalizar quiz");
-        personalizarQuiz.addActionListener(new OpcoesQuiz.MenuItemActionListener(personalizarQuiz));
-        personalizarQuiz.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        adicionarFase = getItemMenu("Adicionar fase", this);
+        deletarFase = getItemMenu("Deletar fase", this);
+        personalizarQuiz = getItemMenu("Personalizar quiz", this);
     }
     
-    public class MenuItemActionListener implements ActionListener {
+    private JMenuItem getItemMenu(String text, Component parent){
+        JMenuItem menuItem = new JMenuItem(text);
+        menuItem.addActionListener(new OpcoesQuiz.MenuItemActionListener(parent));
+        menuItem.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        return menuItem;
+    }
+    
+    private class MenuItemActionListener implements ActionListener {
 
         Component parent;
 
-        public MenuItemActionListener(Component parent) {
+        private MenuItemActionListener(Component parent) {
             this.parent = parent;
         }
 
@@ -65,6 +67,9 @@ public class OpcoesQuiz extends JMenu{
             switch(item.getActionCommand()){
                 case "Adicionar fase":
                     tabbedInterface.adicionarFase();
+                    break;
+                case "Deletar fase":
+                    tabbedInterface.deletarFase();
                     break;
                 case "Personalizar quiz":
                     tabbedInterface.personalizarQuiz();

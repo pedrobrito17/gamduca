@@ -17,9 +17,10 @@ public class JpRespostaPerguntaDireta extends JPanel{
     private JPanel jp;
     
     public JpRespostaPerguntaDireta() {
+        configResposta();
     }
     
-    public void configResposta(){
+    private void configResposta(){
         resposta = new JTextField();
         resposta.setPreferredSize(new Dimension(100,25));
         

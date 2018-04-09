@@ -20,15 +20,16 @@ public class Opcoes extends JMenu{
 
     public Opcoes(String s) {
         super(s);
+        configurarMenu();
     }
     
-    public void configurarMenu(){
+    private void configurarMenu(){
         configurarItemMenu();
         this.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
         this.add(configuracao);
     }
     
-    public void configurarItemMenu(){
+    private void configurarItemMenu(){
         configuracao = new JMenuItem("Configuração", KeyEvent.VK_N);
         KeyStroke ctrlVKeyStroke = KeyStroke.getKeyStroke("control N");
         configuracao.setAccelerator(ctrlVKeyStroke);
@@ -37,11 +38,11 @@ public class Opcoes extends JMenu{
         configuracao.setToolTipText("Configuração geral da aplicação");
     }
     
-    public class MenuItemActionListener implements ActionListener {
+    private class MenuItemActionListener implements ActionListener {
 
         Component parent;
 
-        public MenuItemActionListener(Component parent) {
+        private MenuItemActionListener(Component parent) {
             this.parent = parent;
         }
 

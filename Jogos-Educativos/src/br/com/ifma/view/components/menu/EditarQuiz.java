@@ -5,10 +5,6 @@ import com.sun.glass.events.KeyEvent;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.ClipboardOwner;
-import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -22,13 +18,13 @@ import javax.swing.KeyStroke;
 public class EditarQuiz extends JMenu {
 
     private JMenuItem recortar, copiar, colar, deletar, selecionarTudo;
-    private Clipboard clipboard = new Clipboard("clipboard");
 
     public EditarQuiz(String s) {
         super(s);
+        configurarMenu();
     }
 
-    public void configurarMenu() {
+    private void configurarMenu() {
         configurarItemMenu();
         this.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
         this.add(recortar);
@@ -38,7 +34,7 @@ public class EditarQuiz extends JMenu {
         this.add(selecionarTudo);
     }
 
-    public void configurarItemMenu() {
+    private void configurarItemMenu() {
         recortar = new JMenuItem("Recortar", KeyEvent.VK_X);
         KeyStroke ctrlVKeyStroke = KeyStroke.getKeyStroke("control X");
         recortar.setAccelerator(ctrlVKeyStroke);
@@ -68,11 +64,11 @@ public class EditarQuiz extends JMenu {
         selecionarTudo.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
     }
 
-    public class MenuItemActionListener implements ActionListener {
+    private class MenuItemActionListener implements ActionListener {
 
         Component parent;
 
-        public MenuItemActionListener(Component parent) {
+        private MenuItemActionListener(Component parent) {
             this.parent = parent;
         }
 

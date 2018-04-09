@@ -15,9 +15,10 @@ public class JpTiposRespostas extends JPanel{
     private JpRespostaVerdadeiroOuFaso jpRespVerdadeiroOuFalso;
     
     public JpTiposRespostas() {
+        configTipoQuestao();
     }
     
-    public void configTipoQuestao(){
+    private void configTipoQuestao(){
         configMultiplaEscolha();
         configPerguntaDireta();
         configVerdadeiroOuFalso();
@@ -29,19 +30,16 @@ public class JpTiposRespostas extends JPanel{
         this.add(jpRespVerdadeiroOuFalso, "Verdadeiro ou falso");
     }
     
-    public void configMultiplaEscolha(){
+    private void configMultiplaEscolha(){
         jpRespMultiplaEscolha = new JpRespostaMultiplaEscolha();
-        jpRespMultiplaEscolha.configRespostas();
     }
     
-    public void configPerguntaDireta(){
+    private void configPerguntaDireta(){
         jpRespPerguntaDireta = new JpRespostaPerguntaDireta();
-        jpRespPerguntaDireta.configResposta();
     }
     
-    public void configVerdadeiroOuFalso(){
+    private void configVerdadeiroOuFalso(){
         jpRespVerdadeiroOuFalso = new JpRespostaVerdadeiroOuFaso();
-        jpRespVerdadeiroOuFalso.configRespostas();
     }
     
     

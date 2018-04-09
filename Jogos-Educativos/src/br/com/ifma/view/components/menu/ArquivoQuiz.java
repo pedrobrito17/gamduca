@@ -20,9 +20,10 @@ public class ArquivoQuiz extends JMenu{
 
     public ArquivoQuiz(String s) {
         super(s);
+        configurarMenu();
     }
     
-    public void configurarMenu(){
+    private void configurarMenu(){
         configurarItemMenu();
         this.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
         this.add(exportarJogo);
@@ -31,7 +32,7 @@ public class ArquivoQuiz extends JMenu{
         this.add(sair);
     }
     
-    public void configurarItemMenu(){        
+    private void configurarItemMenu(){        
         sair = new JMenuItem("Sair");
         sair.addActionListener(new MenuItemActionListener(this));
         sair.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
@@ -50,11 +51,11 @@ public class ArquivoQuiz extends JMenu{
     
     }
     
-    public class MenuItemActionListener implements ActionListener {
+    private class MenuItemActionListener implements ActionListener {
 
         Component parent;
 
-        public MenuItemActionListener(Component parent) {
+        private MenuItemActionListener(Component parent) {
             this.parent = parent;
         }
 
@@ -67,7 +68,6 @@ public class ArquivoQuiz extends JMenu{
                 case "Exportar jogo":
                     break;
                 case "Sair":
-                    System.exit(0);
                     break;
                 default:
                     break;

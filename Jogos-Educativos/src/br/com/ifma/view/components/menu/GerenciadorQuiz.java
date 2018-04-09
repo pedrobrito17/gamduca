@@ -18,14 +18,15 @@ public class GerenciadorQuiz extends JMenu{
 
     public GerenciadorQuiz(String s) {
         super(s);
+        configurarMenu();
     }
     
-     public void configurarMenu() {
+     private void configurarMenu() {
         configurarItemMenu();
         this.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
         this.add(addQuestao);
-        this.add(deletarQuestao);
         this.add(moverQuestao);
+        this.add(deletarQuestao);
     }
 
     private void configurarItemMenu() {
@@ -42,11 +43,11 @@ public class GerenciadorQuiz extends JMenu{
         moverQuestao.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
     }
     
-    public class MenuItemActionListener implements ActionListener {
+    private class MenuItemActionListener implements ActionListener {
 
         Component parent;
 
-        public MenuItemActionListener(Component parent) {
+        private MenuItemActionListener(Component parent) {
             this.parent = parent;
         }
 

@@ -5,15 +5,14 @@ import br.com.ifma.view.components.dialog.DialogMidia;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -33,15 +32,16 @@ public class JpPergunta extends JPanel implements ItemListener{
     private JTextArea textAreaPergunta;
     private JScrollPane sp;
     private JComboBox cbtipoQuestao;
-    private JLabel midia;
+    private JButton midia;
     private final String[] tipos = {"Múltipla escolha", "Pergunta direta", "Verdadeiro ou falso"};
     private final JPanel cardTipoResposta;
 
     public JpPergunta(JPanel cardTipoResposta) {
         this.cardTipoResposta = cardTipoResposta;
+        configPergunta();
     }
     
-    public void configPergunta(){
+    private void configPergunta(){
         configPanelOpcoes();
         configPanelTextAreaPergunta();
         this.setLayout(new BorderLayout());
@@ -50,7 +50,7 @@ public class JpPergunta extends JPanel implements ItemListener{
         this.add(panelTextArea, BorderLayout.CENTER);
     }
     
-    public void configPanelOpcoes(){
+    private void configPanelOpcoes(){
         labelQuestao = new JLabel("Questão");
         labelQuestao.setFont(new Font(Fonte.FONTE.getFonte(), Font.BOLD, Fonte.TAMANHO.getTamanhoDaFonte()));
         labelQuestao.setBorder(new EmptyBorder(0, 0, 10, 0));
@@ -62,10 +62,16 @@ public class JpPergunta extends JPanel implements ItemListener{
         cbtipoQuestao.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
         cbtipoQuestao.addItemListener(this);
                 
-        midia = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("icones/multimedia.png")));
-        midia.setBorder(new EmptyBorder(0, 10 , 0, 0));
-        midia.addMouseListener(new EventoMouse());
+        ImageIcon imgIcon = createImageIcon("icones/multimedia.png");
+        midia = new JButton(imgIcon);
+        midia.setBorderPainted(false);
+        midia.setContentAreaFilled(false);
+        midia.setFocusPainted(false);
+        midia.setOpaque(false);
         midia.setToolTipText("Selecionar multimídia");
+        midia.addActionListener((ActionEvent e) -> {
+            DialogMidia dialog = new DialogMidia();
+        });
         
         jpOpcoes = new JPanel(new FlowLayout(5, 15, 5));
         jpOpcoes.add(midia);
@@ -76,7 +82,7 @@ public class JpPergunta extends JPanel implements ItemListener{
         jpgridOpcoes.add(jpOpcoes, BorderLayout.EAST);
     }
     
-    public void configPanelTextAreaPergunta(){
+    private void configPanelTextAreaPergunta(){
         panelTextArea = new JPanel(new GridLayout(1,1));
         textAreaPergunta = new JTextArea();
         textAreaPergunta.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -88,6 +94,16 @@ public class JpPergunta extends JPanel implements ItemListener{
         panelTextArea.add(sp);
     }
     
+    private static ImageIcon createImageIcon(String path) {
+        java.net.URL imgURL = JpPergunta.class.getClassLoader().getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL);
+        } else {
+            System.err.println("Arquivo não encontrado: " + path);
+            return null;
+        }
+    }
+    
     @Override
     public void itemStateChanged(ItemEvent evt) {
         CardLayout cl = (CardLayout)cardTipoResposta.getLayout();
@@ -97,33 +113,5 @@ public class JpPergunta extends JPanel implements ItemListener{
     public void setTituloQuestao(String titulo) {
         labelQuestao.setText(titulo);
     }
-
     
-}
-
-class EventoMouse implements MouseListener{
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        EventQueue.invokeLater(() -> {
-            DialogMidia dialog = new DialogMidia();
-        });
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-    }
-
 }

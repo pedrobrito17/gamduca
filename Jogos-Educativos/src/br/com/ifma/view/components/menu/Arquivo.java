@@ -23,9 +23,10 @@ public class Arquivo extends JMenu {
 
     public Arquivo(String s) {
         super(s);
+        configurarMenu();
     }
 
-    public void configurarMenu() {
+    private void configurarMenu() {
         configurarItemMenu();
         this.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
         this.add(forca);
@@ -35,7 +36,7 @@ public class Arquivo extends JMenu {
         this.add(sair);
     }
 
-    public void configurarItemMenu() {
+    private void configurarItemMenu() {
         forca = new JMenuItem("Forca", KeyEvent.VK_F);
         KeyStroke ctrlVKeyStroke = KeyStroke.getKeyStroke("control F");
         forca.setAccelerator(ctrlVKeyStroke);
@@ -62,11 +63,11 @@ public class Arquivo extends JMenu {
         sair.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
     }
 
-    public class MenuItemActionListener implements ActionListener {
+    private class MenuItemActionListener implements ActionListener {
 
         Component parent;
 
-        public MenuItemActionListener(Component parent) {
+        private MenuItemActionListener(Component parent) {
             this.parent = parent;
         }
 

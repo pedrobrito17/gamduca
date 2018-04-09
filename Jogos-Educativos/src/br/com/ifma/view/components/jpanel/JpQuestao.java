@@ -7,7 +7,7 @@ import javax.swing.JPanel;
  *
  * @author Pedro Brito
  */
-public final class JpQuestao extends JPanel {
+public class JpQuestao extends JPanel {
     
     private JpPergunta jpPergunta;
     private JpTiposRespostas jpTipoQuestao;
@@ -19,23 +19,21 @@ public final class JpQuestao extends JPanel {
         setTituloQuestao(posicao);
     }
     
-    public void configPanelPergunta(){
+    private void configPanelPergunta(){
         jpPergunta = new JpPergunta(jpTipoQuestao);
-        jpPergunta.configPergunta();
     }
     
-    public void configPanelResposta(){
+    private void configPanelResposta(){
         jpTipoQuestao = new JpTiposRespostas();
-        jpTipoQuestao.configTipoQuestao();
     }
     
-    public void configPanelQuestao(){
+    private void configPanelQuestao(){
         this.setLayout(new BorderLayout());
         this.add(jpPergunta, BorderLayout.NORTH);
         this.add(jpTipoQuestao, BorderLayout.CENTER);
     }
     
-    public void setTituloQuestao(int posicao){
+    private void setTituloQuestao(int posicao){
         jpPergunta.setTituloQuestao("Questão "+posicao);
     }
         

@@ -28,9 +28,10 @@ public class JpRespostaVerdadeiroOuFaso extends JPanel{
     private ButtonGroup groupA, groupB, groupC, groupD;
     
     public JpRespostaVerdadeiroOuFaso() {
+        configRespostas();
     }
 
-    public void configRespostas(){
+    private void configRespostas(){
         this.setBorder(BorderFactory.createTitledBorder("Respostas"));
         this.setLayout(new GridLayout(4,1));
         configRespostaA();
@@ -39,7 +40,7 @@ public class JpRespostaVerdadeiroOuFaso extends JPanel{
         configRespostaD();
     }
 
-    public void configRespostaA(){
+    private void configRespostaA(){
         jpRespostaA = new JPanel(new BorderLayout());
         jpRespostaA.setBorder(new EmptyBorder(5, 5, 5, 5));
         this.add(jpRespostaA);
@@ -73,7 +74,7 @@ public class JpRespostaVerdadeiroOuFaso extends JPanel{
         jpRespostaA.add(jp, BorderLayout.EAST);
     }
     
-    public void configRespostaB(){
+    private void configRespostaB(){
         jpRespostaB = new JPanel(new BorderLayout());
         jpRespostaB.setBorder(new EmptyBorder(5, 5, 5, 5));
         this.add(jpRespostaB);
@@ -108,7 +109,7 @@ public class JpRespostaVerdadeiroOuFaso extends JPanel{
         
     }
     
-    public void configRespostaC(){
+    private void configRespostaC(){
         jpRespostaC = new JPanel(new BorderLayout());
         jpRespostaC.setBorder(new EmptyBorder(5, 5, 5, 5));
         this.add(jpRespostaC);
@@ -143,7 +144,7 @@ public class JpRespostaVerdadeiroOuFaso extends JPanel{
         
     }
     
-    public void configRespostaD(){
+    private void configRespostaD(){
         jpRespostaD = new JPanel(new BorderLayout());
         jpRespostaD.setBorder(new EmptyBorder(5, 5, 5, 5));
         this.add(jpRespostaD);
@@ -175,6 +176,5 @@ public class JpRespostaVerdadeiroOuFaso extends JPanel{
         jp.add(rbVerdadeiroD, BorderLayout.NORTH);
         jp.add(rbFalsoD, BorderLayout.CENTER);
         jpRespostaD.add(jp, BorderLayout.EAST);
-        
     }
 }
