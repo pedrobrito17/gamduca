@@ -42,5 +42,16 @@ public class JpTiposRespostas extends JPanel{
         jpRespVerdadeiroOuFalso = new JpRespostaVerdadeiroOuFaso();
     }
     
+    public JpRespostaMultiplaEscolha getJpRespostaMultiplaEscolha(){
+        return jpRespMultiplaEscolha;
+    }
+    
+    public JpRespostaPerguntaDireta getJpRespostaPerguntaDireta(){
+        return jpRespPerguntaDireta;
+    }
+    
+    public JpRespostaVerdadeiroOuFaso getJpRespostaVerdadeiroOuFaso(){
+        return jpRespVerdadeiroOuFalso;
+    }
     
 }

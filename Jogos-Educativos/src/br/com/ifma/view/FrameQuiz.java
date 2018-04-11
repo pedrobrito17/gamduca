@@ -1,5 +1,6 @@
 package br.com.ifma.view;
 
+import br.com.ifma.controller.FaseController;
 import br.com.ifma.view.components.config.Fonte;
 import br.com.ifma.view.components.dialog.PersonalizarQuiz;
 import br.com.ifma.view.components.jpanel.JpFase;
@@ -9,6 +10,7 @@ import br.com.ifma.view.components.menu.OpcoesQuiz;
 import br.com.ifma.view.components.menu.EditarQuiz;
 import br.com.ifma.view.components.menu.GerenciadorQuiz;
 import br.com.ifma.view.components.menu.Toolbar;
+import br.com.ifma.view.components.utils.ArquivoQuizInterface;
 import br.com.ifma.view.components.utils.OpcoesQuizInterface;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -16,6 +18,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
@@ -29,7 +32,7 @@ import javax.swing.border.EmptyBorder;
  *
  * @author Pedro Brito
  */
-public class Quiz extends JFrame implements OpcoesQuizInterface {
+public class FrameQuiz extends JFrame implements OpcoesQuizInterface, ArquivoQuizInterface {
 
     private JPanel jpanelTitulo, jpanelTabbed, panelAux;
     private JMenuBar menuBar;
@@ -42,8 +45,9 @@ public class Quiz extends JFrame implements OpcoesQuizInterface {
     private JTextField textTitulo;
     private JLabel labelTitulo;
     private JTabbedPane tabbed;
+    private JpFase fase1, fase2, fase3;
 
-    public Quiz() {
+    public FrameQuiz() {
         this.toolbar = new Toolbar(this);
         configuracaoDoMenu();
         configuracaoDoJPanel();
@@ -52,7 +56,8 @@ public class Quiz extends JFrame implements OpcoesQuizInterface {
 
     private void configuracaoDoMenu() {
         menuBar = new JMenuBar();
-        arquivo = new ArquivoQuiz("Arquivo");
+        arquivo = new ArquivoQuiz(this);
+        arquivo.setText("Arquivo");
         menuBar.add(arquivo);
         editar = new EditarQuiz("Editar");
         menuBar.add(editar);
@@ -82,7 +87,8 @@ public class Quiz extends JFrame implements OpcoesQuizInterface {
         tabbed.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN,
                 Fonte.TAMANHO.getTamanhoDaFonte()));
 
-        tabbed.addTab("1ª Fase", new JpFase());
+        fase1 = new JpFase();
+        tabbed.addTab("1ª Fase", fase1);
         jpanelTabbed.add(tabbed);
     }
 
@@ -115,12 +121,14 @@ public class Quiz extends JFrame implements OpcoesQuizInterface {
     public void adicionarFase() {
         switch (tabbed.getComponentCount()) {
             case 1:
-                tabbed.add("2ª Fase", new JpFase());
+                fase2 = new JpFase();
+                tabbed.add("2ª Fase", fase2);
                 tabbed.revalidate();
                 tabbed.repaint();
                 break;
             case 2:
-                tabbed.add("3ª Fase", new JpFase());
+                fase3 = new JpFase();
+                tabbed.add("3ª Fase", fase3);
                 tabbed.revalidate();
                 tabbed.repaint();
                 break;
@@ -140,11 +148,13 @@ public class Quiz extends JFrame implements OpcoesQuizInterface {
                 tabbed.remove(1);
                 tabbed.revalidate();
                 tabbed.repaint();
+                fase2 = null;
                 break;
             case 3:
                 tabbed.remove(2);
                 tabbed.revalidate();
                 tabbed.repaint();
+                fase3 = null;
                 break;
             default:
                 JOptionPane.showMessageDialog(tabbed,
@@ -157,6 +167,27 @@ public class Quiz extends JFrame implements OpcoesQuizInterface {
     @Override
     public void personalizarQuiz() {
         PersonalizarQuiz personalizarQuiz = new PersonalizarQuiz();
+    }
+
+    @Override
+    public void exportarJogo() {
+        FaseController faseController = new FaseController();
+        ArrayList<JpFase> jpFases = new ArrayList();
+        if(fase1!=null){
+            jpFases.add(fase1);
+        }
+        if(fase2!=null){
+            jpFases.add(fase2);
+        }
+        if(fase3!=null){
+            jpFases.add(fase3);
+        }
+        faseController.setFases(jpFases);
+        faseController.getFase(fase1);
+    }
+
+    @Override
+    public void exportarScorm() {
     }
 
 

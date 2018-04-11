@@ -36,6 +36,46 @@ public class JpQuestao extends JPanel {
     private void setTituloQuestao(int posicao){
         jpPergunta.setTituloQuestao("Questão "+posicao);
     }
-        
+    
+    public String getTituloQuestao(){
+        return jpPergunta.getTituloQuestao();
+    }
+
+    public JpPergunta getJpPergunta() {
+        return jpPergunta;
+    }
+    
+    public JpRespostaMultiplaEscolha getJpRespostaMultiplaEscolha(){
+        return jpTipoQuestao.getJpRespostaMultiplaEscolha();
+    }
+    
+    public JpRespostaPerguntaDireta getJpRespostaPerguntaDireta(){
+        return jpTipoQuestao.getJpRespostaPerguntaDireta();
+    }
+    
+    public JpRespostaVerdadeiroOuFaso getJpRespostaVerdadeiroOuFalso(){
+        return jpTipoQuestao.getJpRespostaVerdadeiroOuFaso();
+    }
+    
+    public boolean questaoCompleta(){
+        switch(jpPergunta.getTipoResposta()){
+            case "Múltipla escolha":
+                return jpTipoQuestao.getJpRespostaMultiplaEscolha()
+                        .respostasCompletas() &&
+                        jpPergunta.perguntaCompleta();
+            case "Pergunta direta":
+                return jpTipoQuestao.getJpRespostaPerguntaDireta()
+                        .respostaCompleta() &&
+                        jpPergunta.perguntaCompleta();
+            case "Verdadeiro ou falso":
+                return jpTipoQuestao.getJpRespostaVerdadeiroOuFaso()
+                        .respostasCompletas() &&
+                        jpPergunta.perguntaCompleta();
+            default:
+                return false;
+        }
+    }
+    
+    
     
 }

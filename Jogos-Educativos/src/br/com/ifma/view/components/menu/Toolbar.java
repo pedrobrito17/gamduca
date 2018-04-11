@@ -1,13 +1,14 @@
 package br.com.ifma.view.components.menu;
 
+import br.com.ifma.view.components.utils.ArquivoQuizInterface;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 import br.com.ifma.view.components.utils.OpcoesQuizInterface;
 import java.awt.Component;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import javax.swing.JFrame;
 
 /**
  *
@@ -15,27 +16,42 @@ import javax.swing.JFrame;
  */
 public final class Toolbar extends JToolBar{
     
-    private JButton exportJogo, exportApp;
+    private JButton exportJogo, exportScorm;
     private JButton copy, cut, paste, selectAll;
     private JButton adicionarFase, deletarFase, personalizarQuiz;
     private JButton addQuestao, moverQuestao, deletarQuestao;
     private JButton tutorial;
-    private OpcoesQuizInterface tabbedInterface;
+    private OpcoesQuizInterface opcoesInterface;
+    private ArquivoQuizInterface arquivoInterface;
     
-    public Toolbar(JFrame quiz) {
-        if(quiz instanceof OpcoesQuizInterface){
-            tabbedInterface = (OpcoesQuizInterface) quiz;
+    public Toolbar(Component parent) {
+        if(parent instanceof OpcoesQuizInterface){
+            opcoesInterface = (OpcoesQuizInterface) parent;
         }else{
-            throw new RuntimeException(quiz.toString()
-                    + " deve implementar onLoginCompletedListener");
+            throw new RuntimeException(parent.toString()
+                    + " deve implementar OpcoesQuizInterface");
         }
+        
+        if(parent instanceof ArquivoQuizInterface){
+            arquivoInterface = (ArquivoQuizInterface) parent;
+        }else{
+            throw new RuntimeException(parent.toString()
+                    + " deve implementar ArquivoQuizInterface");
+        }
+        
         configBotoes();
         configToolBar();
     }
     
     private void configBotoes(){
         exportJogo = getJButton("icones/export-jogo.png", "Exportar jogo", "exportar jogo");
-        exportApp = getJButton("icones/export-app.png", "Exportar pacote scorm", "exportar scorm");
+        exportJogo.addActionListener((ActionEvent e) -> {
+            arquivoInterface.exportarJogo();
+        });
+        exportScorm = getJButton("icones/export-app.png", "Exportar pacote scorm", "exportar scorm");
+        exportScorm.addActionListener((ActionEvent e) -> {
+            arquivoInterface.exportarScorm();
+        });
         
         copy = getJButton("icones/copy.png", "Copiar", "copiar");
         cut = getJButton("icones/cut.png", "Recortar", "recortar");
@@ -44,15 +60,15 @@ public final class Toolbar extends JToolBar{
         
         adicionarFase = getJButton("icones/adicionar-fase.png", "Adicionar fase", "adcionar fase");
         adicionarFase.addActionListener((ActionEvent e) -> {
-            tabbedInterface.adicionarFase();
+            opcoesInterface.adicionarFase();
         });
         deletarFase = getJButton("icones/deletar-fase.png", "Deletar fase", "deletar fase");
         deletarFase.addActionListener((ActionEvent e) -> {
-            tabbedInterface.deletarFase();
+            opcoesInterface.deletarFase();
         });
         personalizarQuiz = getJButton("icones/personalizar-quiz.png", "Personalizar quiz", "personalizar quiz");
         personalizarQuiz.addActionListener((ActionEvent e) -> {
-            tabbedInterface.personalizarQuiz();
+            opcoesInterface.personalizarQuiz();
         });
         
         addQuestao = getJButton("icones/add-questao.png", "Adicionar questão", "adicionar questão");
@@ -83,7 +99,7 @@ public final class Toolbar extends JToolBar{
     private void configToolBar(){
         this.addSeparator();
         this.add(exportJogo);
-        this.add(exportApp);
+        this.add(exportScorm);
         this.addSeparator();
         this.add(cut);
         this.add(copy);

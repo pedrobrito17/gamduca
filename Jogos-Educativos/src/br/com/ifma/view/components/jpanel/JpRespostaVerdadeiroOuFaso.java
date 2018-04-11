@@ -177,4 +177,57 @@ public class JpRespostaVerdadeiroOuFaso extends JPanel{
         jp.add(rbFalsoD, BorderLayout.CENTER);
         jpRespostaD.add(jp, BorderLayout.EAST);
     }
+
+    public void clear() {
+        this.respA.setText("");
+        this.groupA.clearSelection();
+        this.respB.setText("");
+        this.groupB.clearSelection();
+        this.respC.setText("");
+        this.groupC.clearSelection();
+        this.respD.setText("");
+        this.groupD.clearSelection();
+    }
+    
+    public boolean todasAsRespostasEstaoLimpas(){
+        return respA.getText().isEmpty() &&
+                respB.getText().isEmpty() &&
+                respC.getText().isEmpty() &&
+                respD.getText().isEmpty();
+    }
+    
+    public boolean respostasCompletas(){
+        return !respA.getText().isEmpty() &&
+                !respB.getText().isEmpty() &&
+                !respC.getText().isEmpty() &&
+                !respD.getText().isEmpty();
+    }
+    
+    public String[] getRespA(){
+        String[] respostaA = new String[2];
+        respostaA[0] = respA.getText();
+        respostaA[1] = rbVerdadeiroA.isSelected() ? "true" : "false";
+        return respostaA;
+    }
+    
+    public String[] getRespB(){
+        String[] respostaB = new String[2];
+        respostaB[0] = respB.getText();
+        respostaB[1] = rbVerdadeiroB.isSelected() ? "true" : "false";
+        return respostaB;
+    }
+    
+    public String[] getRespC(){
+        String[] respostaC = new String[2];
+        respostaC[0] = respC.getText();
+        respostaC[1] = rbVerdadeiroA.isSelected() ? "true" : "false";
+        return respostaC;
+    }
+    
+    public String[] getRespD(){
+        String[] respostaD = new String[2];
+        respostaD[0] = respD.getText();
+        respostaD[1] = rbVerdadeiroD.isSelected() ? "true" : "false";
+        return respostaD;
+    }
 }

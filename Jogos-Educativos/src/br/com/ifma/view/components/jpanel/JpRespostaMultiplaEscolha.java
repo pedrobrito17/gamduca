@@ -61,6 +61,7 @@ public class JpRespostaMultiplaEscolha extends JPanel{
         jpRespostaA.add(jsRespA, BorderLayout.CENTER);
         
         rbRespA = new JRadioButton("Correta");
+        rbRespA.setName("A");
         rbRespA.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
         rbRespA.setFocusPainted(false);
         jpRespostaA.add(rbRespA, BorderLayout.EAST);
@@ -86,6 +87,7 @@ public class JpRespostaMultiplaEscolha extends JPanel{
         jpRespostaB.add(jsRespB, BorderLayout.CENTER);
         
         rbRespB = new JRadioButton("Correta");
+        rbRespB.setName("B");
         rbRespB.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
         rbRespB.setFocusPainted(false);
         jpRespostaB.add(rbRespB, BorderLayout.EAST);
@@ -111,6 +113,7 @@ public class JpRespostaMultiplaEscolha extends JPanel{
         jpRespostaC.add(jsRespC, BorderLayout.CENTER);
         
         rbRespC = new JRadioButton("Correta");
+        rbRespC.setName("C");
         rbRespC.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
         rbRespC.setFocusPainted(false);
         jpRespostaC.add(rbRespC, BorderLayout.EAST);
@@ -136,6 +139,7 @@ public class JpRespostaMultiplaEscolha extends JPanel{
         jpRespostaD.add(jsRespD, BorderLayout.CENTER);
         
         rbRespD = new JRadioButton("Correta");
+        rbRespD.setName("D");
         rbRespD.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
         rbRespD.setFocusPainted(false);
         jpRespostaD.add(rbRespD, BorderLayout.EAST);
@@ -148,4 +152,52 @@ public class JpRespostaMultiplaEscolha extends JPanel{
         group.add(rbRespC);
         group.add(rbRespD);
     }
+    
+    public void clear(){
+        this.respA.setText("");
+        this.respB.setText("");
+        this.respC.setText("");
+        this.respD.setText("");
+        this.group.clearSelection();
+    }
+    
+    public boolean todasAsRespostasEstaoLimpas(){
+        return respA.getText().isEmpty() &&
+                respB.getText().isEmpty() &&
+                respC.getText().isEmpty() &&
+                respD.getText().isEmpty();
+    }
+    
+    public boolean respostasCompletas(){
+        return !respA.getText().isEmpty() &&
+                !respB.getText().isEmpty() &&
+                !respC.getText().isEmpty() &&
+                !respD.getText().isEmpty();
+    }
+    
+    public String getRespA(){
+        return respA.getText();
+    }
+    
+    public String getRespB(){
+        return respB.getText();
+    }
+    
+    public String getRespC(){
+        return respC.getText();
+    }
+    
+    public String getRespD(){
+        return respD.getText();
+    }
+    
+    public String getRespCorreta(){
+        if( rbRespA.isSelected() ){ return "A"; }
+        else if( rbRespB.isSelected() ){ return "B"; }
+        else if( rbRespC.isSelected() ){ return "C"; }
+        else if( rbRespD.isSelected() ){ return "D"; }
+        else return null;
+    }
+
 }
+

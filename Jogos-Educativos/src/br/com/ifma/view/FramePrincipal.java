@@ -15,7 +15,7 @@ import javax.swing.JPanel;
  *
  * @author Pedro Brito
  */
-public class JanelaPrincipal extends JFrame{
+public class FramePrincipal extends JFrame{
     
     private final JPanel jpanel;
     private final JMenuBar menuBar;
@@ -23,7 +23,7 @@ public class JanelaPrincipal extends JFrame{
     private final Opcoes opcoes;
     private final Ajuda ajuda;
     
-    public JanelaPrincipal(){
+    public FramePrincipal(){
         menuBar = new JMenuBar();
         arquivo = new Arquivo("Arquivo");
         opcoes = new Opcoes("Opções");
@@ -62,7 +62,7 @@ public class JanelaPrincipal extends JFrame{
     }  
     
     protected static ImageIcon createImageIcon(String path) {
-        java.net.URL imgURL = JanelaPrincipal.class.getClassLoader().getResource(path);
+        java.net.URL imgURL = FramePrincipal.class.getClassLoader().getResource(path);
         if (imgURL != null) {
             return new ImageIcon(imgURL);
         } else {

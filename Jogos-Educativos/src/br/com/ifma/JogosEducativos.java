@@ -1,7 +1,7 @@
 package br.com.ifma;
 
 
-import br.com.ifma.view.JanelaPrincipal;
+import br.com.ifma.view.FramePrincipal;
 import java.awt.EventQueue;
 
 /**
@@ -12,7 +12,7 @@ public class JogosEducativos {
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
-            JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
+            FramePrincipal janelaPrincipal = new FramePrincipal();
         });
     }
     

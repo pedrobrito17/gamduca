@@ -1,6 +1,7 @@
 package br.com.ifma.view.components.menu;
 
 import br.com.ifma.view.components.config.Fonte;
+import br.com.ifma.view.components.utils.ArquivoQuizInterface;
 import com.sun.glass.events.KeyEvent;
 import java.awt.Component;
 import java.awt.Font;
@@ -17,9 +18,15 @@ import javax.swing.KeyStroke;
 public class ArquivoQuiz extends JMenu{
     
     private JMenuItem sair, exportarPacote, exportarJogo;
-
-    public ArquivoQuiz(String s) {
-        super(s);
+    private ArquivoQuizInterface arquivoInterface;
+    
+    public ArquivoQuiz(Component parent) {
+        if(parent instanceof ArquivoQuizInterface){
+            arquivoInterface = (ArquivoQuizInterface) parent;
+        }else{
+            throw new RuntimeException(parent.toString()
+                    + " deve implementar ArquivoQuizInterface");
+        }
         configurarMenu();
     }
     
@@ -33,22 +40,18 @@ public class ArquivoQuiz extends JMenu{
     }
     
     private void configurarItemMenu(){        
-        sair = new JMenuItem("Sair");
-        sair.addActionListener(new MenuItemActionListener(this));
-        sair.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        exportarJogo = getItemMenu("Exportar jogo", this, KeyEvent.VK_J, "control J");
+        exportarPacote = getItemMenu("Exportar pacote scorm", this, KeyEvent.VK_P, "control P");
+        sair = getItemMenu("Sair", this, 0, null);
+    }
     
-        exportarPacote = new JMenuItem("Exportar pacote scorm", KeyEvent.VK_P);
-        KeyStroke ctrlVKeyStroke = KeyStroke.getKeyStroke("control P");
-        exportarPacote.setAccelerator(ctrlVKeyStroke);
-        exportarPacote.addActionListener(new MenuItemActionListener(this));
-        exportarPacote.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
-
-        exportarJogo = new JMenuItem("Exportar Jogo", KeyEvent.VK_J);
-        KeyStroke ctrlVKeyStrok = KeyStroke.getKeyStroke("control J");
-        exportarJogo.setAccelerator(ctrlVKeyStrok);
-        exportarJogo.addActionListener(new MenuItemActionListener(this));
-        exportarJogo.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
-    
+    private JMenuItem getItemMenu(String text, Component parent, int keyEvent, String keyStroke){
+        JMenuItem menuItem = new JMenuItem(text, keyEvent);
+        KeyStroke ctrlVKeyStroke = KeyStroke.getKeyStroke(keyStroke);
+        menuItem.setAccelerator(ctrlVKeyStroke);
+        menuItem.addActionListener(new ArquivoQuiz.MenuItemActionListener(parent));
+        menuItem.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        return menuItem;
     }
     
     private class MenuItemActionListener implements ActionListener {
@@ -64,8 +67,10 @@ public class ArquivoQuiz extends JMenu{
             JMenuItem item = (JMenuItem) e.getSource();
             switch(item.getActionCommand()){
                 case "Exportar pacote scorm":
+                    arquivoInterface.exportarScorm();
                     break;
                 case "Exportar jogo":
+                    arquivoInterface.exportarJogo();
                     break;
                 case "Sair":
                     break;

@@ -1,6 +1,6 @@
 package br.com.ifma.view.components.menu;
 
-import br.com.ifma.view.Quiz;
+import br.com.ifma.view.FrameQuiz;
 import br.com.ifma.view.components.config.Fonte;
 import com.sun.glass.events.KeyEvent;
 import java.awt.Component;
@@ -83,7 +83,7 @@ public class Arquivo extends JMenu {
                     break;
                 case "Quiz":
                     EventQueue.invokeLater(() -> {
-                        Quiz quiz = new Quiz();
+                        FrameQuiz quiz = new FrameQuiz();
                     });
                     break;
                 case "Sair":

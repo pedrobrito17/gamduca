@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -23,8 +24,10 @@ public class DialogLink extends JDialog {
     private Botao btnCancelar, btnOk;
     private JPanel jpBotoes, jpTextField;
     private TextField textField;
-
-    public DialogLink() throws HeadlessException {
+    private ArrayList<String> lista;
+    
+    public DialogLink(ArrayList<String> lista) throws HeadlessException {
+        this.lista = lista;
         configTextField();
         configBotoes();
         inicializarDialog();
@@ -50,7 +53,7 @@ public class DialogLink extends JDialog {
         btnOk = new Botao("Inserir");
         btnOk.configurarBotao();
         btnOk.addActionListener((ActionEvent e) -> {
-            System.out.println(textField.getText());
+            lista.add(textField.getText());
             this.dispose();
         });
 

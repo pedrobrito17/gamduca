@@ -11,6 +11,7 @@ import java.awt.Font;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
@@ -34,8 +35,10 @@ public class DialogMidia extends JDialog {
     private Botao btnCancelar, btnOk;
     private JPanel jpTexto, jpMidia, jpBotoes, jpTextMedia, jpCaminho;
     private JFileChooser fileChooser;
+    private ArrayList<String> lista;
 
-    public DialogMidia() throws HeadlessException {
+    public DialogMidia(ArrayList<String> lista) throws HeadlessException {
+        this.lista = lista;
         configText();
         configRadioButton();
         configJPTextMedia();
@@ -89,9 +92,13 @@ public class DialogMidia extends JDialog {
     }
 
     private void configCaminho() {
-        caminho = new JLabel("http://www.youtube.com.br/teste");
+        caminho = new JLabel();
         caminho.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
-
+        int tam = lista.size();
+        if(tam > 0){
+            caminho.setText(lista.get(tam-1));
+        }
+        
         jpCaminho = new JPanel(new FlowLayout(FlowLayout.CENTER));
         jpCaminho.setBorder(new EmptyBorder(10, 10, 5, 10));
         jpCaminho.add(caminho);
@@ -110,7 +117,7 @@ public class DialogMidia extends JDialog {
 
             this.dispose();
             if (link.isSelected()) {
-                DialogLink dialogLink = new DialogLink();
+                DialogLink dialogLink = new DialogLink(lista);
             } else {
                 fileChooser = new JFileChooser();
                 fileChooser.addChoosableFileFilter(getFiltroDoRadioButtonSelected());
@@ -118,7 +125,7 @@ public class DialogMidia extends JDialog {
                 int a = fileChooser.showOpenDialog(this);
                 if (a == 0) {
                     File file = fileChooser.getSelectedFile();
-                    System.out.println(file.getPath());
+                    lista.add(file.getPath());
                 }
             }
 

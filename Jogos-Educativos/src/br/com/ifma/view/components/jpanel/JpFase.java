@@ -109,4 +109,10 @@ public class JpFase extends JPanel {
         this.add(jpBotoes, BorderLayout.SOUTH);
     }
 
+    public ArrayList<JpQuestao> getJpQuestoes() {
+        return jpQuestoes;
+    }
+    
+    
+
 }

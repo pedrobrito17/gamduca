@@ -4,7 +4,6 @@ import br.com.ifma.view.components.config.Fonte;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import br.com.ifma.view.components.utils.OpcoesQuizInterface;
@@ -22,11 +21,11 @@ public class OpcoesQuiz extends JMenu{
         super(s);
     }
     
-    public OpcoesQuiz(JFrame quiz){
-        if(quiz instanceof OpcoesQuizInterface){
-            tabbedInterface = (OpcoesQuizInterface) quiz;
+    public OpcoesQuiz(Component parent){
+        if(parent instanceof OpcoesQuizInterface){
+            tabbedInterface = (OpcoesQuizInterface) parent;
         }else{
-            throw new RuntimeException(quiz.toString()
+            throw new RuntimeException(parent.toString()
                     + " deve implementar onLoginCompletedListener");
         }
         configurarMenu();
