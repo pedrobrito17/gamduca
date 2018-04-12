@@ -179,16 +179,32 @@ public class JpRespostaMultiplaEscolha extends JPanel{
         return respA.getText();
     }
     
+    public void setRespA(String respA){
+        this.respA.setText(respA);
+    }
+    
     public String getRespB(){
         return respB.getText();
+    }
+    
+    public void setRespB(String respB){
+        this.respB.setText(respB);
     }
     
     public String getRespC(){
         return respC.getText();
     }
     
+    public void setRespC(String respC){
+        this.respC.setText(respC);
+    }
+    
     public String getRespD(){
         return respD.getText();
+    }
+    
+    public void setRespD(String respD){
+        this.respD.setText(respD);
     }
     
     public String getRespCorreta(){
@@ -197,6 +213,25 @@ public class JpRespostaMultiplaEscolha extends JPanel{
         else if( rbRespC.isSelected() ){ return "C"; }
         else if( rbRespD.isSelected() ){ return "D"; }
         else return null;
+    }
+    
+    public void setRespCorreta(String resp){
+        switch(resp){
+            case "A":
+                rbRespA.setSelected(true);
+                break;
+            case "B":
+                rbRespB.setSelected(true);
+                break;
+            case "C":
+                rbRespC.setSelected(true);
+                break;
+            case "D":
+                rbRespD.setSelected(true);
+                break;
+            default:
+                break;
+        }
     }
 
 }

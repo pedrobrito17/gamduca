@@ -8,6 +8,10 @@ public class RespostaPerguntaDireta {
     
     private String resposta;
 
+    public RespostaPerguntaDireta(String resp) {
+        this.resposta = resp;
+    }
+
     public String getResposta() {
         return resposta;
     }

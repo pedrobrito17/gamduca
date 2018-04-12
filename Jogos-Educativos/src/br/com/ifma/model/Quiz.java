@@ -1,5 +1,7 @@
 package br.com.ifma.model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Pedro Brito
@@ -7,10 +9,25 @@ package br.com.ifma.model;
 public class Quiz {
     
     private String tituloQuiz;
-    private Fase fase1;
-    private Fase fase2;
-    private Fase fase3;
+    private ArrayList<Fase> fases;
     //private Configurações config;
+
+    public String getTituloQuiz() {
+        return tituloQuiz;
+    }
+
+    public void setTituloQuiz(String tituloQuiz) {
+        this.tituloQuiz = tituloQuiz;
+    }
+
+    public ArrayList<Fase> getFases() {
+        return fases;
+    }
+
+    public void setFases(ArrayList<Fase> fases) {
+        this.fases = fases;
+    }
+    
     
     
 

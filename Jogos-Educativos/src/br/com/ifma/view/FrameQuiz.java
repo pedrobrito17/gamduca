@@ -1,6 +1,6 @@
 package br.com.ifma.view;
 
-import br.com.ifma.controller.FaseController;
+import br.com.ifma.controller.QuizController;
 import br.com.ifma.view.components.config.Fonte;
 import br.com.ifma.view.components.dialog.PersonalizarQuiz;
 import br.com.ifma.view.components.jpanel.JpFase;
@@ -11,6 +11,7 @@ import br.com.ifma.view.components.menu.EditarQuiz;
 import br.com.ifma.view.components.menu.GerenciadorQuiz;
 import br.com.ifma.view.components.menu.Toolbar;
 import br.com.ifma.view.components.utils.ArquivoQuizInterface;
+import br.com.ifma.view.components.utils.GerenciadorQuizInterface;
 import br.com.ifma.view.components.utils.OpcoesQuizInterface;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -32,7 +33,7 @@ import javax.swing.border.EmptyBorder;
  *
  * @author Pedro Brito
  */
-public class FrameQuiz extends JFrame implements OpcoesQuizInterface, ArquivoQuizInterface {
+public class FrameQuiz extends JFrame implements OpcoesQuizInterface, ArquivoQuizInterface, GerenciadorQuizInterface {
 
     private JPanel jpanelTitulo, jpanelTabbed, panelAux;
     private JMenuBar menuBar;
@@ -45,7 +46,7 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface, ArquivoQui
     private JTextField textTitulo;
     private JLabel labelTitulo;
     private JTabbedPane tabbed;
-    private JpFase fase1, fase2, fase3;
+    private JpFase jpFase1, jpFase2, jpFase3;
 
     public FrameQuiz() {
         this.toolbar = new Toolbar(this);
@@ -64,7 +65,8 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface, ArquivoQui
         opcoesQuiz = new OpcoesQuiz(this);
         opcoesQuiz.setText("Opções");
         menuBar.add(opcoesQuiz);
-        gerenciadorQuiz = new GerenciadorQuiz("Gerenciador");
+        gerenciadorQuiz = new GerenciadorQuiz(this);
+        gerenciadorQuiz.setText("Gerenciador");
         menuBar.add(gerenciadorQuiz);
         ajuda = new Ajuda("Ajuda");
         menuBar.add(ajuda);
@@ -87,8 +89,8 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface, ArquivoQui
         tabbed.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN,
                 Fonte.TAMANHO.getTamanhoDaFonte()));
 
-        fase1 = new JpFase();
-        tabbed.addTab("1ª Fase", fase1);
+        jpFase1 = new JpFase();
+        tabbed.addTab("1ª Fase", jpFase1);
         jpanelTabbed.add(tabbed);
     }
 
@@ -109,9 +111,9 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface, ArquivoQui
             public void componentShown(ComponentEvent e) {
                 textTitulo.requestFocusInWindow();
             }
-            
+
         });
-        
+
         this.add(panelAux, BorderLayout.CENTER);
         this.setTitle("Quiz");
         this.setVisible(true);
@@ -121,14 +123,14 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface, ArquivoQui
     public void adicionarFase() {
         switch (tabbed.getComponentCount()) {
             case 1:
-                fase2 = new JpFase();
-                tabbed.add("2ª Fase", fase2);
+                jpFase2 = new JpFase();
+                tabbed.add("2ª Fase", jpFase2);
                 tabbed.revalidate();
                 tabbed.repaint();
                 break;
             case 2:
-                fase3 = new JpFase();
-                tabbed.add("3ª Fase", fase3);
+                jpFase3 = new JpFase();
+                tabbed.add("3ª Fase", jpFase3);
                 tabbed.revalidate();
                 tabbed.repaint();
                 break;
@@ -148,13 +150,13 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface, ArquivoQui
                 tabbed.remove(1);
                 tabbed.revalidate();
                 tabbed.repaint();
-                fase2 = null;
+                jpFase2 = null;
                 break;
             case 3:
                 tabbed.remove(2);
                 tabbed.revalidate();
                 tabbed.repaint();
-                fase3 = null;
+                jpFase3 = null;
                 break;
             default:
                 JOptionPane.showMessageDialog(tabbed,
@@ -163,7 +165,7 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface, ArquivoQui
                 break;
         }
     }
-    
+
     @Override
     public void personalizarQuiz() {
         PersonalizarQuiz personalizarQuiz = new PersonalizarQuiz();
@@ -171,24 +173,55 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface, ArquivoQui
 
     @Override
     public void exportarJogo() {
-        FaseController faseController = new FaseController();
         ArrayList<JpFase> jpFases = new ArrayList();
-        if(fase1!=null){
-            jpFases.add(fase1);
+        if (jpFase1 != null) {
+            jpFases.add(jpFase1);
         }
-        if(fase2!=null){
-            jpFases.add(fase2);
+        if (jpFase2 != null) {
+            jpFases.add(jpFase2);
         }
-        if(fase3!=null){
-            jpFases.add(fase3);
+        if (jpFase3 != null) {
+            jpFases.add(jpFase3);
         }
-        faseController.setFases(jpFases);
-        faseController.getFase(fase1);
+        QuizController quiz = new QuizController();
+        quiz.setTituloDoQuiz(labelTitulo.getText());
+        quiz.criarFasesDoQuiz(jpFases);
     }
 
     @Override
     public void exportarScorm() {
     }
 
+    @Override
+    public void adicionarQuestao() {
+        JpFase jpFase = (JpFase) tabbed.getSelectedComponent();
+        jpFase.adicionarQuestao();
+    }
+
+    @Override
+    public void moverQuestao() {
+    }
+
+    @Override
+    public void deletarQuestao() {
+        String acumulador;
+        int numeroQuestao = 0;
+
+        while ( (numeroQuestao < 1) || (numeroQuestao > 10) ) {
+            try {
+                acumulador = JOptionPane.showInputDialog(this, "Informe o "
+                        + "número da questão", "Deletar questão", 
+                        JOptionPane.QUESTION_MESSAGE);
+                
+                numeroQuestao = Integer.parseInt(acumulador);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Informe apenas número de"
+                        + " 1 a 10");
+            }
+        }
+
+        JpFase jpFase = (JpFase) tabbed.getSelectedComponent();
+        jpFase.deletarQuestao(numeroQuestao);
+    }
 
 }

@@ -24,7 +24,7 @@ public class DialogLink extends JDialog {
     private Botao btnCancelar, btnOk;
     private JPanel jpBotoes, jpTextField;
     private TextField textField;
-    private ArrayList<String> lista;
+    private final ArrayList<String> lista;
     
     public DialogLink(ArrayList<String> lista) throws HeadlessException {
         this.lista = lista;

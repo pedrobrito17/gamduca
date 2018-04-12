@@ -1,6 +1,6 @@
 package br.com.ifma.model;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -8,19 +8,20 @@ import java.util.ArrayList;
  */
 public class Fase {
     
-    private ArrayList<Questao> questoes;
+    private HashMap<String, Questao> questoes;
     
-    public Fase(){
-        
-    }
-
-    public ArrayList<Questao> getQuestoes() {
-        return questoes;
-    }
-
-    public void setQuestoes(ArrayList<Questao> questoes) {
+    public Fase(HashMap<String, Questao> questoes){
         this.questoes = questoes;
     }
 
+    public HashMap<String, Questao> getQuestoes() {
+        return questoes;
+    }
+
+    public void setQuestoes(HashMap<String, Questao> questoes) {
+        this.questoes = questoes;
+    }
+    
+    
     
 }

@@ -6,73 +6,45 @@ package br.com.ifma.model;
  */
 public class RespostaVerdadeiroOuFalso {
     
-    public String respA, respB, respC, respD;
-    public boolean booleanA, booleanB, booleanC, booleanD;
+    public String[] respA, respB, respC, respD;
 
-    public String getRespA() {
-        return respA;
-    }
-
-    public void setRespA(String respA) {
+    public RespostaVerdadeiroOuFalso(String[] respA, String[] respB, String[] respC, String[] respD) {
         this.respA = respA;
-    }
-
-    public String getRespB() {
-        return respB;
-    }
-
-    public void setRespB(String respB) {
         this.respB = respB;
-    }
-
-    public String getRespC() {
-        return respC;
-    }
-
-    public void setRespC(String respC) {
         this.respC = respC;
-    }
-
-    public String getRespD() {
-        return respD;
-    }
-
-    public void setRespD(String respD) {
         this.respD = respD;
     }
 
-    public boolean isBooleanA() {
-        return booleanA;
+    public String[] getRespA() {
+        return respA;
     }
 
-    public void setBooleanA(boolean booleanA) {
-        this.booleanA = booleanA;
+    public void setRespA(String[] respA) {
+        this.respA = respA;
     }
 
-    public boolean isBooleanB() {
-        return booleanB;
+    public String[] getRespB() {
+        return respB;
     }
 
-    public void setBooleanB(boolean booleanB) {
-        this.booleanB = booleanB;
+    public void setRespB(String[] respB) {
+        this.respB = respB;
     }
 
-    public boolean isBooleanC() {
-        return booleanC;
+    public String[] getRespC() {
+        return respC;
     }
 
-    public void setBooleanC(boolean booleanC) {
-        this.booleanC = booleanC;
+    public void setRespC(String[] respC) {
+        this.respC = respC;
     }
 
-    public boolean isBooleanD() {
-        return booleanD;
+    public String[] getRespD() {
+        return respD;
     }
 
-    public void setBooleanD(boolean booleanD) {
-        this.booleanD = booleanD;
+    public void setRespD(String[] respD) {
+        this.respD = respD;
     }
     
-    
-
 }

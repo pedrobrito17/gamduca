@@ -7,6 +7,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -20,7 +21,7 @@ public class JpFase extends JPanel {
     private JPanel jpBotoes, jpCardQuestoes;
     private ArrayList<JpQuestao> jpQuestoes;
     private Botao anterior, proxima;
-    private int cont = 0;
+    private int cont = 1;
 
     public JpFase() {
         configPanelBotoes();
@@ -51,13 +52,12 @@ public class JpFase extends JPanel {
         anterior.addActionListener((ActionEvent e) -> {
             CardLayout cl = (CardLayout) jpCardQuestoes.getLayout();
             cl.show(jpCardQuestoes, cont > 0 ? "Questão " + (cont - 1) : "Questão");
-            
-            if(cont==1){
+
+            if (cont == 2) {
                 proxima.setEnabled(true);
                 anterior.setEnabled(false);
                 cont--;
-            }
-            else if(cont>0 || cont<9){
+            } else if (cont > 1 || cont < (jpQuestoes.size())) {
                 proxima.setEnabled(true);
                 anterior.setEnabled(true);
                 cont--;
@@ -67,20 +67,19 @@ public class JpFase extends JPanel {
         proxima.addActionListener((ActionEvent e) -> {
             CardLayout cls = (CardLayout) jpCardQuestoes.getLayout();
             cls.show(jpCardQuestoes, cont < 10 ? "Questão " + (cont + 1) : "Questão");
-            
-            if(cont==8){
+
+            if (cont == (jpQuestoes.size() - 1)) {
                 proxima.setEnabled(false);
                 anterior.setEnabled(true);
                 cont++;
-            }
-            else if(cont>=0 || cont<9){
+            } else if (cont >= 1 || cont < (jpQuestoes.size())) {
                 proxima.setEnabled(true);
                 anterior.setEnabled(true);
                 cont++;
             }
         });
     }
-    
+
     private static ImageIcon createImageIcon(String path) {
         java.net.URL imgURL = JpFase.class.getClassLoader().getResource(path);
         if (imgURL != null) {
@@ -93,13 +92,57 @@ public class JpFase extends JPanel {
 
     private void configQuestoes() {
         jpQuestoes = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 3; i++) {
             jpQuestoes.add(new JpQuestao(i + 1));
         }
 
         jpCardQuestoes = new JPanel(new CardLayout());
-        for (int i = 0; i < 10; i++) {
-            jpCardQuestoes.add(jpQuestoes.get(i), "Questão " + i);
+        for (int i = 0; i < jpQuestoes.size(); i++) {
+            jpCardQuestoes.add(jpQuestoes.get(i), "Questão "+(i+1) );
+        }
+    }
+
+    public void adicionarQuestao() {
+        int tam = jpQuestoes.size();
+
+        if (tam < 10) {
+            jpQuestoes.add(new JpQuestao(tam + 1));
+
+            jpCardQuestoes.add(jpQuestoes.get(tam), "Questão "+(tam+1) );
+            jpCardQuestoes.revalidate();
+            jpCardQuestoes.repaint();
+
+            proxima.setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "10 questões é o limite por fase.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    public void deletarQuestao(int numeroQuestao) {
+        int size = jpCardQuestoes.getComponentCount();
+
+        if (size != 3 && (numeroQuestao < size)) {
+            jpCardQuestoes.remove(jpQuestoes.get(numeroQuestao - 1));
+            jpQuestoes.remove(numeroQuestao - 1);
+
+            int j = 1;
+            for (JpQuestao jpQuestao : jpQuestoes) {
+                jpQuestao.getJpPergunta().setTituloQuestao("Questão " + j);
+                j++;
+            }
+            jpCardQuestoes.removeAll();
+            jpCardQuestoes.revalidate();
+            jpCardQuestoes.repaint();
+
+            for (int i = 0; i < jpQuestoes.size(); i++) {
+                jpCardQuestoes.add(jpQuestoes.get(i), "Questão "+(i+1) );
+            }
+
+            CardLayout cls = (CardLayout) jpCardQuestoes.getLayout();
+            cls.show(jpCardQuestoes, "Questão 1");
+            cont = 1;
+            anterior.setEnabled(false);
+            proxima.setEnabled(true);
         }
     }
 
@@ -112,7 +155,5 @@ public class JpFase extends JPanel {
     public ArrayList<JpQuestao> getJpQuestoes() {
         return jpQuestoes;
     }
-    
-    
 
 }

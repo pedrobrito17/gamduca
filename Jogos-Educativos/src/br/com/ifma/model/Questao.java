@@ -8,6 +8,7 @@ public class Questao {
     
     private String tituloQuestao;
     private Pergunta pergunta;
+    private String tipoQuestao;
     private RespostaMultiplaEscolha respMulti;
     private RespostaPerguntaDireta respPerguntaDir;
     private RespostaVerdadeiroOuFalso respVerd;
@@ -51,20 +52,13 @@ public class Questao {
     public void setTituloQuestao(String tituloQuestao) {
         this.tituloQuestao = tituloQuestao;
     }
-    
-    
-    
-    public Object respostaDaQuestao(){
-        if(respMulti!=null){
-            return respMulti;
-        }
-        else if(respPerguntaDir!=null){
-            return respPerguntaDir;
-        }
-        else if(respVerd!=null){
-            return respVerd;
-        }
-        return null;
+
+    public String getTipoQuestao() {
+        return tipoQuestao;
+    }
+
+    public void setTipoQuestao(String tipoQuestao) {
+        this.tipoQuestao = tipoQuestao;
     }
 
 }

@@ -1,12 +1,12 @@
 package br.com.ifma.view.components.menu;
 
 import br.com.ifma.view.components.config.Fonte;
+import br.com.ifma.view.components.utils.GerenciadorQuizInterface;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,9 +15,16 @@ import javax.swing.JOptionPane;
 public class GerenciadorQuiz extends JMenu{
     
     private JMenuItem addQuestao, deletarQuestao, moverQuestao;
-
-    public GerenciadorQuiz(String s) {
-        super(s);
+    private GerenciadorQuizInterface gerenciadorInterface;
+    
+    public GerenciadorQuiz(Component parent) {
+        if(parent instanceof GerenciadorQuizInterface){
+            gerenciadorInterface = (GerenciadorQuizInterface) parent;
+        }else{
+            throw new RuntimeException(parent.toString()
+                    + " deve implementar GerenciadorQuizInterface");
+        }
+        
         configurarMenu();
     }
     
@@ -55,14 +62,14 @@ public class GerenciadorQuiz extends JMenu{
         public void actionPerformed(java.awt.event.ActionEvent e) {
             JMenuItem item = (JMenuItem) e.getSource();
             switch(item.getActionCommand()){
-                case "Inserir questão":
-                    JOptionPane.showMessageDialog(parent, item.getActionCommand() + " foi selecionado.");
+                case "Adicionar questão":
+                    gerenciadorInterface.adicionarQuestao();
                     break;
                 case "Deletar questão":
-                    JOptionPane.showMessageDialog(parent, item.getActionCommand() + " foi selecionado.");
+                    gerenciadorInterface.deletarQuestao();
                     break;
                 case "Mover questão":
-                    JOptionPane.showMessageDialog(parent, item.getActionCommand() + " foi selecionado.");
+                    gerenciadorInterface.moverQuestao();
                     break;
                 default:
                     break;

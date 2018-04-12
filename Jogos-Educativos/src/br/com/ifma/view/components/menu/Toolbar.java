@@ -1,6 +1,7 @@
 package br.com.ifma.view.components.menu;
 
 import br.com.ifma.view.components.utils.ArquivoQuizInterface;
+import br.com.ifma.view.components.utils.GerenciadorQuizInterface;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,6 +24,7 @@ public final class Toolbar extends JToolBar{
     private JButton tutorial;
     private OpcoesQuizInterface opcoesInterface;
     private ArquivoQuizInterface arquivoInterface;
+    private GerenciadorQuizInterface gerenciadorInterface;
     
     public Toolbar(Component parent) {
         if(parent instanceof OpcoesQuizInterface){
@@ -39,11 +41,20 @@ public final class Toolbar extends JToolBar{
                     + " deve implementar ArquivoQuizInterface");
         }
         
+        if(parent instanceof GerenciadorQuizInterface){
+            gerenciadorInterface = (GerenciadorQuizInterface) parent;
+        }else{
+            throw new RuntimeException(parent.toString()
+                    + " deve implementar GerenciadorQuizInterface");
+        }
+        
         configBotoes();
         configToolBar();
     }
     
     private void configBotoes(){
+        
+        //ÍCONES DO ARQUIVO
         exportJogo = getJButton("icones/export-jogo.png", "Exportar jogo", "exportar jogo");
         exportJogo.addActionListener((ActionEvent e) -> {
             arquivoInterface.exportarJogo();
@@ -53,16 +64,18 @@ public final class Toolbar extends JToolBar{
             arquivoInterface.exportarScorm();
         });
         
+        //ÍCONES DO EDITAR
         copy = getJButton("icones/copy.png", "Copiar", "copiar");
         cut = getJButton("icones/cut.png", "Recortar", "recortar");
         paste = getJButton("icones/paste.png", "Colar", "colar");
         selectAll = getJButton("icones/select-all.png", "Selecionar tudo", "selecionar tudo");
         
-        adicionarFase = getJButton("icones/adicionar-fase.png", "Adicionar fase", "adcionar fase");
+        //ÍCONES DO OPÇÕES
+        adicionarFase = getJButton("icones/adicionar-fase.png", "Adicionar fase", "adicionar fase ao Quiz");
         adicionarFase.addActionListener((ActionEvent e) -> {
             opcoesInterface.adicionarFase();
         });
-        deletarFase = getJButton("icones/deletar-fase.png", "Deletar fase", "deletar fase");
+        deletarFase = getJButton("icones/deletar-fase.png", "Deletar fase", "deletar fase do Quiz");
         deletarFase.addActionListener((ActionEvent e) -> {
             opcoesInterface.deletarFase();
         });
@@ -71,10 +84,21 @@ public final class Toolbar extends JToolBar{
             opcoesInterface.personalizarQuiz();
         });
         
-        addQuestao = getJButton("icones/add-questao.png", "Adicionar questão", "adicionar questão");
-        deletarQuestao = getJButton("icones/deletar-questao.png", "Deletar questão", "deletar questão");
-        moverQuestao = getJButton("icones/mover-questao.png", "Mover questão", "mover questão");
+        //ÍCONES DO GERENCIADOR
+        addQuestao = getJButton("icones/add-questao.png", "Adicionar questão", "adicionar questão a fase");
+        addQuestao.addActionListener((ActionEvent e) -> {
+            gerenciadorInterface.adicionarQuestao();
+        });
+        deletarQuestao = getJButton("icones/deletar-questao.png", "Deletar questão", "deletar questão da fase");
+        deletarQuestao.addActionListener((ActionEvent e) -> {
+            gerenciadorInterface.deletarQuestao();
+        });
+        moverQuestao = getJButton("icones/mover-questao.png", "Mover questão", "mover questão da fase");
+        moverQuestao.addActionListener((ActionEvent e) -> {
+            gerenciadorInterface.moverQuestao();
+        });
         
+        //ÍCONES DO AJUDA
         tutorial = getJButton("icones/tutorial.png", "Tutorial", "tutorial");
     }
     

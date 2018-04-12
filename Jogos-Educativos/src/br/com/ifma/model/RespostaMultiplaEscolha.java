@@ -9,6 +9,14 @@ public class RespostaMultiplaEscolha {
     private String respA, respB, respC, respD;
     private String respostaCorreta;
 
+    public RespostaMultiplaEscolha(String respA, String respB, String respC, String respD, String respCorreta) {
+        this.respA = respA;
+        this.respB = respB;
+        this.respC = respC;
+        this.respD = respD;
+        this.respostaCorreta = respCorreta;
+    }
+
     public String getRespA() {
         return respA;
     }

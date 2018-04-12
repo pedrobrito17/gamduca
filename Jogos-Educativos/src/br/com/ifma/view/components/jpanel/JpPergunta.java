@@ -37,7 +37,7 @@ public class JpPergunta extends JPanel implements ItemListener {
     private final String[] tipos = {"Múltipla escolha", "Pergunta direta", "Verdadeiro ou falso"};
     private final JPanel cardTipoResposta;
     private int indexCorrente = 0;
-    private ArrayList<String> lista = new ArrayList<>();
+    private final ArrayList<String> listaUrlMultimida = new ArrayList<>();
     
     public JpPergunta(JPanel cardTipoResposta) {
         this.cardTipoResposta = cardTipoResposta;
@@ -73,7 +73,7 @@ public class JpPergunta extends JPanel implements ItemListener {
         midia.setOpaque(false);
         midia.setToolTipText("Selecionar multimídia");
         midia.addActionListener((ActionEvent e) -> {
-            DialogMidia dialog = new DialogMidia(lista);
+            DialogMidia dialog = new DialogMidia(listaUrlMultimida);
         });
 
         jpOpcoes = new JPanel(new FlowLayout(5, 15, 5));
@@ -147,18 +147,42 @@ public class JpPergunta extends JPanel implements ItemListener {
         return labelQuestao.getText();
     }
     
-    public String getPergunta(){
+    public void setTxtPergunta(String pergunta){
+        textAreaPergunta.setText(pergunta);
+    }
+    
+    public String getTxtPergunta(){
         return textAreaPergunta.getText();
+    }
+    
+    public void setTipoResposta(String tipoResposta){
+        switch(tipoResposta){
+            case "Múltipla escolha":
+                cbtipoQuestao.setSelectedIndex(0);
+                break;
+            case "Pergunta direta":
+                cbtipoQuestao.setSelectedIndex(1);
+                break;
+            case "Verdadeiro ou falso":
+                cbtipoQuestao.setSelectedIndex(2);
+                break;
+            default:
+                break;
+        }
     }
     
     public String getTipoResposta(){
         return (String) cbtipoQuestao.getSelectedItem();
     }
     
+    public void setUrlMultimidia(String url){
+        listaUrlMultimida.add(url);
+    }
+    
     public String getUrlMultimidia(){
-        int tam = lista.size();
+        int tam = listaUrlMultimida.size();
         if(tam > 0)
-            return lista.get(tam-1);
+            return listaUrlMultimida.get(tam-1);
         else
             return null;
     }

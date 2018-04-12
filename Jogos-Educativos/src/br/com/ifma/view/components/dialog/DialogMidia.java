@@ -35,7 +35,7 @@ public class DialogMidia extends JDialog {
     private Botao btnCancelar, btnOk;
     private JPanel jpTexto, jpMidia, jpBotoes, jpTextMedia, jpCaminho;
     private JFileChooser fileChooser;
-    private ArrayList<String> lista;
+    private final ArrayList<String> lista;
 
     public DialogMidia(ArrayList<String> lista) throws HeadlessException {
         this.lista = lista;

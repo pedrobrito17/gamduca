@@ -6,16 +6,16 @@ package br.com.ifma.model;
  */
 public class Pergunta {
     
-    private String pergunta;
+    private String txtPergunta;
     private String urlMultimidia;
     private String tipoMultimidia;
 
-    public String getPergunta() {
-        return pergunta;
+    public String getTxtPergunta() {
+        return txtPergunta;
     }
 
-    public void setPergunta(String pergunta) {
-        this.pergunta = pergunta;
+    public void setTxtPergunta(String txtPergunta) {
+        this.txtPergunta = txtPergunta;
     }
 
     public String getUrlMultimidia() {
@@ -35,9 +35,29 @@ public class Pergunta {
     }
     
     public boolean possuiMultimidia(){
-        if(!urlMultimidia.isEmpty()){
-            return true;
-        }
-        return false;
+        return !urlMultimidia.isEmpty();
     }
+
+    public String descobrirTipoMultimidia(String url) {
+        if(url == null || url.isEmpty()){
+            return null;
+        }
+        else if(url.endsWith(".flv") || url.endsWith(".mkv") || url.endsWith(".mov")
+                || url.endsWith(".wav") || url.endsWith(".mp4")){
+            return "video";
+        }
+        else if( url.endsWith(".gif") || url.endsWith(".jpeg") || url.endsWith(".jpg")
+                || url.endsWith(".png") ){
+            return "imagem";
+        }
+        else if(url.endsWith(".aac") || url.endsWith(".ogc") || url.endsWith(".wav")
+                || url.endsWith(".wma") || url.endsWith(".mp3")){
+            return "audio";
+        }
+        else{
+            return "link";
+        }
+    }
+    
+    
 }
