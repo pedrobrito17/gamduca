@@ -7,8 +7,9 @@ import javax.swing.JPanel;
  *
  * @author Pedro Brito
  */
-public class JpQuestao extends JPanel {
+public class JpQuestao extends JPanel implements Comparable<JpQuestao>{
     
+    private String tituloQuestao;
     private JpPergunta jpPergunta;
     private JpTiposRespostas jpTipoQuestao;
 
@@ -16,7 +17,7 @@ public class JpQuestao extends JPanel {
         configPanelResposta();
         configPanelPergunta();
         configPanelQuestao();
-        setTituloQuestao(posicao);
+        configTituloQuestao(posicao);
     }
     
     private void configPanelPergunta(){
@@ -33,7 +34,13 @@ public class JpQuestao extends JPanel {
         this.add(jpTipoQuestao, BorderLayout.CENTER);
     }
     
-    private void setTituloQuestao(int posicao){
+    private void configTituloQuestao(int posicao){
+        this.tituloQuestao = "Questão "+posicao;
+        jpPergunta.setTituloQuestao("Questão "+posicao);
+    }
+    
+    public void setTituloQuestao(int posicao){
+        this.tituloQuestao = "Questão "+posicao;
         jpPergunta.setTituloQuestao("Questão "+posicao);
     }
     
@@ -74,6 +81,11 @@ public class JpQuestao extends JPanel {
             default:
                 return false;
         }
+    }
+
+    @Override
+    public int compareTo(JpQuestao jp) {
+        return this.tituloQuestao.compareTo(jp.tituloQuestao);
     }
     
     

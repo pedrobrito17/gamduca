@@ -25,11 +25,11 @@ import javax.swing.border.EmptyBorder;
  *
  * @author Pedro Brito
  */
-public class JpPergunta extends JPanel implements ItemListener {
+public class JpPergunta extends JPanel implements ItemListener{
 
     private JPanel panelResposta, panelQuestao, panelTextArea, jpOpcoes;
     private JPanel jpgridOpcoes;
-    private JLabel labelQuestao;
+    private JLabel labelTituloQuestao;
     private JTextArea textAreaPergunta;
     private JScrollPane sp;
     private JComboBox cbtipoQuestao;
@@ -54,11 +54,11 @@ public class JpPergunta extends JPanel implements ItemListener {
     }
 
     private void configPanelOpcoes() {
-        labelQuestao = new JLabel("Questão");
-        labelQuestao.setFont(new Font(Fonte.FONTE.getFonte(), Font.BOLD, Fonte.TAMANHO.getTamanhoDaFonte()));
-        labelQuestao.setBorder(new EmptyBorder(0, 0, 10, 0));
+        labelTituloQuestao = new JLabel("Questão");
+        labelTituloQuestao.setFont(new Font(Fonte.FONTE.getFonte(), Font.BOLD, Fonte.TAMANHO.getTamanhoDaFonte()));
+        labelTituloQuestao.setBorder(new EmptyBorder(0, 0, 10, 0));
         panelQuestao = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panelQuestao.add(labelQuestao);
+        panelQuestao.add(labelTituloQuestao);
 
         cbtipoQuestao = new JComboBox(tipos);
         cbtipoQuestao.setEditable(false);
@@ -140,11 +140,11 @@ public class JpPergunta extends JPanel implements ItemListener {
     }
 
     public void setTituloQuestao(String titulo) {
-        labelQuestao.setText(titulo);
+        labelTituloQuestao.setText(titulo);
     }
     
     public String getTituloQuestao(){
-        return labelQuestao.getText();
+        return labelTituloQuestao.getText();
     }
     
     public void setTxtPergunta(String pergunta){

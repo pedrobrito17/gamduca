@@ -6,6 +6,8 @@ import java.awt.CardLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -98,7 +100,7 @@ public class JpFase extends JPanel {
 
         jpCardQuestoes = new JPanel(new CardLayout());
         for (int i = 0; i < jpQuestoes.size(); i++) {
-            jpCardQuestoes.add(jpQuestoes.get(i), "Questão "+(i+1) );
+            jpCardQuestoes.add(jpQuestoes.get(i), "Questão " + (i + 1));
         }
     }
 
@@ -108,7 +110,7 @@ public class JpFase extends JPanel {
         if (tam < 10) {
             jpQuestoes.add(new JpQuestao(tam + 1));
 
-            jpCardQuestoes.add(jpQuestoes.get(tam), "Questão "+(tam+1) );
+            jpCardQuestoes.add(jpQuestoes.get(tam), "Questão " + (tam + 1));
             jpCardQuestoes.revalidate();
             jpCardQuestoes.repaint();
 
@@ -121,7 +123,7 @@ public class JpFase extends JPanel {
     public void deletarQuestao(int numeroQuestao) {
         int size = jpCardQuestoes.getComponentCount();
 
-        if (size != 3 && (numeroQuestao < size)) {
+        if (size != 3 && (numeroQuestao <= size)) {
             jpCardQuestoes.remove(jpQuestoes.get(numeroQuestao - 1));
             jpQuestoes.remove(numeroQuestao - 1);
 
@@ -135,7 +137,7 @@ public class JpFase extends JPanel {
             jpCardQuestoes.repaint();
 
             for (int i = 0; i < jpQuestoes.size(); i++) {
-                jpCardQuestoes.add(jpQuestoes.get(i), "Questão "+(i+1) );
+                jpCardQuestoes.add(jpQuestoes.get(i), "Questão " + (i + 1));
             }
 
             CardLayout cls = (CardLayout) jpCardQuestoes.getLayout();
@@ -144,6 +146,32 @@ public class JpFase extends JPanel {
             anterior.setEnabled(false);
             proxima.setEnabled(true);
         }
+    }
+
+    public void moverQuestao(int numeroQuestao, int paraPosicao) {
+        JpQuestao jpQuestao = jpQuestoes.get(numeroQuestao - 1);
+        jpQuestao.setTituloQuestao(paraPosicao);
+
+        int mudarPosicao = paraPosicao - 1;
+        while (mudarPosicao < (numeroQuestao - 1)) {
+            jpQuestoes.get(mudarPosicao).setTituloQuestao((mudarPosicao + 2));
+            mudarPosicao++;
+        }
+        Collections.sort(jpQuestoes);
+
+        jpCardQuestoes.removeAll();
+        jpCardQuestoes.revalidate();
+        jpCardQuestoes.repaint();
+
+        for (int i = 0; i < jpQuestoes.size(); i++) {
+            jpCardQuestoes.add(jpQuestoes.get(i), "Questão " + (i + 1));
+        }
+
+        CardLayout cls = (CardLayout) jpCardQuestoes.getLayout();
+        cls.show(jpCardQuestoes, "Questão 1");
+        cont = 1;
+        anterior.setEnabled(false);
+        proxima.setEnabled(true);
     }
 
     private void configPanelFase() {

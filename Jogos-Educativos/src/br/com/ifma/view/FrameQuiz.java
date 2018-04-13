@@ -2,6 +2,7 @@ package br.com.ifma.view;
 
 import br.com.ifma.controller.QuizController;
 import br.com.ifma.view.components.config.Fonte;
+import br.com.ifma.view.components.dialog.DialogMoverQuestao;
 import br.com.ifma.view.components.dialog.PersonalizarQuiz;
 import br.com.ifma.view.components.jpanel.JpFase;
 import br.com.ifma.view.components.menu.Ajuda;
@@ -200,6 +201,9 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface, ArquivoQui
 
     @Override
     public void moverQuestao() {
+        JpFase jpFase = (JpFase) tabbed.getSelectedComponent();
+        DialogMoverQuestao dialog = new DialogMoverQuestao(this, jpFase);
+
     }
 
     @Override
@@ -207,13 +211,18 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface, ArquivoQui
         String acumulador;
         int numeroQuestao = 0;
 
-        while ( (numeroQuestao < 1) || (numeroQuestao > 10) ) {
+        while ((numeroQuestao < 1) || (numeroQuestao > 10)) {
             try {
                 acumulador = JOptionPane.showInputDialog(this, "Informe o "
-                        + "número da questão", "Deletar questão", 
+                        + "número da questão", "Deletar questão",
                         JOptionPane.QUESTION_MESSAGE);
-                
+
                 numeroQuestao = Integer.parseInt(acumulador);
+                
+                JpFase jpFase = (JpFase) tabbed.getSelectedComponent();
+                if(jpFase.getJpQuestoes().size()==3){
+                    JOptionPane.showMessageDialog(this, "Cada fase deve ter no mínimo 3 questões", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Informe apenas número de"
                         + " 1 a 10");
