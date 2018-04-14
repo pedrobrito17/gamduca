@@ -33,7 +33,7 @@ public class JpRespostaPerguntaDireta extends JPanel{
         this.add(jp, BorderLayout.PAGE_START);
     }
 
-    public void clear() {
+    public void limparResposta() {
         this.resposta.setText("");
     }
     
@@ -41,12 +41,16 @@ public class JpRespostaPerguntaDireta extends JPanel{
         return resposta.getText().isEmpty();
     }
     
-    public boolean respostaCompleta(){
+    public boolean respostaPreenchida(){
         return !resposta.getText().isEmpty();
     }
     
     public String getResposta(){
         return resposta.getText();
+    }
+    
+    public void setResposta(String resposta){
+        this.resposta.setText(resposta);
     }
 
 }

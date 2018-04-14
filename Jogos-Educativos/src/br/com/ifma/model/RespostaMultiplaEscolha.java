@@ -1,10 +1,12 @@
 package br.com.ifma.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Pedro Brito
  */
-public class RespostaMultiplaEscolha {
+public class RespostaMultiplaEscolha implements Serializable{
     
     private String respA, respB, respC, respD;
     private String respostaCorreta;

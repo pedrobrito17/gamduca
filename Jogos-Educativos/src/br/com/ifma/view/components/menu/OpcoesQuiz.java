@@ -1,8 +1,7 @@
 package br.com.ifma.view.components.menu;
 
-import br.com.ifma.view.components.config.Fonte;
+import br.com.ifma.view.components.utils.Fonte;
 import java.awt.Component;
-import java.awt.Font;
 import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -33,7 +32,7 @@ public class OpcoesQuiz extends JMenu{
     
     private void configurarMenu() {
         configurarItemMenu();
-        this.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        this.setFont(Fonte.retornarFontePadrao());
         this.add(adicionarFase);
         this.add(deletarFase);
         this.add(personalizarQuiz);
@@ -48,7 +47,7 @@ public class OpcoesQuiz extends JMenu{
     private JMenuItem getItemMenu(String text, Component parent){
         JMenuItem menuItem = new JMenuItem(text);
         menuItem.addActionListener(new OpcoesQuiz.MenuItemActionListener(parent));
-        menuItem.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        menuItem.setFont(Fonte.retornarFontePadrao());
         return menuItem;
     }
     

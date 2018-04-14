@@ -1,9 +1,8 @@
 package br.com.ifma.view.components.jpanel;
 
-import br.com.ifma.view.components.config.Fonte;
+import br.com.ifma.view.components.utils.Fonte;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -46,7 +45,7 @@ public class JpRespostaVerdadeiroOuFaso extends JPanel{
         this.add(jpRespostaA);
         
         a = new JLabel("(A)");
-        a.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        a.setFont(Fonte.retornarFontePadrao());
         a.setBorder(new EmptyBorder(2,2,2,8));
         jpRespostaA.add(a, BorderLayout.WEST);
         
@@ -60,10 +59,10 @@ public class JpRespostaVerdadeiroOuFaso extends JPanel{
         jpRespostaA.add(jsRespA, BorderLayout.CENTER);
         
         rbVerdadeiroA = new JRadioButton("Verdadeiro");
-        rbVerdadeiroA.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        rbVerdadeiroA.setFont(Fonte.retornarFontePadrao());
         rbVerdadeiroA.setFocusPainted(false);
         rbFalsoA = new JRadioButton("Falso");
-        rbFalsoA.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        rbFalsoA.setFont(Fonte.retornarFontePadrao());
         rbFalsoA.setFocusPainted(false);
         groupA = new ButtonGroup();
         groupA.add(rbVerdadeiroA);
@@ -80,7 +79,7 @@ public class JpRespostaVerdadeiroOuFaso extends JPanel{
         this.add(jpRespostaB);
         
         b = new JLabel("(B)");
-        b.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        b.setFont(Fonte.retornarFontePadrao());
         b.setBorder(new EmptyBorder(2,2,2,8));
         jpRespostaB.add(b, BorderLayout.WEST);
         
@@ -94,10 +93,10 @@ public class JpRespostaVerdadeiroOuFaso extends JPanel{
         jpRespostaB.add(jsRespB, BorderLayout.CENTER);
         
         rbVerdadeiroB = new JRadioButton("Verdadeiro");
-        rbVerdadeiroB.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        rbVerdadeiroB.setFont(Fonte.retornarFontePadrao());
         rbVerdadeiroB.setFocusPainted(false);
         rbFalsoB = new JRadioButton("Falso");
-        rbFalsoB.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        rbFalsoB.setFont(Fonte.retornarFontePadrao());
         rbFalsoB.setFocusPainted(false);
         groupB = new ButtonGroup();
         groupB.add(rbVerdadeiroB);
@@ -106,7 +105,6 @@ public class JpRespostaVerdadeiroOuFaso extends JPanel{
         jp.add(rbVerdadeiroB, BorderLayout.NORTH);
         jp.add(rbFalsoB, BorderLayout.CENTER);
         jpRespostaB.add(jp, BorderLayout.EAST);
-        
     }
     
     private void configRespostaC(){
@@ -115,7 +113,7 @@ public class JpRespostaVerdadeiroOuFaso extends JPanel{
         this.add(jpRespostaC);
         
         c = new JLabel("(C)");
-        c.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        c.setFont(Fonte.retornarFontePadrao());
         c.setBorder(new EmptyBorder(2,2,2,8));
         jpRespostaC.add(c, BorderLayout.WEST);
         
@@ -129,10 +127,10 @@ public class JpRespostaVerdadeiroOuFaso extends JPanel{
         jpRespostaC.add(jsRespC, BorderLayout.CENTER);
         
         rbVerdadeiroC = new JRadioButton("Verdadeiro");
-        rbVerdadeiroC.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        rbVerdadeiroC.setFont(Fonte.retornarFontePadrao());
         rbVerdadeiroC.setFocusPainted(false);
         rbFalsoC = new JRadioButton("Falso");
-        rbFalsoC.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        rbFalsoC.setFont(Fonte.retornarFontePadrao());
         rbFalsoC.setFocusPainted(false);
         groupC = new ButtonGroup();
         groupC.add(rbVerdadeiroC);
@@ -141,7 +139,6 @@ public class JpRespostaVerdadeiroOuFaso extends JPanel{
         jp.add(rbVerdadeiroC, BorderLayout.NORTH);
         jp.add(rbFalsoC, BorderLayout.CENTER);
         jpRespostaC.add(jp, BorderLayout.EAST);
-        
     }
     
     private void configRespostaD(){
@@ -150,7 +147,7 @@ public class JpRespostaVerdadeiroOuFaso extends JPanel{
         this.add(jpRespostaD);
         
         d = new JLabel("(D)");
-        d.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        d.setFont(Fonte.retornarFontePadrao());
         d.setBorder(new EmptyBorder(2,2,2,8));
         jpRespostaD.add(d, BorderLayout.WEST);
         
@@ -164,10 +161,10 @@ public class JpRespostaVerdadeiroOuFaso extends JPanel{
         jpRespostaD.add(jsRespD, BorderLayout.CENTER);
         
         rbVerdadeiroD = new JRadioButton("Verdadeiro");
-        rbVerdadeiroD.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        rbVerdadeiroD.setFont(Fonte.retornarFontePadrao());
         rbVerdadeiroD.setFocusPainted(false);
         rbFalsoD = new JRadioButton("Falso");
-        rbFalsoD.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        rbFalsoD.setFont(Fonte.retornarFontePadrao());
         rbFalsoD.setFocusPainted(false);
         groupD = new ButtonGroup();
         groupD.add(rbVerdadeiroD);
@@ -178,7 +175,7 @@ public class JpRespostaVerdadeiroOuFaso extends JPanel{
         jpRespostaD.add(jp, BorderLayout.EAST);
     }
 
-    public void clear() {
+    public void limparRespostas() {
         this.respA.setText("");
         this.groupA.clearSelection();
         this.respB.setText("");
@@ -196,7 +193,7 @@ public class JpRespostaVerdadeiroOuFaso extends JPanel{
                 respD.getText().isEmpty();
     }
     
-    public boolean respostasCompletas(){
+    public boolean todasAsRespostasForamPreenchidas(){
         return !respA.getText().isEmpty() &&
                 !respB.getText().isEmpty() &&
                 !respC.getText().isEmpty() &&
@@ -229,5 +226,45 @@ public class JpRespostaVerdadeiroOuFaso extends JPanel{
         respostaD[0] = respD.getText();
         respostaD[1] = rbVerdadeiroD.isSelected() ? "true" : "false";
         return respostaD;
+    }
+    
+    public void setRespA(String[] resp){
+        respA.setText(resp[0]);
+        if(Boolean.valueOf(resp[1])){
+            rbVerdadeiroA.setSelected(true);
+        }
+        else{
+            rbFalsoA.setSelected(true);
+        }
+    }
+    
+    public void setRespB(String[] resp){
+        respB.setText(resp[0]);
+        if(Boolean.valueOf(resp[1])){
+            rbVerdadeiroB.setSelected(true);
+        }
+        else{
+            rbFalsoB.setSelected(true);
+        }
+    }
+    
+    public void setRespC(String[] resp){
+        respC.setText(resp[0]);
+        if(Boolean.valueOf(resp[1])){
+            rbVerdadeiroC.setSelected(true);
+        }
+        else{
+            rbFalsoC.setSelected(true);
+        }
+    }
+    
+    public void setRespD(String[] resp){
+        respD.setText(resp[0]);
+        if(Boolean.valueOf(resp[1])){
+            rbVerdadeiroD.setSelected(true);
+        }
+        else{
+            rbFalsoD.setSelected(true);
+        }
     }
 }

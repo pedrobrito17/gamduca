@@ -1,9 +1,9 @@
 package br.com.ifma.view;
 
 import br.com.ifma.controller.QuizController;
-import br.com.ifma.view.components.config.Fonte;
 import br.com.ifma.view.components.dialog.DialogMoverQuestao;
 import br.com.ifma.view.components.dialog.PersonalizarQuiz;
+import br.com.ifma.view.components.filter.FiltroFileChooserQuiz;
 import br.com.ifma.view.components.jpanel.JpFase;
 import br.com.ifma.view.components.menu.Ajuda;
 import br.com.ifma.view.components.menu.ArquivoQuiz;
@@ -12,6 +12,8 @@ import br.com.ifma.view.components.menu.EditarQuiz;
 import br.com.ifma.view.components.menu.GerenciadorQuiz;
 import br.com.ifma.view.components.menu.Toolbar;
 import br.com.ifma.view.components.utils.ArquivoQuizInterface;
+import br.com.ifma.view.components.utils.FilterUtils;
+import br.com.ifma.view.components.utils.Fonte;
 import br.com.ifma.view.components.utils.GerenciadorQuizInterface;
 import br.com.ifma.view.components.utils.OpcoesQuizInterface;
 import java.awt.BorderLayout;
@@ -20,7 +22,9 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.io.File;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
@@ -28,13 +32,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 /**
  *
  * @author Pedro Brito
  */
-public class FrameQuiz extends JFrame implements OpcoesQuizInterface, ArquivoQuizInterface, GerenciadorQuizInterface {
+public class FrameQuiz extends JFrame implements OpcoesQuizInterface,
+        ArquivoQuizInterface, GerenciadorQuizInterface {
 
     private JPanel jpanelTitulo, jpanelTabbed, panelAux;
     private JMenuBar menuBar;
@@ -78,8 +84,7 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface, ArquivoQui
         jpanelTitulo.setFocusable(true);
         jpanelTitulo.setBorder(new EmptyBorder(10, 10, 10, 10));
         labelTitulo = new JLabel("Título do Quiz");
-        labelTitulo.setFont(new Font(Fonte.FONTE.getFonte(), Font.BOLD,
-                Fonte.TAMANHO.getTamanhoDaFonte()));
+        labelTitulo.setFont(Fonte.retornarFontePadrao());
         jpanelTitulo.add(labelTitulo);
         textTitulo = new JTextField(100);
         textTitulo.setPreferredSize(new Dimension(100, 25));
@@ -87,8 +92,7 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface, ArquivoQui
 
         jpanelTabbed = new JPanel(new BorderLayout());
         tabbed = new JTabbedPane();
-        tabbed.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN,
-                Fonte.TAMANHO.getTamanhoDaFonte()));
+        tabbed.setFont(Fonte.retornarFontePadrao());
 
         jpFase1 = new JpFase();
         tabbed.addTab("1ª Fase", jpFase1);
@@ -120,17 +124,71 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface, ArquivoQui
         this.setVisible(true);
     }
 
+    private ArrayList<JpFase> obterArrayListDeJpFasesCriados() {
+        ArrayList<JpFase> jpFases = new ArrayList();
+        if (tabbed.getComponentCount() >= 1) {
+            jpFases.add(jpFase1);
+        }
+        if (tabbed.getComponentCount() >= 2) {
+            jpFases.add(jpFase2);
+        }
+        if (tabbed.getComponentCount() == 3) {
+            jpFases.add(jpFase3);
+        }
+        return jpFases;
+    }
+
+    public JpFase retornarJpFase(int index) {
+        switch (index) {
+            case 1:
+                if (jpFase1 != null) {
+                    return jpFase1;
+                } else {
+                    jpFase1 = new JpFase();
+                    return jpFase1;
+                }
+            case 2:
+                if (jpFase2 != null) {
+                    return jpFase2;
+                } else {
+                    jpFase2 = new JpFase();
+                    return jpFase2;
+                }
+            case 3:
+                if (jpFase3 != null) {
+                    return jpFase3;
+                } else {
+                    jpFase3 = new JpFase();
+                    return jpFase3;
+                }
+        }
+        return null;
+    }
+
+    public void inserirTituloNoQuiz(String titulo) {
+        textTitulo.setText(titulo);
+    }
+
+    /*
+     * MÉTODOS DO MENUBAR E TOOLBAR
+     */
+
+ /* MÉTODOS DO MENU OPÇÕES */
     @Override
     public void adicionarFase() {
         switch (tabbed.getComponentCount()) {
             case 1:
-                jpFase2 = new JpFase();
+                if (jpFase2 == null) {
+                    jpFase2 = new JpFase();
+                }
                 tabbed.add("2ª Fase", jpFase2);
                 tabbed.revalidate();
                 tabbed.repaint();
                 break;
             case 2:
-                jpFase3 = new JpFase();
+                if (jpFase3 == null) {
+                    jpFase3 = new JpFase();
+                }
                 tabbed.add("3ª Fase", jpFase3);
                 tabbed.revalidate();
                 tabbed.repaint();
@@ -138,7 +196,7 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface, ArquivoQui
             default:
                 JOptionPane.showMessageDialog(tabbed,
                         "Não é possível adicionar mais de "
-                        + "3 fases ao quiz.", "Aviso",
+                        + "3 fases ao quiz", "Aviso",
                         JOptionPane.INFORMATION_MESSAGE);
                 break;
         }
@@ -172,27 +230,7 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface, ArquivoQui
         PersonalizarQuiz personalizarQuiz = new PersonalizarQuiz();
     }
 
-    @Override
-    public void exportarJogo() {
-        ArrayList<JpFase> jpFases = new ArrayList();
-        if (jpFase1 != null) {
-            jpFases.add(jpFase1);
-        }
-        if (jpFase2 != null) {
-            jpFases.add(jpFase2);
-        }
-        if (jpFase3 != null) {
-            jpFases.add(jpFase3);
-        }
-        QuizController quiz = new QuizController();
-        quiz.setTituloDoQuiz(labelTitulo.getText());
-        quiz.criarFasesDoQuiz(jpFases);
-    }
-
-    @Override
-    public void exportarScorm() {
-    }
-
+    /* MÉTODOS DO MENU GERENCIADOR */
     @Override
     public void adicionarQuestao() {
         JpFase jpFase = (JpFase) tabbed.getSelectedComponent();
@@ -218,10 +256,12 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface, ArquivoQui
                         JOptionPane.QUESTION_MESSAGE);
 
                 numeroQuestao = Integer.parseInt(acumulador);
-                
+
                 JpFase jpFase = (JpFase) tabbed.getSelectedComponent();
-                if(jpFase.getJpQuestoes().size()==3){
-                    JOptionPane.showMessageDialog(this, "Cada fase deve ter no mínimo 3 questões", "Erro", JOptionPane.ERROR_MESSAGE);
+                if (jpFase.getJpQuestoes().size() == 3) {
+                    JOptionPane.showMessageDialog(this, "Cada fase deve ter "
+                            + "no mínimo 3 questões",
+                            "Erro", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Informe apenas número de"
@@ -231,6 +271,65 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface, ArquivoQui
 
         JpFase jpFase = (JpFase) tabbed.getSelectedComponent();
         jpFase.deletarQuestao(numeroQuestao);
+    }
+
+    /* MÉTODOS DO MENU ARQUIVO */
+    @Override
+    public void abrirQuiz() {
+        JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fc.addChoosableFileFilter(new FiltroFileChooserQuiz());
+        fc.setAcceptAllFileFilterUsed(false);
+        fc.setDialogTitle("Abrir quiz");
+
+        int retorno = fc.showOpenDialog(this);
+        if (retorno == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+
+            QuizController quizController = new QuizController();
+            quizController.abrirQuiz(file.getPath(), this);
+        }
+    }
+
+    @Override
+    public void salvarQuiz() {
+        JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fc.addChoosableFileFilter(new FiltroFileChooserQuiz());
+        fc.setAcceptAllFileFilterUsed(false);
+        fc.setDialogTitle("Salvar quiz");
+        fc.setApproveButtonText("Salvar");
+        fc.setSelectedFile(new File("quiz"));
+
+        int retorno = fc.showOpenDialog(this);
+        if (retorno == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            String path = file.getPath() + "." + FilterUtils.JQZ;
+
+            ArrayList<JpFase> jpFases = obterArrayListDeJpFasesCriados();
+            QuizController quizController = new QuizController();
+            quizController.setTituloDoQuiz(textTitulo.getText());
+            quizController.salvarQuiz(path, jpFases);
+        }
+    }
+
+    @Override
+    public void novoQuiz() {
+        SwingUtilities.invokeLater(() -> {
+            FrameQuiz frameQuiz = new FrameQuiz();
+        });
+    }
+
+    @Override
+    public void exportarJogo() {
+        ArrayList<JpFase> jpFases = obterArrayListDeJpFasesCriados();
+        QuizController quiz = new QuizController();
+        quiz.setTituloDoQuiz(textTitulo.getText());
+        quiz.criarFasesDoQuiz(jpFases);
+    }
+
+    @Override
+    public void exportarScorm() {
     }
 
 }

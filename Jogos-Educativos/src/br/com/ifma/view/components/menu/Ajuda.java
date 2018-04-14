@@ -1,8 +1,7 @@
 package br.com.ifma.view.components.menu;
 
-import br.com.ifma.view.components.config.Fonte;
+import br.com.ifma.view.components.utils.Fonte;
 import java.awt.Component;
-import java.awt.Font;
 import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -24,7 +23,7 @@ public class Ajuda extends JMenu{
     
     private void configurarMenu(){
         configurarItemMenu();
-        this.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        this.setFont(Fonte.retornarFontePadrao());
         this.add(tutorial);
         this.add(sobre);
     }
@@ -32,12 +31,12 @@ public class Ajuda extends JMenu{
     private void configurarItemMenu(){
         tutorial = new JMenuItem("Tutorial");
         tutorial.addActionListener(new MenuItemActionListener(tutorial));
-        tutorial.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        tutorial.setFont(Fonte.retornarFontePadrao());
         tutorial.setToolTipText("Instruções para o uso");
         
         sobre = new JMenuItem("Sobre");
         sobre.addActionListener(new MenuItemActionListener(tutorial));
-        sobre.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        sobre.setFont(Fonte.retornarFontePadrao());
         sobre.setToolTipText("Selecione para visualizar");
     }
     

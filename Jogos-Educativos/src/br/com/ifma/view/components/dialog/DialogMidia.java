@@ -1,10 +1,11 @@
 package br.com.ifma.view.components.dialog;
 
 import br.com.ifma.view.components.Botao;
-import br.com.ifma.view.components.config.Fonte;
 import br.com.ifma.view.components.filter.FiltroFileChooserAudio;
 import br.com.ifma.view.components.filter.FiltroFileChooserImagem;
 import br.com.ifma.view.components.filter.FiltroFileChooserVideo;
+import br.com.ifma.view.components.utils.Fonte;
+import br.com.ifma.view.components.utils.Icone;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -29,16 +30,17 @@ import javax.swing.filechooser.FileFilter;
 public class DialogMidia extends JDialog {
 
     private JLabel selecao, caminho;
-    private final String TEXTO = "Selecione o tipo de multimídia desejada para adicionar à pergunta da questão.";
+    private final String TEXTO = "Selecione o tipo de multimídia desejada para "
+            + "adicionar à pergunta da questão.";
     private JRadioButton img, audio, video, link;
     private ButtonGroup group;
     private Botao btnCancelar, btnOk;
     private JPanel jpTexto, jpMidia, jpBotoes, jpTextMedia, jpCaminho;
     private JFileChooser fileChooser;
-    private final ArrayList<String> lista;
+    private final ArrayList<String> listaPath;
 
     public DialogMidia(ArrayList<String> lista) throws HeadlessException {
-        this.lista = lista;
+        this.listaPath = lista;
         configText();
         configRadioButton();
         configJPTextMedia();
@@ -48,9 +50,9 @@ public class DialogMidia extends JDialog {
     }
 
     private void configText() {
-        ImageIcon imgIcon = createImageIcon("icones/select.png");
+        ImageIcon imgIcon = Icone.retornarImageIcon("icones/select.png");
         selecao = new JLabel(TEXTO, imgIcon, JLabel.LEFT);
-        selecao.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        selecao.setFont(Fonte.retornarFontePadrao());
 
         jpTexto = new JPanel(new FlowLayout());
         jpTexto.setBorder(new EmptyBorder(10, 10, 5, 10));
@@ -59,17 +61,17 @@ public class DialogMidia extends JDialog {
 
     private void configRadioButton() {
         img = new JRadioButton("Imagem");
-        img.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        img.setFont(Fonte.retornarFontePadrao());
         img.setFocusPainted(false);
         img.setSelected(true);
         audio = new JRadioButton("Áudio");
-        audio.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        audio.setFont(Fonte.retornarFontePadrao());
         audio.setFocusPainted(false);
         video = new JRadioButton("Vídeo");
-        video.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        video.setFont(Fonte.retornarFontePadrao());
         video.setFocusPainted(false);
         link = new JRadioButton("Link");
-        link.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        link.setFont(Fonte.retornarFontePadrao());
         link.setFocusPainted(false);
 
         group = new ButtonGroup();
@@ -93,10 +95,10 @@ public class DialogMidia extends JDialog {
 
     private void configCaminho() {
         caminho = new JLabel();
-        caminho.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
-        int tam = lista.size();
+        caminho.setFont(Fonte.retornarFontePadrao());
+        int tam = listaPath.size();
         if(tam > 0){
-            caminho.setText(lista.get(tam-1));
+            caminho.setText(listaPath.get(tam-1));
         }
         
         jpCaminho = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -117,15 +119,15 @@ public class DialogMidia extends JDialog {
 
             this.dispose();
             if (link.isSelected()) {
-                DialogLink dialogLink = new DialogLink(lista);
+                DialogLink dialogLink = new DialogLink(listaPath);
             } else {
                 fileChooser = new JFileChooser();
                 fileChooser.addChoosableFileFilter(getFiltroDoRadioButtonSelected());
                 fileChooser.setAcceptAllFileFilterUsed(false);
                 int a = fileChooser.showOpenDialog(this);
-                if (a == 0) {
+                if (a == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
-                    lista.add(file.getPath());
+                    listaPath.add(file.getPath());
                 }
             }
 
@@ -134,16 +136,6 @@ public class DialogMidia extends JDialog {
         jpBotoes = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
         jpBotoes.add(btnCancelar);
         jpBotoes.add(btnOk);
-    }
-    
-    private static ImageIcon createImageIcon(String path) {
-        java.net.URL imgURL = DialogMidia.class.getClassLoader().getResource(path);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL);
-        } else {
-            System.err.println("Arquivo não encontrado: " + path);
-            return null;
-        }
     }
 
     private void inicializarDialog() {

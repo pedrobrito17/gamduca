@@ -1,6 +1,7 @@
 package br.com.ifma.view.components.menu;
 
 import br.com.ifma.view.components.utils.ArquivoQuizInterface;
+import br.com.ifma.view.components.utils.Icone;
 import br.com.ifma.view.components.utils.GerenciadorQuizInterface;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
  */
 public final class Toolbar extends JToolBar{
     
-    private JButton exportJogo, exportScorm;
+    private JButton abrirQuiz, novoQuiz, salvarQuiz, exportJogo, exportScorm;
     private JButton copy, cut, paste, selectAll;
     private JButton adicionarFase, deletarFase, personalizarQuiz;
     private JButton addQuestao, moverQuestao, deletarQuestao;
@@ -55,6 +56,18 @@ public final class Toolbar extends JToolBar{
     private void configBotoes(){
         
         //ÍCONES DO ARQUIVO
+        novoQuiz = getJButton("icones/new-file.png", "Novo quiz", "novo quiz");
+        novoQuiz.addActionListener((ActionEvent e) -> {
+            arquivoInterface.novoQuiz();
+        });
+        abrirQuiz = getJButton("icones/open-file.png", "Abrir quiz", "abrir quiz");
+        abrirQuiz.addActionListener((ActionEvent e) -> {
+            arquivoInterface.abrirQuiz();
+        });
+        salvarQuiz = getJButton("icones/save.png", "Salvar quiz", "salvar quiz");
+        salvarQuiz.addActionListener((ActionEvent e) -> {
+            arquivoInterface.salvarQuiz();
+        });
         exportJogo = getJButton("icones/export-jogo.png", "Exportar jogo", "exportar jogo");
         exportJogo.addActionListener((ActionEvent e) -> {
             arquivoInterface.exportarJogo();
@@ -103,25 +116,18 @@ public final class Toolbar extends JToolBar{
     }
     
     private JButton getJButton(String path, String tooltip, String name){
-        JButton button = new JButton( createImageIcon(path) );
+        JButton button = new JButton( Icone.retornarImageIcon(path) );
         button.setToolTipText(tooltip);
         button.setName(name);
         button.setFocusPainted(false);
         return button;
     }
-
-    private static ImageIcon createImageIcon(String path) {
-        java.net.URL imgURL = Toolbar.class.getClassLoader().getResource(path);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL);
-        } else {
-            System.err.println("Arquivo não encontrado: " + path);
-            return null;
-        }
-    }
     
     private void configToolBar(){
         this.addSeparator();
+        this.add(novoQuiz);
+        this.add(abrirQuiz);
+        this.add(salvarQuiz);
         this.add(exportJogo);
         this.add(exportScorm);
         this.addSeparator();

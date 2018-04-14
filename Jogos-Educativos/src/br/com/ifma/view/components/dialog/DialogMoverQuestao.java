@@ -3,7 +3,6 @@ package br.com.ifma.view.components.dialog;
 import br.com.ifma.view.components.jpanel.JpFase;
 import java.awt.Frame;
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -45,46 +44,42 @@ public class DialogMoverQuestao extends JDialog {
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setVisible(true);
 
-        optionPane.addPropertyChangeListener(
-                new PropertyChangeListener() {
-            public void propertyChange(PropertyChangeEvent e) {
-                String prop = e.getPropertyName();
-
-                if (isVisible()
-                        && (e.getSource() == optionPane)
-                        && (JOptionPane.VALUE_PROPERTY.equals(prop)
-                        || JOptionPane.INPUT_VALUE_PROPERTY.equals(prop))) {
-                    Object value = optionPane.getValue();
-
-                    if (value == JOptionPane.UNINITIALIZED_VALUE) {
-                        return;
-                    }
-
-                    optionPane.setValue(
-                            JOptionPane.UNINITIALIZED_VALUE);
-
-                    if (btnString1.equals(value)) {
-                        try {
-                            int numQuestao = Integer.valueOf(txtFieldDE.getText());
-                            int paraPosicao = Integer.valueOf(txtFieldPara.getText());
-                            
-                            if (paraPosicao > 0 && paraPosicao <= jpFase.getJpQuestoes().size() && numQuestao!=paraPosicao) {
-                                jpFase.moverQuestao(numQuestao, paraPosicao);
-                                dispose();
-                            }
-                            else{
-                                JOptionPane.showMessageDialog(frame, "Nova posição inválida", "Erro", JOptionPane.ERROR_MESSAGE);
-                            }
-                        } catch (NumberFormatException ef) {
-                            JOptionPane.showMessageDialog(frame, "Informe apenas número", "Erro", JOptionPane.ERROR_MESSAGE);
-                        } catch (IndexOutOfBoundsException ie) {
-                            JOptionPane.showMessageDialog(frame, "Número da questão inválido", "Erro", JOptionPane.ERROR_MESSAGE);
-                        }
-                    } else {
-                        dispose();
-                    }
+        optionPane.addPropertyChangeListener((PropertyChangeEvent e) -> {
+            String prop = e.getPropertyName();
+            
+            if (isVisible()
+                    && (e.getSource() == optionPane)
+                    && (JOptionPane.VALUE_PROPERTY.equals(prop)
+                    || JOptionPane.INPUT_VALUE_PROPERTY.equals(prop))) {
+                Object value = optionPane.getValue();
+                
+                if (value == JOptionPane.UNINITIALIZED_VALUE) {
+                    return;
                 }
-
+                
+                optionPane.setValue(
+                        JOptionPane.UNINITIALIZED_VALUE);
+                
+                if (btnString1.equals(value)) {
+                    try {
+                        int numQuestao = Integer.valueOf(txtFieldDE.getText());
+                        int paraPosicao = Integer.valueOf(txtFieldPara.getText());
+                        
+                        if (paraPosicao > 0 && paraPosicao <= jpFase.getJpQuestoes().size() && numQuestao!=paraPosicao) {
+                            jpFase.moverQuestao(numQuestao, paraPosicao);
+                            dispose();
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(frame, "Nova posição inválida", "Erro", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } catch (NumberFormatException ef) {
+                        JOptionPane.showMessageDialog(frame, "Informe apenas número", "Erro", JOptionPane.ERROR_MESSAGE);
+                    } catch (IndexOutOfBoundsException ie) {
+                        JOptionPane.showMessageDialog(frame, "Número da questão inválido", "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    dispose();
+                }
             }
         });
     }

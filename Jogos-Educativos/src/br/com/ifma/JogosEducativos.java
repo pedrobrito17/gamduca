@@ -2,7 +2,7 @@ package br.com.ifma;
 
 
 import br.com.ifma.view.FramePrincipal;
-import java.awt.EventQueue;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -11,7 +11,7 @@ import java.awt.EventQueue;
 public class JogosEducativos {
 
     public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
+        SwingUtilities.invokeLater(() -> {
             FramePrincipal janelaPrincipal = new FramePrincipal();
         });
     }

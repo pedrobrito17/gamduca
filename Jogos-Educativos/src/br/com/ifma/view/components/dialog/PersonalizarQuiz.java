@@ -1,9 +1,8 @@
 package br.com.ifma.view.components.dialog;
 
-import br.com.ifma.view.components.config.Fonte;
+import br.com.ifma.view.components.utils.Fonte;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.HeadlessException;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -59,7 +58,7 @@ public class PersonalizarQuiz extends JDialog{
     
     private void configTabbed(){
         tabbed = new JTabbedPane();
-        tabbed.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        tabbed.setFont(Fonte.retornarFontePadrao());
         tabbed.add("Fonte", jpFonte);
         tabbed.add("Cor", jpCor);
         tabbed.add("Mensagem", jpMensagem);

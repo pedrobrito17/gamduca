@@ -1,12 +1,12 @@
 package br.com.ifma.view.components.jpanel;
 
-import br.com.ifma.view.components.config.Fonte;
 import br.com.ifma.view.components.dialog.DialogMidia;
+import br.com.ifma.view.components.utils.Fonte;
+import br.com.ifma.view.components.utils.Icone;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
@@ -55,18 +55,17 @@ public class JpPergunta extends JPanel implements ItemListener{
 
     private void configPanelOpcoes() {
         labelTituloQuestao = new JLabel("Questão");
-        labelTituloQuestao.setFont(new Font(Fonte.FONTE.getFonte(), Font.BOLD, Fonte.TAMANHO.getTamanhoDaFonte()));
+        labelTituloQuestao.setFont(Fonte.retornarFontePadrao());
         labelTituloQuestao.setBorder(new EmptyBorder(0, 0, 10, 0));
         panelQuestao = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelQuestao.add(labelTituloQuestao);
 
         cbtipoQuestao = new JComboBox(tipos);
         cbtipoQuestao.setEditable(false);
-        cbtipoQuestao.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        cbtipoQuestao.setFont(Fonte.retornarFontePadrao());
         cbtipoQuestao.addItemListener(this);
 
-        ImageIcon imgIcon = createImageIcon("icones/multimedia.png");
-        midia = new JButton(imgIcon);
+        midia = new JButton(Icone.retornarImageIcon("icones/multimedia.png"));
         midia.setBorderPainted(false);
         midia.setContentAreaFilled(false);
         midia.setFocusPainted(false);
@@ -97,16 +96,6 @@ public class JpPergunta extends JPanel implements ItemListener{
         panelTextArea.add(sp);
     }
 
-    private static ImageIcon createImageIcon(String path) {
-        java.net.URL imgURL = JpPergunta.class.getClassLoader().getResource(path);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL);
-        } else {
-            System.err.println("Arquivo não encontrado: " + path);
-            return null;
-        }
-    }
-
     @Override
     public void itemStateChanged(ItemEvent evt) {
         String linhaComboBox = (String) evt.getItem();
@@ -121,15 +110,15 @@ public class JpPergunta extends JPanel implements ItemListener{
             switch (indexCorrente) {
                 case 0:
                     JpRespostaMultiplaEscolha panel0 = (JpRespostaMultiplaEscolha) cardTipoResposta.getComponent(indexCorrente);
-                    panel0.clear();
+                    panel0.limparRespostas();
                     break;
                 case 1:
                     JpRespostaPerguntaDireta panel1 = (JpRespostaPerguntaDireta) cardTipoResposta.getComponent(indexCorrente);
-                    panel1.clear();
+                    panel1.limparResposta();
                     break;
                 case 2:
                     JpRespostaVerdadeiroOuFaso panel2 = (JpRespostaVerdadeiroOuFaso) cardTipoResposta.getComponent(indexCorrente);
-                    panel2.clear();
+                    panel2.limparRespostas();
                     break;
                 default:
                     break;

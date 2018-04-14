@@ -13,11 +13,11 @@ public class JpQuestao extends JPanel implements Comparable<JpQuestao>{
     private JpPergunta jpPergunta;
     private JpTiposRespostas jpTipoQuestao;
 
-    public JpQuestao(int posicao) {
+    public JpQuestao(int numeroQuestao) {
         configPanelResposta();
         configPanelPergunta();
         configPanelQuestao();
-        configTituloQuestao(posicao);
+        configTituloQuestao(numeroQuestao);
     }
     
     private void configPanelPergunta(){
@@ -34,9 +34,9 @@ public class JpQuestao extends JPanel implements Comparable<JpQuestao>{
         this.add(jpTipoQuestao, BorderLayout.CENTER);
     }
     
-    private void configTituloQuestao(int posicao){
-        this.tituloQuestao = "Questão "+posicao;
-        jpPergunta.setTituloQuestao("Questão "+posicao);
+    private void configTituloQuestao(int numeroQuestao){
+        this.tituloQuestao = "Questão "+numeroQuestao;
+        jpPergunta.setTituloQuestao("Questão "+numeroQuestao);
     }
     
     public void setTituloQuestao(int posicao){
@@ -68,15 +68,15 @@ public class JpQuestao extends JPanel implements Comparable<JpQuestao>{
         switch(jpPergunta.getTipoResposta()){
             case "Múltipla escolha":
                 return jpTipoQuestao.getJpRespostaMultiplaEscolha()
-                        .respostasCompletas() &&
+                        .todasAsRespostasForamPreenchidas() &&
                         jpPergunta.perguntaCompleta();
             case "Pergunta direta":
                 return jpTipoQuestao.getJpRespostaPerguntaDireta()
-                        .respostaCompleta() &&
+                        .respostaPreenchida() &&
                         jpPergunta.perguntaCompleta();
             case "Verdadeiro ou falso":
                 return jpTipoQuestao.getJpRespostaVerdadeiroOuFaso()
-                        .respostasCompletas() &&
+                        .todasAsRespostasForamPreenchidas() &&
                         jpPergunta.perguntaCompleta();
             default:
                 return false;

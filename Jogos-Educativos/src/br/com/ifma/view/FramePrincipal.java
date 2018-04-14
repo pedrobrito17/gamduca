@@ -2,7 +2,7 @@ package br.com.ifma.view;
 
 import br.com.ifma.view.components.menu.Ajuda;
 import br.com.ifma.view.components.menu.Arquivo;
-import br.com.ifma.view.components.menu.Opcoes;
+import br.com.ifma.view.components.utils.Icone;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.ImageIcon;
@@ -17,33 +17,28 @@ import javax.swing.JPanel;
  */
 public class FramePrincipal extends JFrame{
     
-    private final JPanel jpanel;
-    private final JMenuBar menuBar;
-    private final Arquivo arquivo;
-    private final Opcoes opcoes;
-    private final Ajuda ajuda;
+    private JPanel jpanel;
+    private JMenuBar menuBar;
+    private Arquivo arquivo;
+    private Ajuda ajuda;
     
     public FramePrincipal(){
-        menuBar = new JMenuBar();
-        arquivo = new Arquivo("Arquivo");
-        opcoes = new Opcoes("Opções");
-        ajuda = new Ajuda("Ajuda");
-        
-        jpanel = new JPanel();
-        
         configuracaoDoMenu();
         configuracaoDoJPanel();
         inicializarFrame();
     }
     
     private void configuracaoDoMenu(){
+        menuBar = new JMenuBar();
+        arquivo = new Arquivo("Arquivo");
+        ajuda = new Ajuda("Ajuda");
         menuBar.add(arquivo);
-        menuBar.add(opcoes);
         menuBar.add(ajuda);
     }
     
     private void configuracaoDoJPanel(){
-        ImageIcon imagemForca = createImageIcon("icones/img-main.png");
+        ImageIcon imagemForca = Icone.retornarImageIcon("icones/img-main.png");
+        jpanel = new JPanel();
         jpanel.setLayout(new BorderLayout());
         jpanel.add(new JLabel(null, imagemForca, JLabel.LEFT), BorderLayout.CENTER);
     }
@@ -60,15 +55,4 @@ public class FramePrincipal extends JFrame{
         
         this.setVisible(true);
     }  
-    
-    protected static ImageIcon createImageIcon(String path) {
-        java.net.URL imgURL = FramePrincipal.class.getClassLoader().getResource(path);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL);
-        } else {
-            System.err.println("Arquivo não encontrado: " + path);
-            return null;
-        }
-    }
-
 }

@@ -1,12 +1,13 @@
 package br.com.ifma.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
  *
  * @author Pedro Brito
  */
-public class Fase {
+public class Fase implements Serializable{
     
     private HashMap<String, Questao> questoes;
     

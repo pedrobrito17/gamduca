@@ -1,9 +1,8 @@
 package br.com.ifma.view.components.jpanel;
 
-import br.com.ifma.view.components.config.Fonte;
+import br.com.ifma.view.components.utils.Fonte;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -47,7 +46,7 @@ public class JpRespostaMultiplaEscolha extends JPanel{
         this.add(jpRespostaA);
         
         a = new JLabel("(A)");
-        a.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        a.setFont(Fonte.retornarFontePadrao());
         a.setBorder(new EmptyBorder(2,2,2,8));
         jpRespostaA.add(a, BorderLayout.WEST);
         
@@ -62,7 +61,7 @@ public class JpRespostaMultiplaEscolha extends JPanel{
         
         rbRespA = new JRadioButton("Correta");
         rbRespA.setName("A");
-        rbRespA.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        rbRespA.setFont(Fonte.retornarFontePadrao());
         rbRespA.setFocusPainted(false);
         jpRespostaA.add(rbRespA, BorderLayout.EAST);
     }
@@ -73,7 +72,7 @@ public class JpRespostaMultiplaEscolha extends JPanel{
         this.add(jpRespostaB);
         
         b = new JLabel("(B)");
-        b.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        b.setFont(Fonte.retornarFontePadrao());
         b.setBorder(new EmptyBorder(2,2,2,8));
         jpRespostaB.add(b, BorderLayout.WEST);
         
@@ -88,7 +87,7 @@ public class JpRespostaMultiplaEscolha extends JPanel{
         
         rbRespB = new JRadioButton("Correta");
         rbRespB.setName("B");
-        rbRespB.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        rbRespB.setFont(Fonte.retornarFontePadrao());
         rbRespB.setFocusPainted(false);
         jpRespostaB.add(rbRespB, BorderLayout.EAST);
     }
@@ -99,7 +98,7 @@ public class JpRespostaMultiplaEscolha extends JPanel{
         this.add(jpRespostaC);
         
         c = new JLabel("(C)");
-        c.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        c.setFont(Fonte.retornarFontePadrao());
         c.setBorder(new EmptyBorder(2,2,2,8));
         jpRespostaC.add(c, BorderLayout.WEST);
         
@@ -114,7 +113,7 @@ public class JpRespostaMultiplaEscolha extends JPanel{
         
         rbRespC = new JRadioButton("Correta");
         rbRespC.setName("C");
-        rbRespC.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        rbRespC.setFont(Fonte.retornarFontePadrao());
         rbRespC.setFocusPainted(false);
         jpRespostaC.add(rbRespC, BorderLayout.EAST);
     }
@@ -125,7 +124,7 @@ public class JpRespostaMultiplaEscolha extends JPanel{
         this.add(jpRespostaD);
         
         d = new JLabel("(D)");
-        d.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        d.setFont(Fonte.retornarFontePadrao());
         d.setBorder(new EmptyBorder(2,2,2,8));
         jpRespostaD.add(d, BorderLayout.WEST);
         
@@ -140,7 +139,7 @@ public class JpRespostaMultiplaEscolha extends JPanel{
         
         rbRespD = new JRadioButton("Correta");
         rbRespD.setName("D");
-        rbRespD.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        rbRespD.setFont(Fonte.retornarFontePadrao());
         rbRespD.setFocusPainted(false);
         jpRespostaD.add(rbRespD, BorderLayout.EAST);
     }
@@ -153,7 +152,7 @@ public class JpRespostaMultiplaEscolha extends JPanel{
         group.add(rbRespD);
     }
     
-    public void clear(){
+    public void limparRespostas(){
         this.respA.setText("");
         this.respB.setText("");
         this.respC.setText("");
@@ -168,7 +167,7 @@ public class JpRespostaMultiplaEscolha extends JPanel{
                 respD.getText().isEmpty();
     }
     
-    public boolean respostasCompletas(){
+    public boolean todasAsRespostasForamPreenchidas(){
         return !respA.getText().isEmpty() &&
                 !respB.getText().isEmpty() &&
                 !respC.getText().isEmpty() &&

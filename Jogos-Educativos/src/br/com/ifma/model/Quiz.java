@@ -1,12 +1,13 @@
 package br.com.ifma.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Pedro Brito
  */
-public class Quiz {
+public class Quiz implements Serializable{
     
     private String tituloQuiz;
     private ArrayList<Fase> fases;

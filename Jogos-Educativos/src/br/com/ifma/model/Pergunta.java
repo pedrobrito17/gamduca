@@ -1,10 +1,12 @@
 package br.com.ifma.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Pedro Brito
  */
-public class Pergunta {
+public class Pergunta implements Serializable{
     
     private String txtPergunta;
     private String urlMultimidia;

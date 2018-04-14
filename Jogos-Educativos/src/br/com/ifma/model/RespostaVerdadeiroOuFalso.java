@@ -1,10 +1,12 @@
 package br.com.ifma.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Pedro Brito
  */
-public class RespostaVerdadeiroOuFalso {
+public class RespostaVerdadeiroOuFalso implements Serializable{
     
     public String[] respA, respB, respC, respD;
 

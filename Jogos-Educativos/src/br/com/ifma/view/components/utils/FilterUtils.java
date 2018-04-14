@@ -26,6 +26,8 @@ public class FilterUtils {
     public final static String WMV = "wmv";
     public final static String FLV = "flv";
     public final static String MKV = "mkv";
+    /*  QUIZ */
+    public final static String JQZ = "jqz";
 
     public static String getExtension(File f) {
         String ext = null;

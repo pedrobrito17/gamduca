@@ -1,7 +1,6 @@
 package br.com.ifma.view.components;
 
-import br.com.ifma.view.components.config.Fonte;
-import java.awt.Font;
+import br.com.ifma.view.components.utils.Fonte;
 import javax.swing.Icon;
 import javax.swing.JButton;
 
@@ -23,7 +22,7 @@ public class Botao extends JButton{
     }
     
     public void configurarBotao(){
-        this.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        this.setFont(Fonte.retornarFontePadrao());
         this.setFocusPainted(false);
         this.setOpaque(false);
         this.setContentAreaFilled(false);

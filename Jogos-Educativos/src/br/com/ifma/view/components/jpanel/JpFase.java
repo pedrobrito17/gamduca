@@ -1,14 +1,13 @@
 package br.com.ifma.view.components.jpanel;
 
 import br.com.ifma.view.components.Botao;
+import br.com.ifma.view.components.utils.Icone;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -27,20 +26,18 @@ public class JpFase extends JPanel {
 
     public JpFase() {
         configPanelBotoes();
-        configQuestoes();
+        configQuestoesNoCardLayout();
         configPanelFase();
     }
 
     private void configPanelBotoes() {
         anterior = new Botao("Anterior");
-        ImageIcon imgIconAnt = createImageIcon("icones/back.png");
-        anterior.setIcon(imgIconAnt);
+        anterior.setIcon(Icone.retornarImageIcon("icones/back.png"));
         anterior.setToolTipText("Questão anterior");
         anterior.configurarBotao();
         anterior.setEnabled(false);
         proxima = new Botao("Próxima");
-        ImageIcon imgIconProx = createImageIcon("icones/next.png");
-        proxima.setIcon(imgIconProx);
+        proxima.setIcon(Icone.retornarImageIcon("icones/next.png"));
         proxima.setToolTipText("Próxima questão");
         proxima.setVerticalTextPosition(SwingConstants.CENTER);
         proxima.setHorizontalTextPosition(SwingConstants.LEFT);
@@ -82,17 +79,7 @@ public class JpFase extends JPanel {
         });
     }
 
-    private static ImageIcon createImageIcon(String path) {
-        java.net.URL imgURL = JpFase.class.getClassLoader().getResource(path);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL);
-        } else {
-            System.err.println("Arquivo não encontrado: " + path);
-            return null;
-        }
-    }
-
-    private void configQuestoes() {
+    private void configQuestoesNoCardLayout() {
         jpQuestoes = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             jpQuestoes.add(new JpQuestao(i + 1));
@@ -182,6 +169,19 @@ public class JpFase extends JPanel {
 
     public ArrayList<JpQuestao> getJpQuestoes() {
         return jpQuestoes;
+    }
+
+    public void setJpQuestoes(ArrayList<JpQuestao> jpQuestoes) {
+        this.jpQuestoes = jpQuestoes;
+    }
+
+    public void recriarCardLayoutComQuestoesDoQuizSalvo() {
+        jpCardQuestoes.removeAll();
+        jpCardQuestoes.revalidate();
+        jpCardQuestoes.repaint();
+        for (int i = 0; i < jpQuestoes.size(); i++) {
+            jpCardQuestoes.add(jpQuestoes.get(i), "Questão " + (i + 1));
+        }
     }
 
 }

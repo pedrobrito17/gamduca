@@ -1,10 +1,9 @@
 package br.com.ifma.view.components.menu;
 
 import br.com.ifma.view.FrameQuiz;
-import br.com.ifma.view.components.config.Fonte;
+import br.com.ifma.view.components.utils.Fonte;
 import com.sun.glass.events.KeyEvent;
 import java.awt.Component;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import javax.swing.JMenu;
@@ -12,6 +11,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -28,7 +28,7 @@ public class Arquivo extends JMenu {
 
     private void configurarMenu() {
         configurarItemMenu();
-        this.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        this.setFont(Fonte.retornarFontePadrao());
         this.add(forca);
         this.add(palavrasCruzadas);
         this.add(quiz);
@@ -37,30 +37,29 @@ public class Arquivo extends JMenu {
     }
 
     private void configurarItemMenu() {
-        forca = new JMenuItem("Forca", KeyEvent.VK_F);
-        KeyStroke ctrlVKeyStroke = KeyStroke.getKeyStroke("control F");
-        forca.setAccelerator(ctrlVKeyStroke);
-        forca.addActionListener(new MenuItemActionListener(forca));
-        forca.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
-        forca.setToolTipText("Inicia a configuração do jogo da forca");
+        forca = getItemMenu("Forca", this, KeyEvent.VK_F, "control F", 
+                "Inicia a configuração do jogo da forca");
 
-        palavrasCruzadas = new JMenuItem("Palavras Cruzadas", KeyEvent.VK_P);
-        KeyStroke ctrlVKeyStrok = KeyStroke.getKeyStroke("control P");
-        palavrasCruzadas.setAccelerator(ctrlVKeyStrok);
-        palavrasCruzadas.addActionListener(new MenuItemActionListener(palavrasCruzadas));
-        palavrasCruzadas.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
-        palavrasCruzadas.setToolTipText("Inicia a configuração do jogo palavras cruzadas");
+        palavrasCruzadas = getItemMenu("Palavras cruzadas", this, KeyEvent.VK_P,
+                "control P", "Inicia a configuração do jogo palavras cruzadas");
 
-        quiz = new JMenuItem("Quiz", KeyEvent.VK_Q);
-        KeyStroke ctrlVKeyStro = KeyStroke.getKeyStroke("control Q");
-        quiz.setAccelerator(ctrlVKeyStro);
-        quiz.addActionListener(new MenuItemActionListener(quiz));
-        quiz.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
-        quiz.setToolTipText("Inicia a configuração do jogo quiz");
+        quiz = getItemMenu("Quiz", this, KeyEvent.VK_Q, "control Q", 
+                "Inicia a configuração do jogo quiz");
 
-        sair = new JMenuItem("Sair");
-        sair.addActionListener(new MenuItemActionListener(this));
-        sair.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        sair = getItemMenu("Sair", this, 0, null, null);
+    }
+    
+    private JMenuItem getItemMenu(String text, Component parent, int keyEvent, 
+            String keyStroke, String tooltip) {
+        
+        JMenuItem menuItem = new JMenuItem(text, keyEvent);
+        KeyStroke ctrlVKeyStroke = KeyStroke.getKeyStroke(keyStroke);
+        menuItem.setAccelerator(ctrlVKeyStroke);
+        menuItem.setToolTipText(tooltip);
+        menuItem.addActionListener(new MenuItemActionListener(this));
+        menuItem.setFont(Fonte.retornarFontePadrao());
+        
+        return menuItem;
     }
 
     private class MenuItemActionListener implements ActionListener {
@@ -76,13 +75,15 @@ public class Arquivo extends JMenu {
             JMenuItem item = (JMenuItem) e.getSource();
             switch (item.getActionCommand()) {
                 case "Forca":
-                    JOptionPane.showMessageDialog(parent, item.getActionCommand() + " foi selecionado.");
+                    JOptionPane.showMessageDialog(parent, 
+                            item.getActionCommand() + " foi selecionado.");
                     break;
                 case "Palavras Cruzadas":
-                    JOptionPane.showMessageDialog(parent, item.getActionCommand() + " foi selecionado.");
+                    JOptionPane.showMessageDialog(parent, 
+                            item.getActionCommand() + " foi selecionado.");
                     break;
                 case "Quiz":
-                    EventQueue.invokeLater(() -> {
+                    SwingUtilities.invokeLater(() -> {
                         FrameQuiz quiz = new FrameQuiz();
                     });
                     break;

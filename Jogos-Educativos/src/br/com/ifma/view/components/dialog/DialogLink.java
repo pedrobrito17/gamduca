@@ -1,11 +1,10 @@
 package br.com.ifma.view.components.dialog;
 
 import br.com.ifma.view.components.Botao;
-import br.com.ifma.view.components.config.Fonte;
+import br.com.ifma.view.components.utils.Fonte;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.TextField;
@@ -35,7 +34,7 @@ public class DialogLink extends JDialog {
 
     private void configTextField() {
         textField = new TextField();
-        textField.setFont(new Font(Fonte.FONTE.getFonte(), Font.PLAIN, Fonte.TAMANHO.getTamanhoDaFonte()));
+        textField.setFont(Fonte.retornarFontePadrao());
 
         jpTextField = new JPanel(new GridLayout(1, 1));
         jpTextField.setBorder(new EmptyBorder(10, 10, 10, 10));
