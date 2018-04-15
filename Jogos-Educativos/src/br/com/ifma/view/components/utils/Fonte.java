@@ -12,5 +12,10 @@ public class Fonte {
         Font font = new Font("Verdana", Font.PLAIN, 12);
         return font;
     }
+    
+    public static Font retornarFontePadraoNegrito(){
+        Font font = new Font("Verdana", Font.BOLD, 12);
+        return font;
+    }
 
 }

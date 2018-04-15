@@ -18,7 +18,6 @@ import br.com.ifma.view.components.utils.GerenciadorQuizInterface;
 import br.com.ifma.view.components.utils.OpcoesQuizInterface;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -84,7 +83,7 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface,
         jpanelTitulo.setFocusable(true);
         jpanelTitulo.setBorder(new EmptyBorder(10, 10, 10, 10));
         labelTitulo = new JLabel("Título do Quiz");
-        labelTitulo.setFont(Fonte.retornarFontePadrao());
+        labelTitulo.setFont(Fonte.retornarFontePadraoNegrito());
         jpanelTitulo.add(labelTitulo);
         textTitulo = new JTextField(100);
         textTitulo.setPreferredSize(new Dimension(100, 25));
@@ -173,7 +172,7 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface,
      * MÉTODOS DO MENUBAR E TOOLBAR
      */
 
- /* MÉTODOS DO MENU OPÇÕES */
+    /* MÉTODOS DO MENU OPÇÕES */
     @Override
     public void adicionarFase() {
         switch (tabbed.getComponentCount()) {
@@ -322,10 +321,7 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface,
 
     @Override
     public void exportarJogo() {
-        ArrayList<JpFase> jpFases = obterArrayListDeJpFasesCriados();
-        QuizController quiz = new QuizController();
-        quiz.setTituloDoQuiz(textTitulo.getText());
-        quiz.criarFasesDoQuiz(jpFases);
+
     }
 
     @Override

@@ -63,6 +63,7 @@ public class JpRespostaMultiplaEscolha extends JPanel{
         rbRespA.setName("A");
         rbRespA.setFont(Fonte.retornarFontePadrao());
         rbRespA.setFocusPainted(false);
+        rbRespA.setSelected(true);
         jpRespostaA.add(rbRespA, BorderLayout.EAST);
     }
     
@@ -157,7 +158,6 @@ public class JpRespostaMultiplaEscolha extends JPanel{
         this.respB.setText("");
         this.respC.setText("");
         this.respD.setText("");
-        this.group.clearSelection();
     }
     
     public boolean todasAsRespostasEstaoLimpas(){

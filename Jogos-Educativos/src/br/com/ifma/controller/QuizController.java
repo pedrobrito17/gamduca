@@ -91,15 +91,12 @@ public class QuizController {
         
         for (Fase fase : fases) {
             ArrayList<JpQuestao> jpQuestoes = new ArrayList<>();
-            HashMap<String, Questao> questaoes = fase.getQuestoes();
-
-            for (Map.Entry<String, Questao> entry : questaoes.entrySet()) {
-
-                String key = entry.getKey();
-                String num = key.substring(key.length() - 1);
-                int numQuestao = Integer.parseInt(num);
-
-                Questao questao = entry.getValue();
+            HashMap<String, Questao> questoes = fase.getQuestoes();
+            
+            for (int i = 0 ; i < questoes.size() ; i++) {
+                
+                int numQuestao = i+1;
+                Questao questao = questoes.get("Questão "+numQuestao);
                 JpQuestao jpQuestao = new JpQuestao(numQuestao);
                 jpQuestao.getJpPergunta().setTituloQuestao(
                         "Questão " + numQuestao);

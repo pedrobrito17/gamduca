@@ -12,7 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -55,7 +54,7 @@ public class JpPergunta extends JPanel implements ItemListener{
 
     private void configPanelOpcoes() {
         labelTituloQuestao = new JLabel("Questão");
-        labelTituloQuestao.setFont(Fonte.retornarFontePadrao());
+        labelTituloQuestao.setFont(Fonte.retornarFontePadraoNegrito());
         labelTituloQuestao.setBorder(new EmptyBorder(0, 0, 10, 0));
         panelQuestao = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelQuestao.add(labelTituloQuestao);
