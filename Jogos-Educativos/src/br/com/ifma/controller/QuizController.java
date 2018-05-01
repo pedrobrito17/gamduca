@@ -1,5 +1,6 @@
 package br.com.ifma.controller;
 
+import br.com.ifma.model.Customizacao;
 import br.com.ifma.model.Fase;
 import br.com.ifma.model.Questao;
 import br.com.ifma.model.Quiz;
@@ -14,7 +15,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
 public class QuizController {
 
     private final Quiz quiz;
+    private Customizacao customizacao;
 
     public QuizController() {
         this.quiz = new Quiz();
@@ -43,8 +44,8 @@ public class QuizController {
         this.quiz.setFases(fases);
     }
 
-    public void setConfiguracoesDoQuiz() {
-
+    public void setCustomizacao(Customizacao customizacao) {
+        this.customizacao = customizacao;
     }
 
     public void salvarQuiz(String path, ArrayList<JpFase> jpFases) {
@@ -55,25 +56,28 @@ public class QuizController {
             FileOutputStream savarArquivo = new FileOutputStream(path);
             ObjectOutputStream stream = new ObjectOutputStream(savarArquivo);
 
-            stream.writeObject(this.quiz);
+            stream.writeObject(quiz);
+            stream.writeObject(customizacao);
             stream.close();
 
         } catch (IOException ex) {
+            System.out.println(ex.toString());
             JOptionPane.showMessageDialog(null, "Não foi possível salvar o "
                     + "arquivo", "Erro", JOptionPane.ERROR_MESSAGE);
         }
-
     }
 
-    public void abrirQuiz(String pathFile, FrameQuiz frame) {
+    public void abrirQuiz(String pathFile, FrameQuiz frame, Customizacao customizador) {
         try {
             FileInputStream abrirArquivo = new FileInputStream(pathFile);
             ObjectInputStream stream = new ObjectInputStream(abrirArquivo);
 
             Quiz abrirQuiz = (Quiz) stream.readObject();
+            customizacao = (Customizacao) stream.readObject();
             stream.close();
 
             inserirDadosNoQuiz(abrirQuiz, frame);
+            inserirCustomizacao(customizador);
 
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Arquivo não encontrado",
@@ -82,6 +86,16 @@ public class QuizController {
             JOptionPane.showMessageDialog(null, "Erro inesperado",
                     "Erro", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    public void inserirCustomizacao(Customizacao customizador){
+        customizador.setAtivarTempo(customizacao.isAtivarTempo());
+        customizador.setMsgAcerto(customizacao.getMsgAcerto());
+        customizador.setMsgAcertoParcial(customizacao.getMsgAcertoParcial());
+        customizador.setMsgErro(customizacao.getMsgErro());
+        customizador.setMsgTempoAcabou(customizacao.getMsgTempoAcabou());
+        customizador.setTaxaAcerto(customizacao.getTaxaAcerto());
+        customizador.setTempo(customizacao.getTempo());
     }
 
     public void inserirDadosNoQuiz(Quiz fileQuiz, FrameQuiz frame) {

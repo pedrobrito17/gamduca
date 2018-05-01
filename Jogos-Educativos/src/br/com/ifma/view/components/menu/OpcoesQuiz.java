@@ -13,7 +13,7 @@ import br.com.ifma.view.components.utils.OpcoesQuizInterface;
  */
 public class OpcoesQuiz extends JMenu{
     
-    private JMenuItem adicionarFase, deletarFase, personalizarQuiz;
+    private JMenuItem adicionarFase, deletarFase, customizarQuiz;
     private OpcoesQuizInterface tabbedInterface;
     
     public OpcoesQuiz(String s) {
@@ -35,13 +35,13 @@ public class OpcoesQuiz extends JMenu{
         this.setFont(Fonte.retornarFontePadrao());
         this.add(adicionarFase);
         this.add(deletarFase);
-        this.add(personalizarQuiz);
+        this.add(customizarQuiz);
     }
 
     private void configurarItemMenu() {
         adicionarFase = getItemMenu("Adicionar fase", this);
         deletarFase = getItemMenu("Deletar fase", this);
-        personalizarQuiz = getItemMenu("Personalizar quiz", this);
+        customizarQuiz = getItemMenu("Customizar quiz", this);
     }
     
     private JMenuItem getItemMenu(String text, Component parent){

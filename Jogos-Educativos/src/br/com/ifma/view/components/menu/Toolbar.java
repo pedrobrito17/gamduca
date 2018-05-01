@@ -20,7 +20,7 @@ public final class Toolbar extends JToolBar{
     
     private JButton abrirQuiz, novoQuiz, salvarQuiz, exportJogo, exportScorm;
     private JButton copy, cut, paste, selectAll;
-    private JButton adicionarFase, deletarFase, personalizarQuiz;
+    private JButton adicionarFase, deletarFase, customizarQuiz;
     private JButton addQuestao, moverQuestao, deletarQuestao;
     private JButton tutorial;
     private OpcoesQuizInterface opcoesInterface;
@@ -92,8 +92,8 @@ public final class Toolbar extends JToolBar{
         deletarFase.addActionListener((ActionEvent e) -> {
             opcoesInterface.deletarFase();
         });
-        personalizarQuiz = getJButton("icones/personalizar-quiz.png", "Personalizar quiz", "personalizar quiz");
-        personalizarQuiz.addActionListener((ActionEvent e) -> {
+        customizarQuiz = getJButton("icones/personalizar-quiz.png", "Customizar quiz", "customizar quiz");
+        customizarQuiz.addActionListener((ActionEvent e) -> {
             opcoesInterface.personalizarQuiz();
         });
         
@@ -138,7 +138,7 @@ public final class Toolbar extends JToolBar{
         this.addSeparator();
         this.add(adicionarFase);
         this.add(deletarFase);
-        this.add(personalizarQuiz);
+        this.add(customizarQuiz);
         this.addSeparator();
         this.add(addQuestao);
         this.add(moverQuestao);

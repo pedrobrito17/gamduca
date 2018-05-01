@@ -15,5 +15,5 @@ public class JogosEducativos {
             FramePrincipal janelaPrincipal = new FramePrincipal();
         });
     }
-    
+
 }

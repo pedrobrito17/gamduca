@@ -1,8 +1,9 @@
 package br.com.ifma.view;
 
 import br.com.ifma.controller.QuizController;
+import br.com.ifma.model.Customizacao;
 import br.com.ifma.view.components.dialog.DialogMoverQuestao;
-import br.com.ifma.view.components.dialog.PersonalizarQuiz;
+import br.com.ifma.view.components.dialog.CustomizarQuiz;
 import br.com.ifma.view.components.filter.FiltroFileChooserQuiz;
 import br.com.ifma.view.components.jpanel.JpFase;
 import br.com.ifma.view.components.menu.Ajuda;
@@ -19,6 +20,7 @@ import br.com.ifma.view.components.utils.OpcoesQuizInterface;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.File;
@@ -53,6 +55,7 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface,
     private JLabel labelTitulo;
     private JTabbedPane tabbed;
     private JpFase jpFase1, jpFase2, jpFase3;
+    private Customizacao customizacao = new Customizacao();
 
     public FrameQuiz() {
         this.toolbar = new Toolbar(this);
@@ -99,7 +102,12 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface,
     }
 
     private void inicializarFrame() {
-        this.setSize(700, 800);
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Dimension dimension = toolkit.getScreenSize();
+        int height = (int) (dimension.height * 0.9);
+        int width = (int) (dimension.width*0.5);
+        
+        this.setSize(width, height);
         this.setLayout(new BorderLayout());
         this.setLocationRelativeTo(null);
         this.setResizable(true);
@@ -226,7 +234,7 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface,
 
     @Override
     public void personalizarQuiz() {
-        PersonalizarQuiz personalizarQuiz = new PersonalizarQuiz();
+        CustomizarQuiz personalizarQuiz = new CustomizarQuiz(customizacao);
     }
 
     /* MÉTODOS DO MENU GERENCIADOR */
@@ -286,7 +294,7 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface,
             File file = fc.getSelectedFile();
 
             QuizController quizController = new QuizController();
-            quizController.abrirQuiz(file.getPath(), this);
+            quizController.abrirQuiz(file.getPath(), this, customizacao);
         }
     }
 
@@ -308,6 +316,7 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface,
             ArrayList<JpFase> jpFases = obterArrayListDeJpFasesCriados();
             QuizController quizController = new QuizController();
             quizController.setTituloDoQuiz(textTitulo.getText());
+            quizController.setCustomizacao(customizacao);
             quizController.salvarQuiz(path, jpFases);
         }
     }
