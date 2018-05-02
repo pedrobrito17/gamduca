@@ -1,7 +1,9 @@
 package br.com.ifma.view;
 
+import br.com.ifma.controller.JogoController;
 import br.com.ifma.controller.QuizController;
 import br.com.ifma.model.Customizacao;
+import br.com.ifma.model.Quiz;
 import br.com.ifma.view.components.dialog.DialogMoverQuestao;
 import br.com.ifma.view.components.dialog.CustomizarQuiz;
 import br.com.ifma.view.components.filter.FiltroFileChooserQuiz;
@@ -13,7 +15,6 @@ import br.com.ifma.view.components.menu.EditarQuiz;
 import br.com.ifma.view.components.menu.GerenciadorQuiz;
 import br.com.ifma.view.components.menu.Toolbar;
 import br.com.ifma.view.components.utils.ArquivoQuizInterface;
-import br.com.ifma.view.components.utils.FilterUtils;
 import br.com.ifma.view.components.utils.Fonte;
 import br.com.ifma.view.components.utils.GerenciadorQuizInterface;
 import br.com.ifma.view.components.utils.OpcoesQuizInterface;
@@ -105,8 +106,8 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface,
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension dimension = toolkit.getScreenSize();
         int height = (int) (dimension.height * 0.9);
-        int width = (int) (dimension.width*0.5);
-        
+        int width = (int) (dimension.width * 0.5);
+
         this.setSize(width, height);
         this.setLayout(new BorderLayout());
         this.setLocationRelativeTo(null);
@@ -180,7 +181,7 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface,
      * MÉTODOS DO MENUBAR E TOOLBAR
      */
 
-    /* MÉTODOS DO MENU OPÇÕES */
+ /* MÉTODOS DO MENU OPÇÕES */
     @Override
     public void adicionarFase() {
         switch (tabbed.getComponentCount()) {
@@ -294,31 +295,19 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface,
             File file = fc.getSelectedFile();
 
             QuizController quizController = new QuizController();
-            quizController.abrirQuiz(file.getPath(), this, customizacao);
+            quizController.abrirArquivoQuiz(file.getPath(), this, customizacao);
         }
     }
 
     @Override
     public void salvarQuiz() {
-        JFileChooser fc = new JFileChooser();
-        fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        fc.addChoosableFileFilter(new FiltroFileChooserQuiz());
-        fc.setAcceptAllFileFilterUsed(false);
-        fc.setDialogTitle("Salvar quiz");
-        fc.setApproveButtonText("Salvar");
-        fc.setSelectedFile(new File("quiz"));
+        ArrayList<JpFase> jpFases = obterArrayListDeJpFasesCriados();
 
-        int retorno = fc.showOpenDialog(this);
-        if (retorno == JFileChooser.APPROVE_OPTION) {
-            File file = fc.getSelectedFile();
-            String path = file.getPath() + "." + FilterUtils.JQZ;
-
-            ArrayList<JpFase> jpFases = obterArrayListDeJpFasesCriados();
-            QuizController quizController = new QuizController();
-            quizController.setTituloDoQuiz(textTitulo.getText());
-            quizController.setCustomizacao(customizacao);
-            quizController.salvarQuiz(path, jpFases);
-        }
+        QuizController quizController = new QuizController();
+        quizController.obterDiretorio(this);
+        quizController.setTituloDoQuiz(textTitulo.getText());
+        quizController.setCustomizacao(customizacao);
+        quizController.salvarQuiz(jpFases);
     }
 
     @Override
@@ -330,7 +319,18 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface,
 
     @Override
     public void exportarJogo() {
-
+        ArrayList<JpFase> jpFases = obterArrayListDeJpFasesCriados();
+        
+        QuizController quizController = new QuizController();
+        quizController.setTituloDoQuiz(textTitulo.getText());
+        quizController.setCustomizacao(customizacao);
+        quizController.criarFasesDoQuiz(jpFases);
+        Quiz quiz = quizController.getQuiz();
+        
+        JogoController jogoController = new JogoController();
+        jogoController.obterCaminhoParaSalvarJogo(this);
+        jogoController.criarTodosOsDiretorios();
+        jogoController.criarArquivosDoJogo(quiz);
     }
 
     @Override

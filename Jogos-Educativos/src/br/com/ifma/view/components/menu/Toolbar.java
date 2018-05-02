@@ -4,12 +4,10 @@ import br.com.ifma.view.components.utils.ArquivoQuizInterface;
 import br.com.ifma.view.components.utils.Icone;
 import br.com.ifma.view.components.utils.GerenciadorQuizInterface;
 import java.awt.event.ActionEvent;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 import br.com.ifma.view.components.utils.OpcoesQuizInterface;
 import java.awt.Component;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**

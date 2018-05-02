@@ -8,7 +8,6 @@ import br.com.ifma.view.components.utils.Fonte;
 import br.com.ifma.view.components.utils.Icone;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.io.File;

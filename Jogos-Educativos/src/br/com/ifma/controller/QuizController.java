@@ -5,8 +5,11 @@ import br.com.ifma.model.Fase;
 import br.com.ifma.model.Questao;
 import br.com.ifma.model.Quiz;
 import br.com.ifma.view.FrameQuiz;
+import br.com.ifma.view.components.filter.FiltroFileChooserQuiz;
 import br.com.ifma.view.components.jpanel.JpFase;
 import br.com.ifma.view.components.jpanel.JpQuestao;
+import br.com.ifma.view.components.utils.FilterUtils;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -15,6 +18,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,30 +30,47 @@ public class QuizController {
 
     private final Quiz quiz;
     private Customizacao customizacao;
+    private String path;
 
     public QuizController() {
-        this.quiz = new Quiz();
+        quiz = new Quiz();
     }
 
     public Quiz getQuiz() {
-        return this.quiz;
+        return quiz;
     }
 
     public void setTituloDoQuiz(String titulo) {
-        this.quiz.setTituloQuiz(titulo);
-    }
-
-    public void criarFasesDoQuiz(ArrayList<JpFase> jpFases) {
-        FaseController faseController = new FaseController();
-        ArrayList<Fase> fases = faseController.recuperarFases(jpFases);
-        this.quiz.setFases(fases);
+        quiz.setTituloQuiz(titulo);
     }
 
     public void setCustomizacao(Customizacao customizacao) {
         this.customizacao = customizacao;
     }
 
-    public void salvarQuiz(String path, ArrayList<JpFase> jpFases) {
+    public void obterDiretorio(JFrame frame) {
+        JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fc.addChoosableFileFilter(new FiltroFileChooserQuiz());
+        fc.setAcceptAllFileFilterUsed(false);
+        fc.setDialogTitle("Salvar quiz");
+        fc.setApproveButtonText("Salvar");
+        fc.setSelectedFile(new File("quiz"));
+
+        int retorno = fc.showOpenDialog(frame);
+        if (retorno == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            path = file.getPath() + "." + FilterUtils.JQZ;
+        }
+    }
+
+    public void criarFasesDoQuiz(ArrayList<JpFase> jpFases) {
+        FaseController faseController = new FaseController();
+        ArrayList<Fase> fases = faseController.recuperarFases(jpFases);
+        quiz.setFases(fases);
+    }
+
+    public void salvarQuiz(ArrayList<JpFase> jpFases) {
 
         criarFasesDoQuiz(jpFases);
 
@@ -67,7 +89,7 @@ public class QuizController {
         }
     }
 
-    public void abrirQuiz(String pathFile, FrameQuiz frame, Customizacao customizador) {
+    public void abrirArquivoQuiz(String pathFile, FrameQuiz frame, Customizacao customizador) {
         try {
             FileInputStream abrirArquivo = new FileInputStream(pathFile);
             ObjectInputStream stream = new ObjectInputStream(abrirArquivo);
@@ -87,8 +109,8 @@ public class QuizController {
                     "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    public void inserirCustomizacao(Customizacao customizador){
+
+    private void inserirCustomizacao(Customizacao customizador) {
         customizador.setAtivarTempo(customizacao.isAtivarTempo());
         customizador.setMsgAcerto(customizacao.getMsgAcerto());
         customizador.setMsgAcertoParcial(customizacao.getMsgAcertoParcial());
@@ -98,19 +120,19 @@ public class QuizController {
         customizador.setTempo(customizacao.getTempo());
     }
 
-    public void inserirDadosNoQuiz(Quiz fileQuiz, FrameQuiz frame) {
+    private void inserirDadosNoQuiz(Quiz fileQuiz, FrameQuiz frame) {
 
         ArrayList<Fase> fases = fileQuiz.getFases();
         int indexFase = 1;
-        
+
         for (Fase fase : fases) {
             ArrayList<JpQuestao> jpQuestoes = new ArrayList<>();
             HashMap<String, Questao> questoes = fase.getQuestoes();
-            
-            for (int i = 0 ; i < questoes.size() ; i++) {
-                
-                int numQuestao = i+1;
-                Questao questao = questoes.get("Questão "+numQuestao);
+
+            for (int i = 0; i < questoes.size(); i++) {
+
+                int numQuestao = i + 1;
+                Questao questao = questoes.get("Questão " + numQuestao);
                 JpQuestao jpQuestao = new JpQuestao(numQuestao);
                 jpQuestao.getJpPergunta().setTituloQuestao(
                         "Questão " + numQuestao);
@@ -155,7 +177,7 @@ public class QuizController {
 
             }
             frame.inserirTituloNoQuiz(fileQuiz.getTituloQuiz());
-            
+
             JpFase jpFase = frame.retornarJpFase(indexFase);
             jpFase.setJpQuestoes(adicionaQuestaoCasoNãoTenha3(jpQuestoes));
             jpFase.recriarCardLayoutComQuestoesDoQuizSalvo();
@@ -166,12 +188,11 @@ public class QuizController {
         }
     }
 
-    public ArrayList<JpQuestao> adicionaQuestaoCasoNãoTenha3(ArrayList<JpQuestao> jpQuestoes) {
-        if(jpQuestoes.size()==1){
+    private ArrayList<JpQuestao> adicionaQuestaoCasoNãoTenha3(ArrayList<JpQuestao> jpQuestoes) {
+        if (jpQuestoes.size() == 1) {
             jpQuestoes.add(new JpQuestao(2));
             jpQuestoes.add(new JpQuestao(3));
-        }
-        else if(jpQuestoes.size()==2){
+        } else if (jpQuestoes.size() == 2) {
             jpQuestoes.add(new JpQuestao(3));
         }
         return jpQuestoes;

@@ -4,7 +4,6 @@ import br.com.ifma.view.FrameQuiz;
 import br.com.ifma.view.components.utils.Fonte;
 import com.sun.glass.events.KeyEvent;
 import java.awt.Component;
-import java.awt.Font;
 import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;

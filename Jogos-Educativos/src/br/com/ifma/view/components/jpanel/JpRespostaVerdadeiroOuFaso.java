@@ -240,7 +240,6 @@ public class JpRespostaVerdadeiroOuFaso extends JPanel {
     public void setRespB(String[] resp) {
         respB.setText(resp[0]);
         if(resp[1]==null){
-            return;
         }
         else if (Boolean.valueOf(resp[1])) {
             rbVerdadeiroB.setSelected(true);
