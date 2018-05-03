@@ -1,14 +1,9 @@
 package br.com.ifma.controller;
 
 import br.com.ifma.gerador.GeradorMultimidia;
-import br.com.ifma.model.Fase;
-import br.com.ifma.model.Pergunta;
-import br.com.ifma.model.Questao;
 import br.com.ifma.model.Quiz;
-import br.com.ifma.model.RespostaPerguntaDireta;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -19,33 +14,15 @@ import javax.swing.JOptionPane;
  */
 public class JogoController {
 
-    private String pathJogo;
+    String pathJogo;
     private String pathCss, pathJs, pathMultimidia, pathVideo, pathAudio, pathImagem;
 
     public static void main(String[] args) {
         JogoController jogo = new JogoController();
         jogo.obterCaminhoParaSalvarJogo(new JFrame());
         jogo.criarTodosOsDiretorios();
-        
-        Quiz quiz = new Quiz();
-        quiz.setTituloQuiz("Teste");
-        
-        Questao questao = new Questao();
-        Pergunta pergunta = new Pergunta();
-        pergunta.setUrlMultimidia("/home/pedro/Imagens/469439.jpg");
-        questao.setPergunta(pergunta);
-        questao.setTituloQuestao("Questão 1");
-        questao.setRespPerguntaDir(new RespostaPerguntaDireta("Teste"));
-        HashMap<String, Questao> map = new HashMap<>();
-        map.put("Questão 1", questao);
-        
-        Fase fase = new Fase(map);
-        ArrayList<Fase> list = new ArrayList<>();
-        list.add(fase);
-        quiz.setFases(list);
-        
-        
-        jogo.criarArquivosDoJogo(quiz);
+
+//        jogo.criarArquivosDoJogo(quiz);
     }
 
     public void obterCaminhoParaSalvarJogo(JFrame frame) {
@@ -78,15 +55,37 @@ public class JogoController {
 
     private void criarDiretorio(String path) {
         File diretorio = new File(path);
+        deletarDiretorioExistente(diretorio);
+
         boolean verificador = diretorio.mkdir();
         if (!verificador) {
-            JOptionPane.showMessageDialog(null, "O diretório escolhido não pode ser usado", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "O diretório escolhido não "
+                    + "pode ser usado", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    public void criarArquivosDoJogo(Quiz quiz){
+
+    private void deletarDiretorioExistente(File arquivo) {
+        if (arquivo.exists()) {
+            File[] arquivosDoDiretorio = arquivo.listFiles();
+            if (arquivosDoDiretorio != null) {
+                for (File file : arquivosDoDiretorio) {
+                    deletarDiretorioExistente(file);
+                }
+            }
+            arquivo.delete();
+        }
+    }
+
+    public void criarArquivosDoJogo(Quiz quiz) {
         GeradorMultimidia geradorMultimidia = new GeradorMultimidia();
-        geradorMultimidia.gerarMultimidia(quiz, pathMultimidia);
+        try {
+            geradorMultimidia.gerarArquivosMultimidiaDoQuiz(quiz, pathMultimidia);
+        } catch (IOException ex) {
+            System.out.println(ex.toString());
+            JOptionPane.showMessageDialog(null, "Houve um erro na geração do "
+                    + "jogo. Por favor tente novamente", "Erro",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
 }

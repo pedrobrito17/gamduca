@@ -35,11 +35,13 @@ public class QuizControllerTest {
         Assert.assertNotNull(quizController.getQuiz().getFases().get(0).getQuestoes().get("Questão 1") );
         Assert.assertEquals("Campeão da Copa do Mundo de 2002?", quizController.getQuiz().getFases().get(0).getQuestoes().get("Questão 1").getPergunta().getTxtPergunta() );
         Assert.assertEquals("/home/pedro/Imagens/carro.png", quizController.getQuiz().getFases().get(0).getQuestoes().get("Questão 1").getPergunta().getUrlMultimidia() );
-        Assert.assertEquals(1, quizController.getQuiz().getFases().get(0).getQuestoes().size() );
         Assert.assertEquals("A", quizController.getQuiz().getFases().get(0).getQuestoes().get("Questão 1").getRespMulti().getRespostaCorreta() );
         
-        //verificação da 2ª questão
-        Assert.assertNull( quizController.getQuiz().getFases().get(0).getQuestoes().get("Questão 2") );
+        //verifica a quantidade de questões
+        Assert.assertEquals(3, quizController.getQuiz().getFases().get(0).getQuestoes().size() );
+        
+        //verificação da 4ª questão
+        Assert.assertNull( quizController.getQuiz().getFases().get(0).getQuestoes().get("Questão 4") );
     }
 
     

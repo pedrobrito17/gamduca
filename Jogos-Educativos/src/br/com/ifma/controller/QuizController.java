@@ -75,8 +75,9 @@ public class QuizController {
         criarFasesDoQuiz(jpFases);
 
         try {
-            FileOutputStream savarArquivo = new FileOutputStream(path);
-            ObjectOutputStream stream = new ObjectOutputStream(savarArquivo);
+            deletarArquivoExistente();
+            FileOutputStream salvarArquivo = new FileOutputStream(path);
+            ObjectOutputStream stream = new ObjectOutputStream(salvarArquivo);
 
             stream.writeObject(quiz);
             stream.writeObject(customizacao);
@@ -86,6 +87,13 @@ public class QuizController {
             System.out.println(ex.toString());
             JOptionPane.showMessageDialog(null, "Não foi possível salvar o "
                     + "arquivo", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public void deletarArquivoExistente(){
+        File arquivo = new File(path);
+        if(arquivo.exists()){
+            arquivo.delete();
         }
     }
 
