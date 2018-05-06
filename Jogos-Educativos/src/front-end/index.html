@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt">
+  
+  <head>
+    <title>Quiz</title>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Pedro Brito"/>
+    <meta name="viewport" content="width=device-width, initial-scaled=1.0"/>
+    <link rel="stylesheet" type="text/css" href="css/quiz.css"/>
+    <script type="text/javascript" src="js/quiz.js"></script>
+  </head>
+  
+  <body>
+    
+    <header>
+      <h2 class="titulo">Engenharia de software</h2>  
+      <h1>30</h1>
+    </header>
+    
+    <div class="section">
+      <main class="questao fleft">
+        
+        <!-- PERGUNTA -->
+        <div id="pergunta">
+          <h4>Questão 1</h4>
+          <p class="text-justify">Analise as seguintes frases e assinale a alternativa correta: I. Conjunto de programas. II. Usuários ou profissionais em TI. III. Parte física do computador.</p>
+          <div class="multimidia">
+            <img class="hidden" src="469439.jpg"/>
+            <video class="video hidden" controls>
+              <source src="movie.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <iframe class="youtube" src="https://www.youtube.com/embed/tgbNymZ7vqY?controls=1"></iframe>
+            <audio class="hidden" controls>
+              <source src="horse.ogg" type="audio/ogg">
+              Seu browser não suporta o áudio
+            </audio>
+          </div>
+        </div>
+        
+        <!-- TIPOS DE RESPOSTAS -->
+        <div id="multipla-escolha" class="hidden">
+          <form>
+            <input type="radio" id="a"><span id="op-a">Uruguai</span><br>
+            <input type="radio" id="b"><span id="op-b">Argentina</span><br>
+            <input type="radio" id="c"><span id="op-c">Brasil</span><br>
+            <input type="radio" id="d"><span id="op-d">Holanda</span>
+          </form>
+        </div>
+        
+        <div id="verdadeiro-falso" class="">
+          <div id="option-a">
+            <div class="options">
+              <form>
+                <input type="radio" id="true">V
+                <input type="radio" id="false">F
+              </form>
+            </div>
+            <div class="resp-text">
+              <p class="text-justify">A Tecnologia da Informação ou TI, é o conjunto de atividades e soluções envolvendo hardware, software, banco de dados, e redes que atuam para facilitar o acesso, análise e gerenciamento de informações. Simplificando, a TI foi criada para auxiliar o ser humano a lidar com informações.
+              Leia mais em: http://www.adamsilva.com.br/tecnologia/o-que-e-ti/#ixzz5EUToYE2S</p>
+            </div>
+          </div>
+          <div id="option-b">
+            <div class="options">
+              <form>
+                <input type="radio" id="true"> V
+                <input type="radio" id="false"> F
+              </form>
+            </div>
+            <div class="resp-text">
+              <p class="text-justify">A Tecnologia da Informação ou TI, é o conjunto de atividades e soluções envolvendo hardware, software, banco de dados, e redes que atuam para facilitar o acesso, análise e gerenciamento de informações. Simplificando, a TI foi criada para auxiliar o ser humano a lidar com informações.
+              Leia mais em: http://www.adamsilva.com.br/tecnologia/o-que-e-ti/#ixzz5EUToYE2S</p>
+            </div>
+          </div>
+        </div>
+        
+        <br>
+        <div id="resposta-direta" class="hidden text-center">
+          <form>
+            <input class="resp-input" type="text" role="row">
+          </form>
+        </div>
+      </main>
+      
+      <aside id="fase-1" class="info fright">
+        <h4>FASE 1</h4>
+        <hr>
+        <span>Quantidade de questões: 5</span><br>
+        <span>Acertos: 0</span><br>
+        <span>Erros: 0</span>
+      </aside>
+      <aside id="fase-2" class="info fright">
+        <h4>FASE 2</h4>
+        <hr>
+        <span>Quantidade de questões: 5</span><br>
+        <span>Acertos: 0</span><br>
+        <span>Erros: 0</span>
+      </aside>
+      <aside id="fase-3" class="info fright">
+        <h4>FASE 3</h4>
+        <hr>
+        <span>Quantidade de questões: 5</span><br>
+        <span>Acertos: 0</span><br>
+        <span>Erros: 0</span>
+      </aside>
+      <button class="btn success" role="button">Próxima ></button>
+    </div>
+    
+  </body>
+</html>

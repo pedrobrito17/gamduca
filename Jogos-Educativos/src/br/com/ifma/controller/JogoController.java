@@ -1,9 +1,13 @@
 package br.com.ifma.controller;
 
+import br.com.ifma.gerador.GeradorCss;
+import br.com.ifma.gerador.GeradorHtml;
+import br.com.ifma.gerador.GeradorJs;
 import br.com.ifma.gerador.GeradorMultimidia;
 import br.com.ifma.model.Quiz;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -16,14 +20,6 @@ public class JogoController {
 
     String pathJogo;
     private String pathCss, pathJs, pathMultimidia, pathVideo, pathAudio, pathImagem;
-
-    public static void main(String[] args) {
-        JogoController jogo = new JogoController();
-        jogo.obterCaminhoParaSalvarJogo(new JFrame());
-        jogo.criarTodosOsDiretorios();
-
-//        jogo.criarArquivosDoJogo(quiz);
-    }
 
     public void obterCaminhoParaSalvarJogo(JFrame frame) {
         JFileChooser fc = new JFileChooser();
@@ -77,11 +73,12 @@ public class JogoController {
     }
 
     public void criarArquivosDoJogo(Quiz quiz) {
-        GeradorMultimidia geradorMultimidia = new GeradorMultimidia();
         try {
-            geradorMultimidia.gerarArquivosMultimidiaDoQuiz(quiz, pathMultimidia);
-        } catch (IOException ex) {
-            System.out.println(ex.toString());
+            GeradorMultimidia.gerarArquivosMultimidiaDoQuiz(quiz, pathMultimidia);
+            GeradorJs.gerarJavaScript(quiz, pathJs);
+            GeradorCss.exportarCss(pathCss);
+            GeradorHtml.exportarHtml(pathJogo);
+        } catch (IOException | URISyntaxException ex) {
             JOptionPane.showMessageDialog(null, "Houve um erro na geração do "
                     + "jogo. Por favor tente novamente", "Erro",
                     JOptionPane.ERROR_MESSAGE);

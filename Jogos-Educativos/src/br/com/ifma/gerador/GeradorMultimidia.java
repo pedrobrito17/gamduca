@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public class GeradorMultimidia {
 
-    public void gerarArquivosMultimidiaDoQuiz(Quiz quiz, String path) throws FileNotFoundException, IOException {
+    public static void gerarArquivosMultimidiaDoQuiz(Quiz quiz, String path) throws FileNotFoundException, IOException, NullPointerException {
         ArrayList<Fase> fases = quiz.getFases();
 
         for (Fase fase : fases) {
@@ -28,7 +28,7 @@ public class GeradorMultimidia {
                 String key = entry.getKey();
                 Questao questao = entry.getValue();
 
-                if (!questao.getPergunta().getUrlMultimidia().isEmpty()) {
+                if (questao.getPergunta().getUrlMultimidia() != null) {
                     String source = questao.getPergunta().getUrlMultimidia();
                     String destination = null;
                     switch (questao.getPergunta().getTipoMultimidia()) {
