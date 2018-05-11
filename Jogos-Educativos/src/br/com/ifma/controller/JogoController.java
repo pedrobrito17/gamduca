@@ -19,7 +19,8 @@ import javax.swing.JOptionPane;
 public class JogoController {
 
     String pathJogo;
-    private String pathCss, pathJs, pathMultimidia, pathVideo, pathAudio, pathImagem;
+    private String pathCss, pathJs, pathMultimidia, pathVideo, pathAudio, 
+            pathImagem, pathFonts;
 
     public void obterCaminhoParaSalvarJogo(JFrame frame) {
         JFileChooser fc = new JFileChooser();
@@ -31,6 +32,7 @@ public class JogoController {
         if (retorno == JFileChooser.APPROVE_OPTION) {
             pathJogo = fc.getSelectedFile().getPath() + "/Quiz";
             pathCss = pathJogo + "/css";
+            pathFonts = pathCss + "/fonts";
             pathJs = pathJogo + "/js";
             pathMultimidia = pathJogo + "/multimidia";
             pathVideo = pathMultimidia + "/video";
@@ -42,6 +44,7 @@ public class JogoController {
     public void criarTodosOsDiretorios() {
         criarDiretorio(pathJogo);
         criarDiretorio(pathCss);
+        criarDiretorio(pathFonts);
         criarDiretorio(pathJs);
         criarDiretorio(pathMultimidia);
         criarDiretorio(pathVideo);
@@ -78,9 +81,15 @@ public class JogoController {
             GeradorJs.gerarJavaScript(quiz, pathJs);
             GeradorCss.exportarCss(pathCss);
             GeradorHtml.exportarHtml(pathJogo);
-        } catch (IOException | URISyntaxException ex) {
+        } catch (URISyntaxException ex) {
+            System.out.println(ex.toString());
             JOptionPane.showMessageDialog(null, "Houve um erro na geração do "
                     + "jogo. Por favor tente novamente", "Erro",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch(IOException io ){
+            System.out.println(io.toString());
+            JOptionPane.showMessageDialog(null, "O arquivo multimídia não foi "
+                    + "encontrado.", "Erro",
                     JOptionPane.ERROR_MESSAGE);
         }
     }

@@ -11,7 +11,7 @@ public class Quiz implements Serializable{
     
     private String tituloQuiz;
     private ArrayList<Fase> fases;
-    //private Configurações config;
+    private Customizacao customizacao;
 
     public String getTituloQuiz() {
         return tituloQuiz;
@@ -28,8 +28,13 @@ public class Quiz implements Serializable{
     public void setFases(ArrayList<Fase> fases) {
         this.fases = fases;
     }
-    
-    
-    
 
+    public Customizacao getCustomizacao() {
+        return customizacao;
+    }
+
+    public void setCustomizacao(Customizacao customizacao) {
+        this.customizacao = customizacao;
+    }
+    
 }

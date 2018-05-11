@@ -7,6 +7,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,6 +15,7 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.channels.FileChannel;
 
 /**
  *
@@ -27,6 +29,9 @@ public class GeradorJs {
         criarArquivoJS(path);
         escreverJsonNoArquivoJS(json, path);
         escreverJsNoArquivoJS(path);
+        
+        exportarJs("jquery.min.js", path);
+        exportarJs("bootstrap.min.js", path);
     }
 
     private static void escreverJsonNoArquivoJS(String json, String path) throws URISyntaxException, IOException {
@@ -78,6 +83,23 @@ public class GeradorJs {
         boolean verificador = file.createNewFile();
         if (!verificador) {
             throw new IOException("Não foi possível criar o arquivo js");
+        }
+    }
+    
+    private static void exportarJs(String nameJs, String path) throws URISyntaxException, FileNotFoundException, IOException{
+        URL urlfonts = GeradorJs.class.getClassLoader().getResource("front-end/"+nameJs);
+        File fileFonts = new File(urlfonts.toURI());
+        FileInputStream sourceFonts = new FileInputStream(fileFonts);
+
+        FileChannel sourceFontsChannel = sourceFonts.getChannel();
+        FileChannel destinationFontsChannel = new FileOutputStream(path + "/"+nameJs).getChannel();
+        sourceFontsChannel.transferTo(0, sourceFontsChannel.size(), destinationFontsChannel);
+
+        if (sourceFontsChannel.isOpen()) {
+            sourceFontsChannel.close();
+        }
+        if (destinationFontsChannel != null && destinationFontsChannel.isOpen()) {
+            destinationFontsChannel.close();
         }
     }
 

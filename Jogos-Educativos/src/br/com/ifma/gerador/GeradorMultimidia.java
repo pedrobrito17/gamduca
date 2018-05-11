@@ -28,18 +28,22 @@ public class GeradorMultimidia {
                 String key = entry.getKey();
                 Questao questao = entry.getValue();
 
-                if (questao.getPergunta().getUrlMultimidia() != null) {
+                if (questao.getPergunta().getUrlMultimidia() != null && !questao.getPergunta().getTipoMultimidia().equals("link")) {
                     String source = questao.getPergunta().getUrlMultimidia();
                     String destination = null;
+                    String urlArquivo = null;
                     switch (questao.getPergunta().getTipoMultimidia()) {
                         case "imagem":
                             destination = path + "/imagem/"+key;
+                            urlArquivo = "multimidia/imagem/"+key;
                             break;
                         case "audio":
                             destination = path + "/audio/"+key;
+                            urlArquivo = "multimidia/audio/"+key;
                             break;
                         case "video":
                             destination = path + "/video/"+key;
+                            urlArquivo = "multimidia/video/"+key;
                             break;
                     }
 
@@ -54,7 +58,7 @@ public class GeradorMultimidia {
                         destinationChannel.close();
                     }
                     
-                    questao.getPergunta().setUrlMultimidia(destination);
+                    questao.getPergunta().setUrlMultimidia(urlArquivo);
                 }
             }
         }

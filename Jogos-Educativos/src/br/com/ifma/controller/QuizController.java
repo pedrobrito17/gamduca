@@ -29,7 +29,6 @@ import javax.swing.JOptionPane;
 public class QuizController {
 
     private final Quiz quiz;
-    private Customizacao customizacao;
     private String path;
 
     public QuizController() {
@@ -44,8 +43,8 @@ public class QuizController {
         quiz.setTituloQuiz(titulo);
     }
 
-    public void setCustomizacao(Customizacao customizacao) {
-        this.customizacao = customizacao;
+    public void inserirCustomizacaoNoObjetoQuiz(Customizacao customizacao) {
+        quiz.setCustomizacao(customizacao);
     }
 
     public void obterDiretorio(JFrame frame) {
@@ -80,7 +79,6 @@ public class QuizController {
             ObjectOutputStream stream = new ObjectOutputStream(salvarArquivo);
 
             stream.writeObject(quiz);
-            stream.writeObject(customizacao);
             stream.close();
 
         } catch (IOException ex) {
@@ -97,35 +95,42 @@ public class QuizController {
         }
     }
 
-    public void abrirArquivoQuiz(String pathFile, FrameQuiz frame, Customizacao customizador) {
+    public void abrirArquivoQuiz(String pathFile, FrameQuiz frame, 
+            Customizacao customizadorDoFrame) {
+        
         try {
             FileInputStream abrirArquivo = new FileInputStream(pathFile);
             ObjectInputStream stream = new ObjectInputStream(abrirArquivo);
 
             Quiz abrirQuiz = (Quiz) stream.readObject();
-            customizacao = (Customizacao) stream.readObject();
+//            Customizacao customizacao = (Customizacao) stream.readObject();
+            Customizacao abrirCustomizacao = abrirQuiz.getCustomizacao();
             stream.close();
 
             inserirDadosNoQuiz(abrirQuiz, frame);
-            inserirCustomizacao(customizador);
+            inserirCustomizacao(customizadorDoFrame, abrirCustomizacao);
 
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Arquivo não encontrado",
                     "Erro", JOptionPane.ERROR_MESSAGE);
+            System.out.println(ex.toString());
         } catch (IOException | ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Erro inesperado",
                     "Erro", JOptionPane.ERROR_MESSAGE);
+            System.out.println(ex.toString());
         }
     }
 
-    private void inserirCustomizacao(Customizacao customizador) {
-        customizador.setAtivarTempo(customizacao.isAtivarTempo());
-        customizador.setMsgAcerto(customizacao.getMsgAcerto());
-        customizador.setMsgAcertoParcial(customizacao.getMsgAcertoParcial());
-        customizador.setMsgErro(customizacao.getMsgErro());
-        customizador.setMsgTempoAcabou(customizacao.getMsgTempoAcabou());
-        customizador.setTaxaAcerto(customizacao.getTaxaAcerto());
-        customizador.setTempo(customizacao.getTempo());
+    private void inserirCustomizacao(Customizacao customizadorDoFrame, 
+            Customizacao customizadorDoAquivo) {
+        
+        customizadorDoFrame.setAtivarTempo(customizadorDoAquivo.isAtivarTempo());
+        customizadorDoFrame.setMsgAcerto(customizadorDoAquivo.getMsgAcerto());
+        customizadorDoFrame.setMsgAcertoParcial(customizadorDoAquivo.getMsgAcertoParcial());
+        customizadorDoFrame.setMsgErro(customizadorDoAquivo.getMsgErro());
+        customizadorDoFrame.setMsgTempoAcabou(customizadorDoAquivo.getMsgTempoAcabou());
+        customizadorDoFrame.setTaxaAcerto(customizadorDoAquivo.getTaxaAcerto());
+        customizadorDoFrame.setTempo(customizadorDoAquivo.getTempo());
     }
 
     private void inserirDadosNoQuiz(Quiz fileQuiz, FrameQuiz frame) {

@@ -306,7 +306,7 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface,
         QuizController quizController = new QuizController();
         quizController.obterDiretorio(this);
         quizController.setTituloDoQuiz(textTitulo.getText());
-        quizController.setCustomizacao(customizacao);
+        quizController.inserirCustomizacaoNoObjetoQuiz(customizacao);
         quizController.salvarQuiz(jpFases);
     }
 
@@ -323,8 +323,8 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface,
         
         QuizController quizController = new QuizController();
         quizController.setTituloDoQuiz(textTitulo.getText());
-        quizController.setCustomizacao(customizacao);
         quizController.criarFasesDoQuiz(jpFases);
+        quizController.inserirCustomizacaoNoObjetoQuiz(customizacao);
         Quiz quiz = quizController.getQuiz();
         
         JogoController jogoController = new JogoController();
