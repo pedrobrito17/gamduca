@@ -117,7 +117,7 @@ function Fase() {
 /* ##### VARIÁVEIS GLOBAIS ##### */
 
 var fases = [];
-var indexFaseAtual;
+var indexFaseAtual = -1;
 var indexQuestaoAtual;
 var qtdFasesDoQuiz;
 var qtdQuestoesDaFaseAtual;
@@ -195,26 +195,19 @@ function gerarObjFases() {
   }
 }
 
-function iniciarProximaFase() {
-  indexFaseAtual++;
-}
-
 function inserirNoHtmlProximaQuestao() {
-  atualizarBarraDeProgresso();
-  limparRespostas();
-  if(cronometroAtivo){
+  if (cronometroAtivo) {
     tempoCronometro = quiz.customizacao.tempo;
     cronometrarQuestao();
   }
-  
+
   if (indexQuestaoAtual == qtdQuestoesDaFaseAtual) {
     exibirModalDeFaseAtualConcluida();
-    iniciarProximaFase();
-    if(indexFaseAtual <= qtdFasesDoQuiz){
-      inserirNoHtmlProximaQuestao();
-    }
     return;
   }
+  
+  atualizarBarraDeProgresso();
+  limparRespostas();
 
   var questao = fases[indexFaseAtual].getQuestoes()[indexQuestaoAtual];
   document.getElementById("tituloQuestao").innerHTML = questao.getTituloQuestao();
@@ -222,10 +215,10 @@ function inserirNoHtmlProximaQuestao() {
 
   if (questao.getPergunta().tipoMultimidia != null) {
     var multimidia = document.getElementById("multimidia");
-    if(typeof multimidia != "undefined"){
+    if (typeof multimidia != "undefined") {
       multimidia.className = "multimidia";
     }
-    
+
     switch (questao.getPergunta().tipoMultimidia) {
       case "video":
         var link = document.getElementById("link");
@@ -245,7 +238,7 @@ function inserirNoHtmlProximaQuestao() {
           img.className = "invisible";
         }
         var video = document.getElementById("video");
-        video.innerHTML = '<video controls><source class="embed-responsive-item" src="'+ questao.getPergunta().urlMultimidia +'"></video>';
+        video.innerHTML = '<video controls><source class="embed-responsive-item" src="' + questao.getPergunta().urlMultimidia + '"></video>';
         video.className = "embed-responsive embed-responsive-16by9 visible";
         break;
 
@@ -267,7 +260,7 @@ function inserirNoHtmlProximaQuestao() {
           video.className = "invisible";
         }
         var audio = document.getElementById("audio");
-        audio.innerHTML = '<div class="row "><audio class="center" controls><source src="'+ questao.getPergunta().urlMultimidia +'"></audio></div>';
+        audio.innerHTML = '<div class="row "><audio class="center" controls><source src="' + questao.getPergunta().urlMultimidia + '"></audio></div>';
         audio.className = "container-fluid visible";
         break;
 
@@ -309,11 +302,10 @@ function inserirNoHtmlProximaQuestao() {
         var link = questao.getPergunta().urlMultimidia;
         criarIFrameParaLink(link);
         break;
-    } 
-  }
-  else{
+    }
+  } else {
     var multimidia = document.getElementById("multimidia");
-    if(typeof multimidia != "undefined"){
+    if (typeof multimidia != "undefined") {
       multimidia.className = "invisible";
     }
   }
@@ -321,8 +313,8 @@ function inserirNoHtmlProximaQuestao() {
   switch (questao.getTipoQuestao()) {
     case "Múltipla escolha":
       tipoQuestaoAtual = "multipla-escolha";
-      respostaQuestaoAtual = questao.getRespostaMultiplaEscolha().repostaCorreta;   
-      
+      respostaQuestaoAtual = questao.getRespostaMultiplaEscolha().repostaCorreta;
+
       document.getElementById("verdadeiro-falso").className = "invisible";
       document.getElementById("pergunta-direta").className = "invisible";
       document.getElementById("multipla-escolha").className = "visible";
@@ -336,7 +328,7 @@ function inserirNoHtmlProximaQuestao() {
 
     case "Verdadeiro ou falso":
       tipoQuestaoAtual = "v-ou-f";
-      
+
       document.getElementById("multipla-escolha").className = "invisible";
       document.getElementById("pergunta-direta").className = "invisible";
       document.getElementById("verdadeiro-falso").className = "visible";
@@ -346,7 +338,7 @@ function inserirNoHtmlProximaQuestao() {
       document.getElementById("option-b").innerHTML = vOuf.respB[0];
       document.getElementById("option-c").innerHTML = vOuf.respC[0];
       document.getElementById("option-d").innerHTML = vOuf.respD[0];
-      
+
       respostaQuestaoAtualVouF[0] = vOuf.respA[1];
       respostaQuestaoAtualVouF[1] = vOuf.respB[1];
       respostaQuestaoAtualVouF[2] = vOuf.respC[1];
@@ -356,47 +348,56 @@ function inserirNoHtmlProximaQuestao() {
     case "Pergunta direta":
       tipoQuestaoAtual = "pergunta-direta";
       respostaQuestaoAtual = questao.getPerguntaDireta().resposta;
-      
-      
+
+
       document.getElementById("multipla-escolha").className = "invisible";
       document.getElementById("verdadeiro-falso").className = "invisible";
       document.getElementById("pergunta-direta").className = "visible";
 
       break;
   }
-  
+
   indexQuestaoAtual++;
 }
 
-function limparRespostas(){
+function limparRespostas() {
   consultaMult = false;
   document.getElementById("op-a").parentElement.className = "mult-opcao";
   document.getElementById("op-b").parentElement.className = "mult-opcao";
   document.getElementById("op-c").parentElement.className = "mult-opcao";
   document.getElementById("op-d").parentElement.className = "mult-opcao";
-  
+
   document.getElementById("vf-a").className = "mult-opcao";
   document.getElementById("v-a").disabled = false;
   document.getElementById("f-a").disabled = false;
+  document.getElementById("v-a").checked = false;
+  document.getElementById("f-a").checked = false;
   document.getElementById("vf-b").className = "mult-opcao";
   document.getElementById("v-b").disabled = false;
   document.getElementById("f-b").disabled = false;
+  document.getElementById("v-b").checked = false;
+  document.getElementById("f-b").checked = false;
   document.getElementById("vf-c").className = "mult-opcao";
   document.getElementById("v-c").disabled = false;
   document.getElementById("f-c").disabled = false;
+  document.getElementById("v-c").checked = false;
+  document.getElementById("f-c").checked = false;
   document.getElementById("vf-d").className = "mult-opcao";
   document.getElementById("v-d").disabled = false;
   document.getElementById("f-d").disabled = false;
-  
+  document.getElementById("v-d").checked = false;
+  document.getElementById("f-d").checked = false;
+
   consultPerguntaDir = false;
   document.getElementById("resposta-direta").disabled = false;
+  document.getElementById("resposta-direta").value = "";
   document.getElementById("resposta-direta").className = "form-control";
 }
 
 function criarIFrameParaLink(link) {
   if (!link.includes("youtube")) {
     var tagIframe = document.getElementById("link");
-    tagIframe.innerHTML = '<iframe class="embed-responsive-item" src="'+link+'"></iframe>';
+    tagIframe.innerHTML = '<iframe class="embed-responsive-item" src="' + link + '"></iframe>';
     tagIframe.className = "embed-responsive embed-responsive-16by9 visible";
     return;
   }
@@ -409,41 +410,41 @@ function criarIFrameParaLink(link) {
   document.getElementById("youtube").className = "embed-responsive embed-responsive-16by9 visible";
 }
 
-function verificarRespostaMult(opcao){
-  if(opcao.toUpperCase() == respostaQuestaoAtual && consultaMult == false){
-    var opcaoSelecionada = document.getElementById("op-"+opcao).parentElement;
+function verificarRespostaMult(opcao) {
+  if (opcao.toUpperCase() == respostaQuestaoAtual && consultaMult == false) {
+    var opcaoSelecionada = document.getElementById("op-" + opcao).parentElement;
     opcaoSelecionada.className = "alert alert-success";
-    
-    if(opcao!='a'){
+
+    if (opcao != 'a') {
       document.getElementById("op-a").parentElement.className = "desativado";
     }
-    if(opcao!='b'){
+    if (opcao != 'b') {
       document.getElementById("op-b").parentElement.className = "desativado";
     }
-    if(opcao!='c'){
+    if (opcao != 'c') {
       document.getElementById("op-c").parentElement.className = "desativado";
     }
-    if(opcao!='d'){
+    if (opcao != 'd') {
       document.getElementById("op-d").parentElement.className = "desativado";
     }
     consultaMult = true;
     notaFase[indexFaseAtual]++;
     exibirModalDe('acerto');
-    
-  }else if(consultaMult == false){
-    var opcaoSelecionada = document.getElementById("op-"+opcao).parentElement;
+
+  } else if (consultaMult == false) {
+    var opcaoSelecionada = document.getElementById("op-" + opcao).parentElement;
     opcaoSelecionada.className = "alert alert-danger";
-    
-    if(opcao!='a'){
+
+    if (opcao != 'a') {
       document.getElementById("op-a").parentElement.className = "desativado";
     }
-    if(opcao!='b'){
+    if (opcao != 'b') {
       document.getElementById("op-b").parentElement.className = "desativado";
     }
-    if(opcao!='c'){
+    if (opcao != 'c') {
       document.getElementById("op-c").parentElement.className = "desativado";
     }
-    if(opcao!='d'){
+    if (opcao != 'd') {
       document.getElementById("op-d").parentElement.className = "desativado";
     }
     consultaMult = true;
@@ -451,16 +452,15 @@ function verificarRespostaMult(opcao){
   }
 }
 
-function verificarRespostaPerguntaDireta(){
+function verificarRespostaPerguntaDireta() {
   var resp = document.getElementById("resposta-direta");
-  if(resp.value.toUpperCase() == respostaQuestaoAtual.toUpperCase()){
+  if (resp.value.toUpperCase() == respostaQuestaoAtual.toUpperCase()) {
     resp.className = "form-control is-valid";
     resp.disabled = true;
     consultPerguntaDir = true;
     notaFase[indexFaseAtual]++;
     exibirModalDe('acerto');
-  }
-  else{
+  } else {
     resp.className = "form-control is-invalid";
     resp.disabled = true;
     consultPerguntaDir = true;
@@ -468,125 +468,157 @@ function verificarRespostaPerguntaDireta(){
   }
 }
 
-function verificarRespostaVerdadeiroOuFalso(booleano, opcao){
-  switch(opcao){
+function verificarRespostaVerdadeiroOuFalso(booleano, opcao) {
+  switch (opcao) {
     case 'a':
-      if(booleano == (respostaQuestaoAtualVouF[0]=='true')){
+      if (booleano == (respostaQuestaoAtualVouF[0] == 'true')) {
         document.getElementById('vf-a').className = "alert alert-success";
-        document.getElementById('v-a').disabled = true;  
-        document.getElementById('f-a').disabled = true;  
+        document.getElementById('v-a').disabled = true;
+        document.getElementById('f-a').disabled = true;
         notaFase[indexFaseAtual] += 0.25;
         exibirModalDe('acerto');
-      }
-      else{
+      } else {
         document.getElementById('vf-a').className = "alert alert-danger";
-        document.getElementById('v-a').disabled = true;  
-        document.getElementById('f-a').disabled = true;  
+        document.getElementById('v-a').disabled = true;
+        document.getElementById('f-a').disabled = true;
         exibirModalDe('erro');
       }
       break;
-      
+
     case 'b':
-      if(booleano == (respostaQuestaoAtualVouF[1]=='true')){
+      if (booleano == (respostaQuestaoAtualVouF[1] == 'true')) {
         document.getElementById('vf-b').className = "alert alert-success";
-        document.getElementById('v-b').disabled = true;  
-        document.getElementById('f-b').disabled = true;  
+        document.getElementById('v-b').disabled = true;
+        document.getElementById('f-b').disabled = true;
         notaFase[indexFaseAtual] += 0.25;
         exibirModalDe('acerto');
-      }
-      else{
+      } else {
         document.getElementById('vf-b').className = "alert alert-danger";
-        document.getElementById('v-b').disabled = true;  
-        document.getElementById('f-b').disabled = true;  
+        document.getElementById('v-b').disabled = true;
+        document.getElementById('f-b').disabled = true;
         exibirModalDe('erro');
       }
       break;
-      
+
     case 'c':
-      if(booleano == (respostaQuestaoAtualVouF[2]=='true')){
+      if (booleano == (respostaQuestaoAtualVouF[2] == 'true')) {
         document.getElementById('vf-c').className = "alert alert-success";
-        document.getElementById('v-c').disabled = true;  
-        document.getElementById('f-c').disabled = true;  
+        document.getElementById('v-c').disabled = true;
+        document.getElementById('f-c').disabled = true;
         notaFase[indexFaseAtual] += 0.25;
         exibirModalDe('acerto');
-      }
-      else{
+      } else {
         document.getElementById('vf-c').className = "alert alert-danger";
-        document.getElementById('v-c').disabled = true;  
-        document.getElementById('f-c').disabled = true;  
+        document.getElementById('v-c').disabled = true;
+        document.getElementById('f-c').disabled = true;
         exibirModalDe('erro');
       }
       break;
-      
+
     case 'd':
-      if(booleano == (respostaQuestaoAtualVouF[3]=='true')){
+      if (booleano == (respostaQuestaoAtualVouF[3] == 'true')) {
         document.getElementById('vf-d').className = "alert alert-success";
-        document.getElementById('v-d').disabled = true;  
-        document.getElementById('f-d').disabled = true;  
+        document.getElementById('v-d').disabled = true;
+        document.getElementById('f-d').disabled = true;
         notaFase[indexFaseAtual] += 0.25;
         exibirModalDe('acerto');
-      }
-      else{
+      } else {
         document.getElementById('vf-d').className = "alert alert-danger";
-        document.getElementById('v-d').disabled = true;  
-        document.getElementById('f-d').disabled = true;  
+        document.getElementById('v-d').disabled = true;
+        document.getElementById('f-d').disabled = true;
         exibirModalDe('erro');
       }
       break;
   }
 }
 
-function exibirModalDe(erroOuAcerto){
-  if(erroOuAcerto=='acerto'){
+function exibirModalDe(erroOuAcerto) {
+  if (erroOuAcerto == 'acerto') {
     document.getElementById("txtErroOuAcerto").innerHTML = quiz.customizacao.msgAcerto;
+    document.getElementById("modal-ea-color").className = "modal-body text-center color-modal-success";
   }
-  if(erroOuAcerto=='erro'){
+  if (erroOuAcerto == 'erro') {
     document.getElementById("txtErroOuAcerto").innerHTML = quiz.customizacao.msgErro;
+    document.getElementById("modal-ea-color").className = "modal-body text-center color-modal-danger";
   }
-  $('#modal-erro-acerto').modal('show');
+  $('#modal-erro-acerto').modal('show');  
+  setTimeout('esconderModalDeErroOuAcerto()',1500);
 }
 
-function exibirModalDeFaseAtualConcluida(){
-  document.getElementById("txtFaseAcabou").innerHTML = 'fase acabou';
+function esconderModalDeErroOuAcerto(){
+  $('#modal-erro-acerto').modal('hide');
+}
+
+function exibirModalDeFaseAtualConcluida() {
+  var notaMinima = qtdQuestoesDaFaseAtual * (quiz.customizacao.taxaAcerto / 100);
+
+  if (notaFase[indexFaseAtual] >= Math.round(notaMinima)) {
+    document.getElementById("color-modal").className = "modal-body color-modal-success";
+    document.getElementById("reprovado").className = "invisible";
+    document.getElementById("aprovado").className = "visible";
+    document.getElementById("f-success").innerHTML = "FASE " + (indexFaseAtual + 1);
+    document.getElementById("resultado-success").innerHTML = "Resultado: " + notaFase[indexFaseAtual];
+    if (qtdFasesDoQuiz == (indexFaseAtual + 1)) {
+      document.getElementById("btn-modal-fechar").className = "btn btn-light width100 visible";
+      document.getElementById("btn-modal-avancar").className = "btn btn-light width100 invisible";
+    } else {
+      document.getElementById("btn-modal-fechar").className = "btn btn-light width100 invisible";
+      document.getElementById("btn-modal-avancar").className = "btn btn-light width100 visible";
+    }
+  } else {
+    document.getElementById("color-modal").className = "modal-body color-modal-danger";
+    document.getElementById("reprovado").className = "visible";
+    document.getElementById("aprovado").className = "invisible";
+    document.getElementById("f-danger").innerHTML = "FASE " + (indexFaseAtual + 1);
+    document.getElementById("resultado-danger").innerHTML = "Resultado: " + notaFase[indexFaseAtual];
+    document.getElementById("texto-danger").innerHTML = "Infelizmente você não foi aprovado nesta " +
+      "fase do Quiz. Seu resultado foi inferior a taxa de " +
+      quiz.customizacao.taxaAcerto + "% das questões.";
+  }
   $('#modal-fim-fase').modal('show');
-}
+ }
 
-function atualizarBarraDeProgresso(){
-  porcentagemTotal += Math.round((1/qtdQuestoesDaFaseAtual)*100);
-  if(porcentagemTotal>100){
+function atualizarBarraDeProgresso() {
+  porcentagemTotal += Math.round((1 / qtdQuestoesDaFaseAtual) * 100);
+  if (porcentagemTotal > 94 && porcentagemTotal < 105) {
     porcentagemTotal = 100;
   }
-  document.getElementById("progressbar").innerHTML = porcentagemTotal+"%";
-  document.getElementById("progressbar").style.width = porcentagemTotal+"%";
+  document.getElementById("progressbar").innerHTML = porcentagemTotal + "%";
+  document.getElementById("progressbar").style.width = porcentagemTotal + "%";
 }
 
-function cronometrarQuestao(){
-  if((tempoCronometro-1) >= 0){
+function avancarDeFase() {
+  iniciarQuiz();
+}
+
+function cronometrarQuestao() {
+  if ((tempoCronometro - 1) >= 0) {
     $('#contador').html(tempoCronometro);
     setTimeout('cronometrarQuestao()', 1000);
     tempoCronometro--;
-  }
-  else{
+  } else {
     window.alert("O tempo acabou");
   }
 }
 
 function iniciarQuiz() {
-  indexFaseAtual = 0;
+  indexFaseAtual++;
   indexQuestaoAtual = 0;
   porcentagemTotal = 0;
   notaFase[indexFaseAtual] = 0;
   qtdFasesDoQuiz = quiz.fases.length;
   cronometroAtivo = quiz.customizacao.ativarTempo;
-  if(cronometroAtivo){
+  if (cronometroAtivo) {
     document.getElementById("cronometro").className = "text-center alert alert-warning tempo";
-  }else{
+  } else {
     document.getElementById("cronometro").parentElement.className = "invisible";
     document.getElementById("col-progress").className = "col-md-12";
   }
-  
-  gerarObjFases();
+
+  if (indexFaseAtual == 0) {
+    gerarObjFases();
+    document.getElementById("tituloQuiz").innerHTML = quiz.tituloQuiz;
+  }
   qtdQuestoesDaFaseAtual = fases[indexFaseAtual].getQuestoes().length;
-  document.getElementById("tituloQuiz").innerHTML = quiz.tituloQuiz;
   inserirNoHtmlProximaQuestao();
 }

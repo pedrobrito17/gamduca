@@ -218,3 +218,19 @@ aside span {
 .addmargin {
   margin-bottom: 15px;
 }
+
+.color-modal-success {
+  background-color: #28a745;
+  font-family: 'FiraSans-Bold', monospace;
+  color: #fff;
+}
+
+.color-modal-danger{
+  background-color: #dc3545;;
+  font-family: 'FiraSans-Bold', monospace;
+  color: #fff;
+}
+
+.width100 {
+  width: 100%;
+}

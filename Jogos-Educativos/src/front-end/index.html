@@ -151,11 +151,8 @@
   <div class="modal" id="modal-erro-acerto" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-        <div class="modal-body">
-          <span id="txtErroOuAcerto"></span>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <div id="modal-ea-color" class="modal-body text-center">
+          <h3 id="txtErroOuAcerto"></h3>
         </div>
       </div>
     </div>
@@ -165,11 +162,31 @@
   <div class="modal" id="modal-fim-fase" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-        <div class="modal-body">
-          <span id="txtFaseAcabou"></span>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <div id="color-modal" class="modal-body">
+          
+          <div id="aprovado" class="visible">
+            <div class="text-center">
+              <h4 id="f-success"></h4>
+            </div>
+            <hr>
+            <h3 id="resultado-success"></h3>
+            <h3>Parabéns! Você foi aprovado nesta fase do Quiz.</h3>
+            <br>
+            <button id="btn-modal-avancar" class="btn btn-light width100 invisible" data-dismiss="modal" onclick="avancarDeFase()">Próxima fase</button>
+            <button id="btn-modal-fechar" class="btn btn-light width100 visible" data-dismiss="modal">Fechar</button>
+          </div>
+          
+          <div id="reprovado" class="invisible">
+            <div class="text-center">
+              <h4 id="f-danger"></h4>
+            </div>
+            <hr>
+            <h3 id="resultado-danger"></h3>
+            <h3 id="texto-danger"></h3>
+            <br>
+            <button class="btn btn-light width100" data-dismiss="modal">Fechar</button>
+          </div>
+          
         </div>
       </div>
     </div>
