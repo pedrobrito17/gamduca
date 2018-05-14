@@ -130,6 +130,7 @@ var consultPerguntaDir = false;
 var notaFase = [];
 var cronometroAtivo;
 var tempoCronometro = -1;
+var timeout;
 
 
 /* ##### MÉTODOS ##### */
@@ -196,8 +197,11 @@ function gerarObjFases() {
 }
 
 function inserirNoHtmlProximaQuestao() {
+  indexQuestaoAtual++;
+
   if (cronometroAtivo) {
     tempoCronometro = quiz.customizacao.tempo;
+    clearTimeout(timeout);
     cronometrarQuestao();
   }
 
@@ -205,7 +209,7 @@ function inserirNoHtmlProximaQuestao() {
     exibirModalDeFaseAtualConcluida();
     return;
   }
-  
+
   atualizarBarraDeProgresso();
   limparRespostas();
 
@@ -356,8 +360,6 @@ function inserirNoHtmlProximaQuestao() {
 
       break;
   }
-
-  indexQuestaoAtual++;
 }
 
 function limparRespostas() {
@@ -541,11 +543,11 @@ function exibirModalDe(erroOuAcerto) {
     document.getElementById("txtErroOuAcerto").innerHTML = quiz.customizacao.msgErro;
     document.getElementById("modal-ea-color").className = "modal-body text-center color-modal-danger";
   }
-  $('#modal-erro-acerto').modal('show');  
-  setTimeout('esconderModalDeErroOuAcerto()',1500);
+  $('#modal-erro-acerto').modal('show');
+  setTimeout('esconderModalDeErroOuAcerto()', 1500);
 }
 
-function esconderModalDeErroOuAcerto(){
+function esconderModalDeErroOuAcerto() {
   $('#modal-erro-acerto').modal('hide');
 }
 
@@ -576,7 +578,14 @@ function exibirModalDeFaseAtualConcluida() {
       quiz.customizacao.taxaAcerto + "% das questões.";
   }
   $('#modal-fim-fase').modal('show');
- }
+}
+
+function exibirModalDeFimDoTempo(){
+  document.getElementById("txtErroOuAcerto").innerHTML = quiz.customizacao.msgTempoAcabou;
+  document.getElementById("modal-ea-color").className = "modal-body text-center color-modal-danger";
+  document.getElementById("btn-proxima").className = "invisible";
+  $('#modal-erro-acerto').modal('show');
+}
 
 function atualizarBarraDeProgresso() {
   porcentagemTotal += Math.round((1 / qtdQuestoesDaFaseAtual) * 100);
@@ -594,16 +603,17 @@ function avancarDeFase() {
 function cronometrarQuestao() {
   if ((tempoCronometro - 1) >= 0) {
     $('#contador').html(tempoCronometro);
-    setTimeout('cronometrarQuestao()', 1000);
+
+    timeout = setTimeout('cronometrarQuestao()', 1000);
     tempoCronometro--;
   } else {
-    window.alert("O tempo acabou");
+    exibirModalDeFimDoTempo();
   }
 }
 
 function iniciarQuiz() {
   indexFaseAtual++;
-  indexQuestaoAtual = 0;
+  indexQuestaoAtual = -1;
   porcentagemTotal = 0;
   notaFase[indexFaseAtual] = 0;
   qtdFasesDoQuiz = quiz.fases.length;
@@ -622,3 +632,5 @@ function iniciarQuiz() {
   qtdQuestoesDaFaseAtual = fases[indexFaseAtual].getQuestoes().length;
   inserirNoHtmlProximaQuestao();
 }
+
+

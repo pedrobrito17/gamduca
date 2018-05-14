@@ -8,15 +8,14 @@ import java.io.Serializable;
  */
 public class Customizacao implements Serializable{
     
-    private String msgAcerto, msgErro, msgAcertoParcial, msgTempoAcabou;
+    private String msgAcerto, msgErro, msgTempoAcabou;
     private int tempo, taxaAcerto;
     private boolean ativarTempo;
 
     public Customizacao() {
         this.msgAcerto = "Parabéns! Você acertou";
         this.msgErro = "Infelizmente você errou";
-        this.msgAcertoParcial = "Desculpe! Você não acertou todas as alternativas";
-        this.msgTempoAcabou = "Seu tempo acabou";
+        this.msgTempoAcabou = "Quiz encerrado. Seu tempo acabou.";
         this.tempo = 0;
         this.taxaAcerto = 70;
         this.ativarTempo = false;
@@ -44,14 +43,6 @@ public class Customizacao implements Serializable{
 
     public void setMsgErro(String msgErro) {
         this.msgErro = msgErro;
-    }
-
-    public String getMsgAcertoParcial() {
-        return msgAcertoParcial;
-    }
-
-    public void setMsgAcertoParcial(String msgAcertoParcial) {
-        this.msgAcertoParcial = msgAcertoParcial;
     }
 
     public String getMsgTempoAcabou() {

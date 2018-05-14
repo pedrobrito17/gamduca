@@ -126,7 +126,6 @@ public class QuizController {
         
         customizadorDoFrame.setAtivarTempo(customizadorDoAquivo.isAtivarTempo());
         customizadorDoFrame.setMsgAcerto(customizadorDoAquivo.getMsgAcerto());
-        customizadorDoFrame.setMsgAcertoParcial(customizadorDoAquivo.getMsgAcertoParcial());
         customizadorDoFrame.setMsgErro(customizadorDoAquivo.getMsgErro());
         customizadorDoFrame.setMsgTempoAcabou(customizadorDoAquivo.getMsgTempoAcabou());
         customizadorDoFrame.setTaxaAcerto(customizadorDoAquivo.getTaxaAcerto());

@@ -26,8 +26,8 @@ public class CustomizarQuiz extends JDialog{
     
     private JTabbedPane tabbed;
     private JPanel jpMensagem, jpTempo, jpAvaliacao, jpButtons;
-    private JLabel msgErro, msgAcerto, msgAcertoParcial, msgTempo, msgSegundos, msgTaxa;
-    private JTextField txtErro, txtAcerto, txtAcertoParcial, txtTempo;
+    private JLabel msgErro, msgAcerto, msgTempo, msgSegundos, msgTaxa;
+    private JTextField txtErro, txtAcerto, txtTempo;
     private Botao btnSalvar, btnCancelar;
     private JCheckBox chkAdicionarTempo;
     private JComboBox<Integer> cbTempoSegundos;
@@ -64,13 +64,6 @@ public class CustomizarQuiz extends JDialog{
         txtErro.setPreferredSize(new Dimension(width, heigth));
         jpMensagem.add(msgErro);
         jpMensagem.add(txtErro);
-        
-        msgAcertoParcial = new JLabel("Mensagem de acerto parcial");
-        msgAcertoParcial.setFont(Fonte.retornarFontePadrao());
-        txtAcertoParcial = new JTextField(customizacao.getMsgAcertoParcial());
-        txtAcertoParcial.setPreferredSize(new Dimension(width, heigth));
-        jpMensagem.add(msgAcertoParcial);
-        jpMensagem.add(txtAcertoParcial);
     }
     
     private void configJpTempo(){
@@ -164,8 +157,8 @@ public class CustomizarQuiz extends JDialog{
         btnCancelar.configurarBotao();
         btnSalvar = new Botao("Salvar");
         btnSalvar.configurarBotao();
-        jpButtons.add(btnSalvar);
         jpButtons.add(btnCancelar);
+        jpButtons.add(btnSalvar);
         
         btnCancelar.addActionListener((ActionEvent e) -> {
             this.dispose();
@@ -173,7 +166,6 @@ public class CustomizarQuiz extends JDialog{
         
         btnSalvar.addActionListener((ActionEvent e) -> {
             customizacao.setMsgAcerto(txtAcerto.getText());
-            customizacao.setMsgAcertoParcial(txtAcertoParcial.getText());
             customizacao.setMsgErro(txtErro.getText());
             customizacao.setMsgTempoAcabou(txtTempo.getText());
             customizacao.setTempo((int)cbTempoSegundos.getSelectedItem());
