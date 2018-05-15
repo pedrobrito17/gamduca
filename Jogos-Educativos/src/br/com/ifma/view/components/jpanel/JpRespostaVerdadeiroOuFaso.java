@@ -217,7 +217,7 @@ public class JpRespostaVerdadeiroOuFaso extends JPanel {
     public String[] getRespC() {
         String[] respostaC = new String[2];
         respostaC[0] = respC.getText();
-        respostaC[1] = rbVerdadeiroA.isSelected() ? "true" : "false";
+        respostaC[1] = rbVerdadeiroC.isSelected() ? "true" : "false";
         return respostaC;
     }
 

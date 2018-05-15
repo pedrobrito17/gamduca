@@ -563,6 +563,7 @@ function exibirModalDeFaseAtualConcluida() {
     if (qtdFasesDoQuiz == (indexFaseAtual + 1)) {
       document.getElementById("btn-modal-fechar").className = "btn btn-light width100 visible";
       document.getElementById("btn-modal-avancar").className = "btn btn-light width100 invisible";
+      document.getElementById("btn-proxima").className = "invisible";
     } else {
       document.getElementById("btn-modal-fechar").className = "btn btn-light width100 invisible";
       document.getElementById("btn-modal-avancar").className = "btn btn-light width100 visible";
@@ -571,6 +572,7 @@ function exibirModalDeFaseAtualConcluida() {
     document.getElementById("color-modal").className = "modal-body color-modal-danger";
     document.getElementById("reprovado").className = "visible";
     document.getElementById("aprovado").className = "invisible";
+    document.getElementById("btn-proxima").className = "invisible";
     document.getElementById("f-danger").innerHTML = "FASE " + (indexFaseAtual + 1);
     document.getElementById("resultado-danger").innerHTML = "Resultado: " + notaFase[indexFaseAtual];
     document.getElementById("texto-danger").innerHTML = "Infelizmente você não foi aprovado nesta " +

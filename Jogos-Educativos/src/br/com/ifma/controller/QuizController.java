@@ -89,7 +89,11 @@ public class QuizController {
     }
     
     public void deletarArquivoExistente(){
-        File arquivo = new File(path);
+        File arquivo = null;
+        try{
+            arquivo = new File(path);
+        }catch(NullPointerException e){
+        }
         if(arquivo.exists()){
             arquivo.delete();
         }
@@ -103,7 +107,6 @@ public class QuizController {
             ObjectInputStream stream = new ObjectInputStream(abrirArquivo);
 
             Quiz abrirQuiz = (Quiz) stream.readObject();
-//            Customizacao customizacao = (Customizacao) stream.readObject();
             Customizacao abrirCustomizacao = abrirQuiz.getCustomizacao();
             stream.close();
 
