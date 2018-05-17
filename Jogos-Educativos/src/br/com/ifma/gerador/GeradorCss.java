@@ -25,7 +25,7 @@ public class GeradorCss {
     }
     
     public static void exportarArquivoCss(String name, String path) throws URISyntaxException, FileNotFoundException, IOException{
-        URL url = GeradorJs.class.getClassLoader().getResource("front-end/"+name);
+        URL url = GeradorJs.class.getClassLoader().getResource("frontend/"+name);
         File file = new File(url.toURI());
         FileInputStream source = new FileInputStream(file);
 
@@ -42,7 +42,7 @@ public class GeradorCss {
     }
     
     public static void exportarFonts(String nameFont, String path) throws URISyntaxException, FileNotFoundException, IOException{
-        URL urlfonts = GeradorJs.class.getClassLoader().getResource("front-end/"+nameFont);
+        URL urlfonts = GeradorJs.class.getClassLoader().getResource("frontend/"+nameFont);
         File fileFonts = new File(urlfonts.toURI());
         FileInputStream sourceFonts = new FileInputStream(fileFonts);
 

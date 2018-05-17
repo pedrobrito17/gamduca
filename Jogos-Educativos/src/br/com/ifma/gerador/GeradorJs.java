@@ -47,7 +47,7 @@ public class GeradorJs {
     }
 
     private static void escreverJsNoArquivoJS(String path) throws URISyntaxException, FileNotFoundException, IOException {
-        URL url = GeradorJs.class.getClassLoader().getResource("front-end/quiz.js");
+        URL url = GeradorJs.class.getClassLoader().getResource("frontend/quiz.js");
         File fileSource = new File(url.toURI());
         FileInputStream source = new FileInputStream(fileSource);
 
@@ -87,7 +87,7 @@ public class GeradorJs {
     }
     
     private static void exportarJs(String nameJs, String path) throws URISyntaxException, FileNotFoundException, IOException{
-        URL urlfonts = GeradorJs.class.getClassLoader().getResource("front-end/"+nameJs);
+        URL urlfonts = GeradorJs.class.getClassLoader().getResource("frontend/"+nameJs);
         File fileFonts = new File(urlfonts.toURI());
         FileInputStream sourceFonts = new FileInputStream(fileFonts);
 

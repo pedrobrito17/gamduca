@@ -18,31 +18,36 @@ import javax.swing.JOptionPane;
  */
 public class JogoController {
 
-    String pathJogo;
-    private String pathCss, pathJs, pathMultimidia, pathVideo, pathAudio, 
+    String pathRoot;
+    protected String path, pathRecursos, pathCss, pathJs, pathMultimidia, pathVideo, pathAudio, 
             pathImagem, pathFonts;
 
-    public void obterCaminhoParaSalvarJogo(JFrame frame) {
+    public boolean obterCaminhoParaSalvarJogo(JFrame frame, String tituloDialog) {
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        fc.setDialogTitle("Exportar jogo");
+        fc.setDialogTitle("Exportar "+tituloDialog);
         fc.setApproveButtonText("Exportar");
 
         int retorno = fc.showOpenDialog(frame);
         if (retorno == JFileChooser.APPROVE_OPTION) {
-            pathJogo = fc.getSelectedFile().getPath() + "/Quiz";
-            pathCss = pathJogo + "/css";
+            path = fc.getSelectedFile().getPath();
+            pathRoot =  path + "/Quiz";
+            pathRecursos = pathRoot + "/recursos";
+            pathCss = pathRoot + "/recursos/css";
             pathFonts = pathCss + "/fonts";
-            pathJs = pathJogo + "/js";
-            pathMultimidia = pathJogo + "/multimidia";
+            pathJs = pathRoot + "/recursos/js";
+            pathMultimidia = pathRoot + "/recursos/multimidia";
             pathVideo = pathMultimidia + "/video";
             pathAudio = pathMultimidia + "/audio";
             pathImagem = pathMultimidia + "/imagem";
+            return true;
         }
+        return false;
     }
 
     public void criarTodosOsDiretorios() {
-        criarDiretorio(pathJogo);
+        criarDiretorio(pathRoot);
+        criarDiretorio(pathRecursos);
         criarDiretorio(pathCss);
         criarDiretorio(pathFonts);
         criarDiretorio(pathJs);
@@ -63,7 +68,7 @@ public class JogoController {
         }
     }
 
-    private void deletarDiretorioExistente(File arquivo) {
+    public void deletarDiretorioExistente(File arquivo) {
         if (arquivo.exists()) {
             File[] arquivosDoDiretorio = arquivo.listFiles();
             if (arquivosDoDiretorio != null) {
@@ -75,12 +80,12 @@ public class JogoController {
         }
     }
 
-    public void criarArquivosDoJogo(Quiz quiz) {
+    public void criarArquivos(Quiz quiz) {
         try {
             GeradorMultimidia.gerarArquivosMultimidiaDoQuiz(quiz, pathMultimidia);
             GeradorJs.gerarJavaScript(quiz, pathJs);
             GeradorCss.exportarCss(pathCss);
-            GeradorHtml.exportarHtml(pathJogo);
+            GeradorHtml.exportarHtml(pathRoot);
         } catch (URISyntaxException ex) {
             System.out.println(ex.toString());
             JOptionPane.showMessageDialog(null, "Houve um erro na geração do "

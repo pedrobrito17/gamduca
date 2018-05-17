@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This is a Reload version 2.5.6 SCORM 1.2 Content Package document-->
+<!--Spawned from the Reload Content Package Generator - http://www.reload.ac.uk-->
+<manifest xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2" xmlns:imsmd="http://www.imsglobal.org/xsd/imsmd_rootv1p2p1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2" identifier="MANIFEST-08C9FC67AFACE8977EBF917EA25836BC" xsi:schemaLocation="http://www.imsproject.org/xsd/imscp_rootv1p1p2 imscp_rootv1p1p2.xsd http://www.imsglobal.org/xsd/imsmd_rootv1p2p1 imsmd_rootv1p2p1.xsd http://www.adlnet.org/xsd/adlcp_rootv1p2 adlcp_rootv1p2.xsd">
+  <metadata>
+    <imsmd:lom>
+      <imsmd:general>
+        <imsmd:identifier>quiz</imsmd:identifier>
+        <imsmd:title>
+          <imsmd:langstring xml:lang="pt">Quiz</imsmd:langstring>
+        </imsmd:title>
+        <imsmd:language>pt</imsmd:language>
+        <imsmd:description>
+          <imsmd:langstring xml:lang="pt">Quiz elaborado pelo professor para aprofundar os conhecimentos adquiridos em sala de aula</imsmd:langstring>
+        </imsmd:description>
+        <imsmd:keyword>
+          <imsmd:langstring xml:lang="pt">quiz, jogo, aprendizagem, ensino, multimidia, distancia, ead</imsmd:langstring>
+        </imsmd:keyword>
+        <imsmd:structure>
+          <imsmd:source>
+            <imsmd:langstring xml:lang="pt">LOMv1.0</imsmd:langstring>
+          </imsmd:source>
+          <imsmd:value>
+            <imsmd:langstring xml:lang="pt" />
+          </imsmd:value>
+        </imsmd:structure>
+      </imsmd:general>
+      <imsmd:lifecycle>
+        <imsmd:contribute>
+          <imsmd:role>
+            <imsmd:source>
+              <imsmd:langstring xml:lang="pt">LOMv1.0</imsmd:langstring>
+            </imsmd:source>
+            <imsmd:value>
+              <imsmd:langstring xml:lang="pt" />
+            </imsmd:value>
+          </imsmd:role>
+        </imsmd:contribute>
+      </imsmd:lifecycle>
+      <imsmd:metametadata>
+        <imsmd:identifier>Quiz</imsmd:identifier>
+        <imsmd:contribute>
+          <imsmd:role>
+            <imsmd:source>
+              <imsmd:langstring xml:lang="pt">LOMv1.0</imsmd:langstring>
+            </imsmd:source>
+            <imsmd:value>
+              <imsmd:langstring xml:lang="pt">Creator</imsmd:langstring>
+            </imsmd:value>
+          </imsmd:role>
+        </imsmd:contribute>
+        <imsmd:language>pt</imsmd:language>
+      </imsmd:metametadata>
+      <imsmd:technical>
+        <imsmd:format>text/html</imsmd:format>
+        <imsmd:requirement>
+          <imsmd:type>
+            <imsmd:source>
+              <imsmd:langstring xml:lang="pt">LOMv1.0</imsmd:langstring>
+            </imsmd:source>
+            <imsmd:value>
+              <imsmd:langstring xml:lang="pt">Browser</imsmd:langstring>
+            </imsmd:value>
+          </imsmd:type>
+          <imsmd:name>
+            <imsmd:source>
+              <imsmd:langstring xml:lang="pt">LOMv1.0</imsmd:langstring>
+            </imsmd:source>
+            <imsmd:value>
+              <imsmd:langstring xml:lang="pt" />
+            </imsmd:value>
+          </imsmd:name>
+        </imsmd:requirement>
+      </imsmd:technical>
+      <imsmd:educational>
+        <imsmd:interactivitytype>
+          <imsmd:source>
+            <imsmd:langstring xml:lang="pt">LOMv1.0</imsmd:langstring>
+          </imsmd:source>
+          <imsmd:value>
+            <imsmd:langstring xml:lang="pt">Active</imsmd:langstring>
+          </imsmd:value>
+        </imsmd:interactivitytype>
+        <imsmd:learningresourcetype>
+          <imsmd:source>
+            <imsmd:langstring xml:lang="pt">LOMv1.0</imsmd:langstring>
+          </imsmd:source>
+          <imsmd:value>
+            <imsmd:langstring xml:lang="pt">Exercise</imsmd:langstring>
+          </imsmd:value>
+        </imsmd:learningresourcetype>
+        <imsmd:interactivitylevel>
+          <imsmd:source>
+            <imsmd:langstring xml:lang="pt">LOMv1.0</imsmd:langstring>
+          </imsmd:source>
+          <imsmd:value>
+            <imsmd:langstring xml:lang="pt">medium</imsmd:langstring>
+          </imsmd:value>
+        </imsmd:interactivitylevel>
+        <imsmd:semanticdensity>
+          <imsmd:source>
+            <imsmd:langstring xml:lang="pt">LOMv1.0</imsmd:langstring>
+          </imsmd:source>
+          <imsmd:value>
+            <imsmd:langstring xml:lang="pt">medium</imsmd:langstring>
+          </imsmd:value>
+        </imsmd:semanticdensity>
+        <imsmd:intendedenduserrole>
+          <imsmd:source>
+            <imsmd:langstring xml:lang="pt">LOMv1.0</imsmd:langstring>
+          </imsmd:source>
+          <imsmd:value>
+            <imsmd:langstring xml:lang="pt">Teacher</imsmd:langstring>
+          </imsmd:value>
+        </imsmd:intendedenduserrole>
+        <imsmd:context>
+          <imsmd:source>
+            <imsmd:langstring xml:lang="pt">LOMv1.0</imsmd:langstring>
+          </imsmd:source>
+          <imsmd:value>
+            <imsmd:langstring xml:lang="pt" />
+          </imsmd:value>
+        </imsmd:context>
+        <imsmd:typicalagerange>
+          <imsmd:langstring xml:lang="pt" />
+        </imsmd:typicalagerange>
+        <imsmd:difficulty>
+          <imsmd:source>
+            <imsmd:langstring xml:lang="pt">LOMv1.0</imsmd:langstring>
+          </imsmd:source>
+          <imsmd:value>
+            <imsmd:langstring xml:lang="pt">medium</imsmd:langstring>
+          </imsmd:value>
+        </imsmd:difficulty>
+        <imsmd:description>
+          <imsmd:langstring xml:lang="pt">Quiz elaborado pelo professor para aprofundar os conhecimentos adquiridos em sala de aula</imsmd:langstring>
+        </imsmd:description>
+        <imsmd:language>pt</imsmd:language>
+      </imsmd:educational>
+    </imsmd:lom>
+  </metadata>
+  <organizations default="ORG-46BEA306CFAA3B2BA5562EDD3600E38D">
+    <organization identifier="ORG-46BEA306CFAA3B2BA5562EDD3600E38D" structure="hierarchical">
+      <title>Main</title>
+      <item identifier="ITEM-DCBD3580021BB96D791CAFCA5550CC34" identifierref="RES-A08A826499AD46FA229372470EEC7369" isvisible="true">
+        <title>index</title>
+      </item>
+    </organization>
+  </organizations>
+  <resources>
+    <resource identifier="RES-A08A826499AD46FA229372470EEC7369" type="webcontent" href="index.html">
+      <file href="index.html" />
+      <file href="recursos/css/bootstrap.min.css" />
+      <file href="recursos/js/bootstrap.min.js" />
+      <file href="recursos/js/quiz.js" />
+      <file href="recursos/js/jquery.min.js" />
+      <file href="recursos/css/fonts/FiraSans.ttf" />
+      <file href="recursos/css/fonts/montserrat.ttf" />
+      <file href="recursos/css/fonts/FiraSans-Bold.ttf" />
+      <file href="recursos/css/quiz.css" />
+    </resource>
+  </resources>
+</manifest>
+

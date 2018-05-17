@@ -2,6 +2,7 @@ package br.com.ifma.view;
 
 import br.com.ifma.controller.JogoController;
 import br.com.ifma.controller.QuizController;
+import br.com.ifma.controller.ScormController;
 import br.com.ifma.model.Customizacao;
 import br.com.ifma.model.Quiz;
 import br.com.ifma.view.components.dialog.DialogMoverQuestao;
@@ -328,13 +329,30 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface,
         Quiz quiz = quizController.getQuiz();
         
         JogoController jogoController = new JogoController();
-        jogoController.obterCaminhoParaSalvarJogo(this);
-        jogoController.criarTodosOsDiretorios();
-        jogoController.criarArquivosDoJogo(quiz);
+        boolean verificador = jogoController.obterCaminhoParaSalvarJogo(this, "jogo");
+        if(verificador){
+            jogoController.criarTodosOsDiretorios();
+            jogoController.criarArquivos(quiz);
+        }
     }
 
     @Override
     public void exportarScorm() {
+        ArrayList<JpFase> jpFases = obterArrayListDeJpFasesCriados();
+        
+        QuizController quizController = new QuizController();
+        quizController.setTituloDoQuiz(textTitulo.getText());
+        quizController.criarFasesDoQuiz(jpFases);
+        quizController.inserirCustomizacaoNoObjetoQuiz(customizacao);
+        Quiz quiz = quizController.getQuiz();
+        
+        ScormController scormController = new ScormController();
+        boolean verificador = scormController.obterCaminhoParaSalvarJogo(this, "scorm");
+        if(verificador){
+            scormController.criarTodosOsDiretorios();
+            scormController.criarArquivos(quiz);
+            scormController.criarPacote();
+        }
     }
 
 }

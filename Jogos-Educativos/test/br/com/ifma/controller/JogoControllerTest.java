@@ -52,7 +52,7 @@ public class JogoControllerTest {
     
     @AfterClass
     public static void finalyClass() {
-        deletarDiretorioExistente(new File(jogoController.pathJogo));
+        deletarDiretorioExistente(new File(jogoController.pathRoot));
     }
     
     public static void deletarDiretorioExistente(File arquivo) {
@@ -78,16 +78,16 @@ public class JogoControllerTest {
     public void testBCriarTodosOsDiretorios() {
         jogoController.criarTodosOsDiretorios();
         
-        String path = jogoController.pathJogo;
+        String path = jogoController.pathRoot;
         Assert.assertTrue(new File(path).exists());
     }
 
     @Test
     public void testCriarArquivosDoJogo() {
         
-        String path = jogoController.pathJogo;
+        String path = jogoController.pathRoot;
         String newPathImagem = path+"/multimidia/imagem/Questão 1";
-        jogoController.criarArquivosDoJogo(quiz);
+        jogoController.criarArquivos(quiz);
         
         Assert.assertTrue(new File(newPathImagem).exists());
     }

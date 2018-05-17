@@ -35,15 +35,15 @@ public class GeradorMultimidia {
                     switch (questao.getPergunta().getTipoMultimidia()) {
                         case "imagem":
                             destination = path + "/imagem/"+key;
-                            urlArquivo = "multimidia/imagem/"+key;
+                            urlArquivo = "recursos/multimidia/imagem/"+key;
                             break;
                         case "audio":
                             destination = path + "/audio/"+key;
-                            urlArquivo = "multimidia/audio/"+key;
+                            urlArquivo = "recursos/multimidia/audio/"+key;
                             break;
                         case "video":
                             destination = path + "/video/"+key;
-                            urlArquivo = "multimidia/video/"+key;
+                            urlArquivo = "recursos/multimidia/video/"+key;
                             break;
                     }
 

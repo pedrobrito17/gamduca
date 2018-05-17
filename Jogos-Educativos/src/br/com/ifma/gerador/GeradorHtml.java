@@ -16,7 +16,7 @@ import java.nio.channels.FileChannel;
 public class GeradorHtml {
     
     public static void exportarHtml(String path) throws URISyntaxException, FileNotFoundException, IOException{
-        URL url = GeradorJs.class.getClassLoader().getResource("front-end/index.html");
+        URL url = GeradorJs.class.getClassLoader().getResource("frontend/index.html");
         File file = new File(url.toURI());
         FileInputStream source = new FileInputStream(file);
 
