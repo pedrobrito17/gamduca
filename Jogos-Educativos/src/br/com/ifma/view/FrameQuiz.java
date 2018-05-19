@@ -351,6 +351,7 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface,
         if(verificador){
             scormController.criarTodosOsDiretorios();
             scormController.criarArquivos(quiz);
+            scormController.criarArquivosScorm(quiz);
             scormController.criarPacote();
         }
     }

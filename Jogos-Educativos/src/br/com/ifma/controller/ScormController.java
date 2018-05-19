@@ -1,5 +1,7 @@
 package br.com.ifma.controller;
 
+import br.com.ifma.gerador.GeradorScorm;
+import br.com.ifma.model.Quiz;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -7,8 +9,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,9 +21,44 @@ import javax.swing.JOptionPane;
  * @author Pedro Brito
  */
 public class ScormController extends JogoController {
+    
+    /* Nome da pasta a ser criada foi alterada pois ela será apagada para
+     * criação do arquivo .zip
+     * Caso contrário poderia ter uma pasta quiz, criada pelo exportar jogo
+     * e ela seria apagada após a criação do arquivo .zip
+    */
+    @Override
+    public boolean obterCaminhoParaSalvarJogo(JFrame frame, String tituloDialog) {
+        JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fc.setDialogTitle("Exportar "+tituloDialog);
+        fc.setApproveButtonText("Exportar");
 
-    public void gerarArquivosScorm() {
+        int retorno = fc.showOpenDialog(frame);
+        if (retorno == JFileChooser.APPROVE_OPTION) {
+            path = fc.getSelectedFile().getPath();
+            pathRoot =  path + "/QuizZip";
+            pathRecursos = pathRoot + "/recursos";
+            pathCss = pathRoot + "/recursos/css";
+            pathFonts = pathCss + "/fonts";
+            pathJs = pathRoot + "/recursos/js";
+            pathMultimidia = pathRoot + "/recursos/multimidia";
+            pathVideo = pathMultimidia + "/video";
+            pathAudio = pathMultimidia + "/audio";
+            pathImagem = pathMultimidia + "/imagem";
+            return true;
+        }
+        return false;
+    }
 
+    public void criarArquivosScorm(Quiz quiz) {
+        try {
+            GeradorScorm.exportarArquivosScorm(pathRoot, quiz);
+        } catch (URISyntaxException | IOException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Houve erro na criação do "
+                    + "pacote scorm.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }
     
     public void criarPacote() {
@@ -39,7 +79,6 @@ public class ScormController extends JogoController {
         static final int TAMANHO_BUFFER = 4096; // 4kb
         private int tamStringPathRaiz;
 
-        //método para compactar arquivo
         public void compactarParaZip(String pathArqZip, String pathDiretorioQuiz)
                 throws IOException {
 
@@ -57,7 +96,8 @@ public class ScormController extends JogoController {
 
         }
 
-        public void adicionarArquivo(ZipOutputStream zout, File diretorioComArquivos) throws FileNotFoundException, IOException {
+        public void adicionarArquivo(ZipOutputStream zout, File diretorioComArquivos) 
+                throws FileNotFoundException, IOException {
 
             File arquivos[] = diretorioComArquivos.listFiles();
 
@@ -67,7 +107,8 @@ public class ScormController extends JogoController {
                     adicionarArquivo(zout, arquivo);
                 } else {
                     
-                    String pathArquivoZip = arquivo.getAbsolutePath().substring(tamStringPathRaiz + 1);
+                    String pathArquivoZip = arquivo.getAbsolutePath().
+                            substring(tamStringPathRaiz + 1);
 
                     FileInputStream streamDeEntrada = new FileInputStream(arquivo);
                     BufferedInputStream origem = new BufferedInputStream(streamDeEntrada, TAMANHO_BUFFER);

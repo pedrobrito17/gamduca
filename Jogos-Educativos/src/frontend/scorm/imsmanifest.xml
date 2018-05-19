@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--This is a Reload version 2.5.6 SCORM 1.2 Content Package document-->
-<!--Spawned from the Reload Content Package Generator - http://www.reload.ac.uk-->
-<manifest xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2" xmlns:imsmd="http://www.imsglobal.org/xsd/imsmd_rootv1p2p1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2" identifier="MANIFEST-08C9FC67AFACE8977EBF917EA25836BC" xsi:schemaLocation="http://www.imsproject.org/xsd/imscp_rootv1p1p2 imscp_rootv1p1p2.xsd http://www.imsglobal.org/xsd/imsmd_rootv1p2p1 imsmd_rootv1p2p1.xsd http://www.adlnet.org/xsd/adlcp_rootv1p2 adlcp_rootv1p2.xsd">
+<!--SCORM 1.2 Content Package document-->
+<manifest xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2" xmlns:imsmd="http://www.imsglobal.org/xsd/imsmd_rootv1p2p1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2" identifier="?MANIFEST" xsi:schemaLocation="http://www.imsproject.org/xsd/imscp_rootv1p1p2 imscp_rootv1p1p2.xsd http://www.imsglobal.org/xsd/imsmd_rootv1p2p1 imsmd_rootv1p2p1.xsd http://www.adlnet.org/xsd/adlcp_rootv1p2 adlcp_rootv1p2.xsd">
   <metadata>
     <imsmd:lom>
       <imsmd:general>
@@ -139,16 +138,16 @@
       </imsmd:educational>
     </imsmd:lom>
   </metadata>
-  <organizations default="ORG-46BEA306CFAA3B2BA5562EDD3600E38D">
-    <organization identifier="ORG-46BEA306CFAA3B2BA5562EDD3600E38D" structure="hierarchical">
-      <title>Main</title>
-      <item identifier="ITEM-DCBD3580021BB96D791CAFCA5550CC34" identifierref="RES-A08A826499AD46FA229372470EEC7369" isvisible="true">
-        <title>index</title>
+  <organizations default="?ORG">
+    <organization identifier="?ORG" structure="hierarchical">
+      <title>Quiz</title>
+      <item identifier="?ITEM" identifierref="?RES" isvisible="true">
+        <title>?titulo</title>
       </item>
     </organization>
   </organizations>
   <resources>
-    <resource identifier="RES-A08A826499AD46FA229372470EEC7369" type="webcontent" href="index.html">
+    <resource identifier="?RES" type="webcontent" href="index.html" adlcp:scormtype="sco">
       <file href="index.html" />
       <file href="recursos/css/bootstrap.min.css" />
       <file href="recursos/js/bootstrap.min.js" />
@@ -158,6 +157,8 @@
       <file href="recursos/css/fonts/montserrat.ttf" />
       <file href="recursos/css/fonts/FiraSans-Bold.ttf" />
       <file href="recursos/css/quiz.css" />
+      ?arquivos
+
     </resource>
   </resources>
 </manifest>
