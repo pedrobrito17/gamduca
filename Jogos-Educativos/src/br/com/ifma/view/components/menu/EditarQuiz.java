@@ -3,11 +3,9 @@ package br.com.ifma.view.components.menu;
 import br.com.ifma.view.components.utils.Fonte;
 import com.sun.glass.events.KeyEvent;
 import java.awt.Component;
-import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 /**
@@ -75,19 +73,19 @@ public class EditarQuiz extends JMenu {
         public void actionPerformed(java.awt.event.ActionEvent e) {
             JMenuItem item = (JMenuItem) e.getSource();
             switch (item.getActionCommand()) {
-                case "Recortar":
-                    JOptionPane.showMessageDialog(parent, item.getActionCommand() + " foi selecionado.");
+                case "Recortar": 
                     break;
                 case "Copiar":
-                    JOptionPane.showMessageDialog(parent, item.getActionCommand() + " foi selecionado.");
+                    
                     break;
                 case "Colar":
+                    
                     break;
                 case "Deletar":
-                    JOptionPane.showMessageDialog(parent, item.getActionCommand() + " foi selecionado.");
+                    
                     break;
                 case "Selecionar tudo":
-                    Toolkit.getDefaultToolkit().getSystemSelection();
+                    
                     break;
                 default:
                     break;

@@ -5,17 +5,16 @@ import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.channels.FileChannel;
+import org.apache.commons.io.FileUtils;
 
 /**
  *
@@ -32,6 +31,7 @@ public class GeradorJs {
         
         exportarJs("jquery.min.js", path);
         exportarJs("bootstrap.min.js", path);
+        exportarJs("jspdf.min.js", path);
     }
 
     private static void escreverJsonNoArquivoJS(String json, String path) throws URISyntaxException, IOException {
@@ -47,12 +47,10 @@ public class GeradorJs {
     }
 
     private static void escreverJsNoArquivoJS(String path) throws URISyntaxException, FileNotFoundException, IOException {
-        URL url = GeradorJs.class.getClassLoader().getResource("frontend/quiz.js");
-        File fileSource = new File(url.toURI());
-        FileInputStream source = new FileInputStream(fileSource);
+        InputStream quizJs = GeradorJs.class.getClassLoader().getResourceAsStream("frontend/quiz.js");
 
         String linhaAuxiliar = "";
-        Reader reader = new InputStreamReader(source, "UTF-8");
+        Reader reader = new InputStreamReader(quizJs, "UTF-8");
         BufferedReader bf = new BufferedReader(reader);
         String linha = null;
         while ((linha = bf.readLine()) != null) {
@@ -88,19 +86,8 @@ public class GeradorJs {
     
     private static void exportarJs(String nameJs, String path) throws URISyntaxException, FileNotFoundException, IOException{
         URL urlfonts = GeradorJs.class.getClassLoader().getResource("frontend/"+nameJs);
-        File fileFonts = new File(urlfonts.toURI());
-        FileInputStream sourceFonts = new FileInputStream(fileFonts);
-
-        FileChannel sourceFontsChannel = sourceFonts.getChannel();
-        FileChannel destinationFontsChannel = new FileOutputStream(path + "/"+nameJs).getChannel();
-        sourceFontsChannel.transferTo(0, sourceFontsChannel.size(), destinationFontsChannel);
-
-        if (sourceFontsChannel.isOpen()) {
-            sourceFontsChannel.close();
-        }
-        if (destinationFontsChannel != null && destinationFontsChannel.isOpen()) {
-            destinationFontsChannel.close();
-        }
+        File destination = new File(path + "/"+nameJs);
+        FileUtils.copyURLToFile(urlfonts, destination);
     }
 
 }

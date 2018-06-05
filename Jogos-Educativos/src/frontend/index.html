@@ -10,7 +10,7 @@
   <link rel="stylesheet" type="text/css" href="recursos/css/quiz.css" />
 </head>
 
-<body onload="iniciarQuiz()">
+<body onload="contagemDasTentativasDeResolucaoDoQuiz()">
 
   <header>
     <h2 id="tituloQuiz" class="titulo"></h2>
@@ -145,6 +145,30 @@
       <button id="btn-proxima" class="float-right btn btn-success" onclick="inserirNoHtmlProximaQuestao()" role="button">Próxima >></button>
     </div><br>
   </div>
+
+<!-- MODAL INSTRUÇÕES -->
+  <div class="modal" id="modal-instrucoes" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle"><b>Instruções</b></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <p class="text-justify" id="texto-instrucoes"></p>
+            <div id="tempoQuestao"></div>
+            <div id="detalhamento1"></div>
+            <div id="detalhamento2"></div>
+            <div id="detalhamento3"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" onclick="inserirNoHtmlProximaQuestao()" class="btn btn-primary width100" data-dismiss="modal">Começar</button>
+          </div>
+      </div>
+    </div>
+  </div>
   
 <!-- MODAL DE ERRO E ACERTO -->
   <div class="modal" id="modal-erro-acerto" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -156,6 +180,18 @@
       </div>
     </div>
   </div>
+
+<!-- GAME OVER -->
+  <div class="modal" id="game-over" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content color-modal-danger">
+          <div id="modal-ea-color" class="modal-body text-center">
+            <h3>Fim do jogo</h3>
+            <p>Você teve duas tentativas e não alcançou a aprovação no Quiz.</p>
+          </div>
+        </div>
+      </div>
+    </div>
   
   <!-- MODAL DE FIM DE FASE -->
   <div class="modal" id="modal-fim-fase" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -165,23 +201,43 @@
           
           <div id="aprovado" class="visible">
             <div class="text-center">
-              <h4 id="f-success"></h4>
+              <h2 id="f-success"></h2>
             </div>
             <hr>
-            <h3 id="resultado-success"></h3>
-            <h3>Parabéns! Você foi aprovado nesta fase do Quiz.</h3>
+            <div id="resultado-final">
+              <div id="fase1"></div>
+              <div id="fase2"></div>
+              <div id="fase3"></div>
+              
+              <div id="exportar">
+                <hr>
+                <label id="labelnome">Digite seu nome completo</label>
+                <input id="nome" for="labelnome" class="form-control" type="text" role="row" required>
+                <br>
+                <button id="btn-modal-exportar" class="btn btn-primary width100 visible" onclick="exportarResultadoFinal()"
+                  >Exportar resultado final</button>
+              </div>
+
+            </div>
+            <div id="div-aprovado">
+              <h4>Parabéns! Você foi aprovado nesta fase do Quiz.</h4>
+              <h4 id="resultado-success"></h4>
+              <h4 id="taxa-acerto"></h4>
+              <h4 id="taxa-erro"></h4>
+            </div>
             <br>
             <button id="btn-modal-avancar" class="btn btn-light width100 invisible" data-dismiss="modal" onclick="avancarDeFase()">Próxima fase</button>
-            <button id="btn-modal-fechar" class="btn btn-light width100 visible" data-dismiss="modal">Fechar</button>
           </div>
           
           <div id="reprovado" class="invisible">
             <div class="text-center">
-              <h4 id="f-danger"></h4>
+              <h2 id="f-danger"></h2>
             </div>
             <hr>
-            <h3 id="resultado-danger"></h3>
-            <h3 id="texto-danger"></h3>
+            <h5 id="texto-danger"></h5>
+            <h4 id="resultado-danger"></h4>
+            <h4 id="err-taxa-acerto"></h4>
+            <h4 id="err-taxa-erro"></h4>
             <br>
             <button class="btn btn-light width100" data-dismiss="modal">Fechar</button>
           </div>
@@ -193,6 +249,7 @@
 
   <script type="text/javascript" src="recursos/js/jquery.min.js"></script>
   <script type="text/javascript" src="recursos/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="recursos/js/jspdf.min.js"></script>
   <script type="text/javascript" src="recursos/js/quiz.js"></script>
 </body>
 </html>

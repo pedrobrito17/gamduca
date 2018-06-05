@@ -5,6 +5,7 @@ import br.com.ifma.view.components.utils.Fonte;
 import com.sun.glass.events.KeyEvent;
 import java.awt.Component;
 import java.awt.event.ActionListener;
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
@@ -19,6 +20,7 @@ public class ArquivoQuiz extends JMenu {
     private JMenuItem novoQuiz, abrirQuiz, salvarQuiz, 
             sair, exportarPacote, exportarJogo;
     private ArquivoQuizInterface arquivoInterface;
+    private JFrame frameQuiz;
 
     public ArquivoQuiz(Component parent) {
         if (parent instanceof ArquivoQuizInterface) {
@@ -27,6 +29,7 @@ public class ArquivoQuiz extends JMenu {
             throw new RuntimeException(parent.toString()
                     + " deve implementar ArquivoQuizInterface");
         }
+        this.frameQuiz = (JFrame) parent;
         configurarMenu();
     }
 
@@ -91,6 +94,7 @@ public class ArquivoQuiz extends JMenu {
                     arquivoInterface.exportarJogo();
                     break;
                 case "Sair":
+                    frameQuiz.dispose();
                     break;
                 default:
                     break;

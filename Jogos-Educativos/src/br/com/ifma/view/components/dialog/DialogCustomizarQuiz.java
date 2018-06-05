@@ -22,7 +22,7 @@ import javax.swing.border.EmptyBorder;
  *
  * @author Pedro Brito
  */
-public class CustomizarQuiz extends JDialog{
+public class DialogCustomizarQuiz extends JDialog{
     
     private JTabbedPane tabbed;
     private JPanel jpMensagem, jpTempo, jpAvaliacao, jpButtons;
@@ -38,7 +38,7 @@ public class CustomizarQuiz extends JDialog{
     
     private final Customizacao customizacao;
 
-    public CustomizarQuiz(Customizacao customizacao) throws HeadlessException {
+    public DialogCustomizarQuiz(Customizacao customizacao) throws HeadlessException {
         this.customizacao = customizacao;
         configJpMensagem();
         configJpTempo();

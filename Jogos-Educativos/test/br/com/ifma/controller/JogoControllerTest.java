@@ -71,7 +71,7 @@ public class JogoControllerTest {
     public void testAObterCaminhoParaSalvarJogo() {
         JFrame frame = new JFrame();
         
-        jogoController.obterCaminhoParaSalvarJogo(frame);
+        jogoController.obterCaminhoParaSalvarJogo(frame, "jogo");
     }
 
     @Test
@@ -86,7 +86,7 @@ public class JogoControllerTest {
     public void testCriarArquivosDoJogo() {
         
         String path = jogoController.pathRoot;
-        String newPathImagem = path+"/multimidia/imagem/Questão 1";
+        String newPathImagem = path+"/recursos/multimidia/imagem/Questão 1";
         jogoController.criarArquivos(quiz);
         
         Assert.assertTrue(new File(newPathImagem).exists());

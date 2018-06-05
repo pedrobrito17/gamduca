@@ -69,7 +69,7 @@ public class OpcoesQuiz extends JMenu{
                 case "Deletar fase":
                     tabbedInterface.deletarFase();
                     break;
-                case "Personalizar quiz":
+                case "Customizar quiz":
                     tabbedInterface.personalizarQuiz();
                     break;
                 default:

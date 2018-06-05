@@ -1,5 +1,4 @@
 
-
 /* ##### CLASSES ##### */
 
 //Classe
@@ -131,6 +130,7 @@ var notaFase = [];
 var cronometroAtivo;
 var tempoCronometro = -1;
 var timeout;
+var tAcerto = [];
 
 
 /* ##### MÉTODOS ##### */
@@ -199,12 +199,6 @@ function gerarObjFases() {
 function inserirNoHtmlProximaQuestao() {
   indexQuestaoAtual++;
 
-  if (cronometroAtivo) {
-    tempoCronometro = quiz.customizacao.tempo;
-    clearTimeout(timeout);
-    cronometrarQuestao();
-  }
-
   if (indexQuestaoAtual == qtdQuestoesDaFaseAtual) {
     exibirModalDeFaseAtualConcluida();
     return;
@@ -216,6 +210,21 @@ function inserirNoHtmlProximaQuestao() {
   var questao = fases[indexFaseAtual].getQuestoes()[indexQuestaoAtual];
   document.getElementById("tituloQuestao").innerHTML = questao.getTituloQuestao();
   document.getElementById("txtpergunta").innerHTML = questao.getPergunta().txtPergunta;
+
+  //ATIVA O CRONOMETRO
+  if (cronometroAtivo && questao.getPergunta().tipoMultimidia == null) {
+    document.getElementById("col-progress").className = "col-md-10";
+    document.getElementById("cronometro").parentElement.className = "col-md-2 addmargin";
+    document.getElementById("cronometro").className = "text-center alert alert-warning tempo";
+    tempoCronometro = quiz.customizacao.tempo;
+    clearTimeout(timeout);
+    cronometrarQuestao();
+  }
+  else if(cronometroAtivo && questao.getPergunta().tipoMultimidia != null){
+    document.getElementById("cronometro").parentElement.className = "invisible";
+    document.getElementById("col-progress").className = "col-md-12";
+    clearTimeout(timeout);
+  }
 
   if (questao.getPergunta().tipoMultimidia != null) {
     var multimidia = document.getElementById("multimidia");
@@ -554,39 +563,168 @@ function esconderModalDeErroOuAcerto() {
 function exibirModalDeFaseAtualConcluida() {
   var notaMinima = qtdQuestoesDaFaseAtual * (quiz.customizacao.taxaAcerto / 100);
 
+  //Aprovado
   if (notaFase[indexFaseAtual] >= Math.round(notaMinima)) {
-    document.getElementById("color-modal").className = "modal-body color-modal-success";
-    document.getElementById("reprovado").className = "invisible";
-    document.getElementById("aprovado").className = "visible";
-    document.getElementById("f-success").innerHTML = "FASE " + (indexFaseAtual + 1);
-    document.getElementById("resultado-success").innerHTML = "Resultado: " + notaFase[indexFaseAtual];
-    if (qtdFasesDoQuiz == (indexFaseAtual + 1)) {
-      document.getElementById("btn-modal-fechar").className = "btn btn-light width100 visible";
-      document.getElementById("btn-modal-avancar").className = "btn btn-light width100 invisible";
+
+    //Exibir Modal do Resultado final
+    if((indexFaseAtual+1) == qtdFasesDoQuiz){
+      document.getElementById("color-modal").className = "modal-body color-modal-success";
+      document.getElementById("reprovado").className = "invisible";
+      document.getElementById("aprovado").className = "visible";
+      document.getElementById("div-aprovado").className = "invisible";
+      document.getElementById("btn-modal-avancar").className = "invisible";
+      document.getElementById("btn-modal-exportar").className = "btn btn-primary width100 visible";
       document.getElementById("btn-proxima").className = "invisible";
-    } else {
-      document.getElementById("btn-modal-fechar").className = "btn btn-light width100 invisible";
-      document.getElementById("btn-modal-avancar").className = "btn btn-light width100 visible";
+      document.getElementById("f-success").innerHTML = "RESULTADO FINAL";
+      for(var i = 0 ; i < qtdFasesDoQuiz ; i++){
+        var qtdQuestoesDestaFase = fases[i].getQuestoes().length;
+        tAcerto[i] = Math.round((notaFase[i] / qtdQuestoesDestaFase)*100);
+        var tErro = Math.round(((qtdQuestoesDestaFase-notaFase[i]) / qtdQuestoesDestaFase)*100);
+        document.getElementById("fase"+(i+1)).innerHTML = 
+          "<h4 class='text-center'><b>Fase "+(i+1)+"</b></h4>"
+          +"<h4>Resultado: "+notaFase[i]+" pontos</h4>"
+          +"<h4>Taxa de acerto: "+tAcerto[i]+"%</h4>"
+          +"<h4>Taxa de erro: "+tErro+"%</h4><br>";
+      }
+      document.getElementById("exportar").className = "visible";
     }
-  } else {
+    //Exibir Modal de Aprovado na Fase
+    else{
+      document.getElementById("color-modal").className = "modal-body color-modal-success";
+      document.getElementById("reprovado").className = "invisible";
+      document.getElementById("aprovado").className = "visible";
+      document.getElementById("f-success").innerHTML = "FASE " + (indexFaseAtual + 1);
+      document.getElementById("resultado-success").innerHTML = "Resultado: " + notaFase[indexFaseAtual] +" pontos";
+      document.getElementById("exportar").className = "invisible";
+      document.getElementById("btn-modal-avancar").className = "btn btn-light width100 visible";
+
+      //exibir taxas
+      var taxaAcerto = Math.round((notaFase[indexFaseAtual] / qtdQuestoesDaFaseAtual)*100);
+      var taxaErro = Math.round(((qtdQuestoesDaFaseAtual-notaFase[indexFaseAtual]) / qtdQuestoesDaFaseAtual)*100);
+      document.getElementById("taxa-acerto").innerHTML = "<b>Taxa de acerto:</b> "+taxaAcerto+"%";
+      document.getElementById("taxa-erro").innerHTML = "<b>Taxa de erro:</b> "+taxaErro+"%";
+    }
+  } 
+  //Reprovado
+  else {
     document.getElementById("color-modal").className = "modal-body color-modal-danger";
     document.getElementById("reprovado").className = "visible";
     document.getElementById("aprovado").className = "invisible";
     document.getElementById("btn-proxima").className = "invisible";
     document.getElementById("f-danger").innerHTML = "FASE " + (indexFaseAtual + 1);
-    document.getElementById("resultado-danger").innerHTML = "Resultado: " + notaFase[indexFaseAtual];
+    document.getElementById("resultado-danger").innerHTML = "Resultado: " + notaFase[indexFaseAtual] +" pontos";
     document.getElementById("texto-danger").innerHTML = "Infelizmente você não foi aprovado nesta " +
       "fase do Quiz. Seu resultado foi inferior a taxa de " +
       quiz.customizacao.taxaAcerto + "% das questões.";
+
+    //exibir taxas
+    var taxaAcerto = Math.round((notaFase[indexFaseAtual] / qtdQuestoesDaFaseAtual)*100);
+    var taxaErro = Math.round(((qtdQuestoesDaFaseAtual-notaFase[indexFaseAtual]) / qtdQuestoesDaFaseAtual)*100);
+    document.getElementById("err-taxa-acerto").innerHTML = "<b>Taxa de acerto:</b> "+taxaAcerto+"%";
+    document.getElementById("err-taxa-erro").innerHTML = "<b>Taxa de erro:</b> "+taxaErro+"%";
   }
   $('#modal-fim-fase').modal('show');
 }
 
-function exibirModalDeFimDoTempo(){
+function exibirModalDeFimDoTempo() {
   document.getElementById("txtErroOuAcerto").innerHTML = quiz.customizacao.msgTempoAcabou;
   document.getElementById("modal-ea-color").className = "modal-body text-center color-modal-danger";
   document.getElementById("btn-proxima").className = "invisible";
   $('#modal-erro-acerto').modal('show');
+}
+
+function exibirModalIntrucoes(){
+  $('#texto-instrucoes').html("O Quiz sobre "+quiz.tituloQuiz+" possui questões de mútipla escolha, verdadeiro ou falso e pergunta direta. Cada questão valerá 1 ponto, as proposições das questões de verdadeiro ou falso valerão 0,25 pontos que somadas resultarão em 1 ponto. Para obter sua aprovação por fase será necessário alcançar "+quiz.customizacao.taxaAcerto+"% da pontuação total. Você terá duas chances para alcançar a aprovação no Quiz. Para auxiliar na resolução, algumas questões poderão exibir arquivos multimídias (imagem, áudio, vídeo ou link).");
+  
+  for(var i = 0 ; i < qtdFasesDoQuiz ; i++){
+    var qtdQuestoes = fases[i].getQuestoes().length;
+    var taxaF = quiz.customizacao.taxaAcerto;
+    var minimoAcerto = (qtdQuestoes * taxaF)/100;
+    $('#detalhamento'+(i+1)).html("<br><h4>Fase "+(i+1)+"</h4><span>Quantidade de questões: "+qtdQuestoes+"</span><br><span>Mínimo de acerto para aprovação: "+minimoAcerto+" pontos</span>");
+  }
+  
+  if(quiz.customizacao.ativarTempo){
+    $('#tempoQuestao').html("<p class='text-justify'>Você terá o tempo de "+quiz.customizacao.tempo+" segundos para responder cada questão que não possuir arquivo multimídia. Se o cronômetro chegar a zero você será reprovado na fase do Quiz.</p>");
+  }
+
+  $('#modal-instrucoes').modal('show');
+}
+
+function toDataURL(src, callback) {
+  var image = new Image();
+  image.crossOrigin = 'Anonymous';
+  
+  image.onload = function() {
+      var canvas = document.createElement('canvas');
+      var context = canvas.getContext('2d');
+      canvas.height = this.naturalHeight;
+      canvas.width = this.naturalWidth;
+      context.drawImage(this, 0, 0);
+      var dataURL = canvas.toDataURL('image/jpeg');
+      callback(dataURL);
+  };
+  image.src = src;
+}
+
+function getDataAtual(){
+  var dayName = new Array ("domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado") 
+  var monName = new Array ("janeiro", "fevereiro", "março", "abril", "Maio", "junho", "agosto", "outubro", "novembro", "dezembro")
+  var data = new Date();
+  return dayName[data.getDay()]+", "+data.getDate()+" de "+monName[data.getMonth()]+" de "+data.getFullYear()+".";
+}
+
+function getHoraAtual(){
+  var data = new Date();
+  return data.getHours()+":"+data.getMinutes()+":"+data.getSeconds();
+}
+
+function exportarResultadoFinal(){
+  var nome = document.getElementById("nome");
+  if(nome.value.length <= 10){
+    nome.style.borderColor = 'red';
+    document.getElementById('labelnome').style.color = 'red';
+
+    getHoraAtual();
+  }
+  else {
+    var texto;
+    switch(qtdFasesDoQuiz){
+      case 1:
+        texto = 'Certifica-se que '+nome.value.toUpperCase()+' foi aprovado no Quiz sobre '+quiz.tituloQuiz+' com rendimento de '+tAcerto[0]+'% na Fase 1.';
+        break;
+      case 2:
+        texto = 'Certifica-se que '+nome.value.toUpperCase()+' foi aprovado no Quiz sobre '+quiz.tituloQuiz+' com rendimento de '+tAcerto[0]+'% na Fase 1 e '+tAcerto[1]+'% na Fase 2.';
+        break;
+      case 3:
+        texto = 'Certifica-se que '+nome.value.toUpperCase()+' foi aprovado no Quiz sobre '+quiz.tituloQuiz+' com rendimento de '+tAcerto[0]+'% na Fase 1, '+tAcerto[1]+'% na Fase 2 e '+tAcerto[2]+'% na Fase 3.';
+        break;
+    }
+
+    toDataURL('recursos/multimidia/imagem/aprovado.jpg', function(dataURL) {
+      var doc = new jsPDF('l', 'mm', 'a5');
+
+      //linhas
+      doc.setLineWidth(4);
+      doc.setDrawColor(49, 128, 159);
+      doc.line(10, 10, 200, 10);
+      doc.line(10, 138, 200, 138);
+      //textos
+      doc.setFontSize(16);
+      doc.setFontStyle('normal');
+      var lMargin=20; //left margin in mm
+      var rMargin=20; //right margin in mm
+      var pdfInMM=210;  // width of A5 in mm
+      var lines = doc.splitTextToSize(texto, (pdfInMM-lMargin-rMargin));
+      doc.text(20,80,lines);
+      doc.setFontSize(12);
+      doc.text(20,110, getDataAtual());
+      doc.text(20, 116, getHoraAtual());
+      //imagem
+      doc.addImage (dataURL, 'JPEG', 75, 20, 56, 42); 
+      doc.save("Quiz-Resultado-Final.pdf");
+    });
+    
+  }
 }
 
 function atualizarBarraDeProgresso() {
@@ -620,19 +758,38 @@ function iniciarQuiz() {
   notaFase[indexFaseAtual] = 0;
   qtdFasesDoQuiz = quiz.fases.length;
   cronometroAtivo = quiz.customizacao.ativarTempo;
-  if (cronometroAtivo) {
-    document.getElementById("cronometro").className = "text-center alert alert-warning tempo";
-  } else {
-    document.getElementById("cronometro").parentElement.className = "invisible";
-    document.getElementById("col-progress").className = "col-md-12";
-  }
 
   if (indexFaseAtual == 0) {
     gerarObjFases();
     document.getElementById("tituloQuiz").innerHTML = quiz.tituloQuiz;
   }
   qtdQuestoesDaFaseAtual = fases[indexFaseAtual].getQuestoes().length;
-  inserirNoHtmlProximaQuestao();
+
+  if(indexFaseAtual == 0){
+    exibirModalIntrucoes();
+  }
+  else{
+    inserirNoHtmlProximaQuestao();
+  }
 }
 
+function contagemDasTentativasDeResolucaoDoQuiz(){
+  var cookies = document.cookie;
+  var begin = cookies.charAt(10);
+
+  if(cookies.length == 0){
+    console.log("tentativa 1");
+    document.cookie = "tentativa=1";
+    iniciarQuiz();
+  }
+  else if(begin == 1){
+    console.log("tentativa=2");
+    document.cookie = "tentativa=2";
+    iniciarQuiz();
+  }
+  else if(begin == 2){
+    console.log("game over");
+    $('#game-over').modal('show');
+  }
+}
 
