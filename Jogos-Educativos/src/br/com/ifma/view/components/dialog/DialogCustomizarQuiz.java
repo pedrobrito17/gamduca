@@ -26,7 +26,7 @@ public class DialogCustomizarQuiz extends JDialog{
     
     private JTabbedPane tabbed;
     private JPanel jpMensagem, jpTempo, jpAvaliacao, jpButtons;
-    private JLabel msgErro, msgAcerto, msgTempo, msgSegundos, msgTaxa;
+    private JLabel msgErro, msgAcerto, msgTempo, msgSegundos, msgTaxa, msgInstrucao;
     private JTextField txtErro, txtAcerto, txtTempo;
     private Botao btnSalvar, btnCancelar;
     private JCheckBox chkAdicionarTempo;
@@ -71,7 +71,12 @@ public class DialogCustomizarQuiz extends JDialog{
         jpTempo.setLayout(new FlowLayout(FlowLayout.LEFT));
         jpTempo.setBorder(new EmptyBorder(10, 10, 10, 10));
         
-        chkAdicionarTempo = new JCheckBox("Adicionar tempo ao quiz            "
+        msgInstrucao = new JLabel("O cronômetro será ativado em questões que "
+                + "não possuirem arquivo multimídia");
+        msgInstrucao.setFont(Fonte.retornarFontePadrao());
+        jpTempo.add(msgInstrucao);
+        
+        chkAdicionarTempo = new JCheckBox("Adicionar cronômetro ao quiz            "
                 + "                                                           "
                 + "         ");
         chkAdicionarTempo.addItemListener((ItemEvent e) -> {

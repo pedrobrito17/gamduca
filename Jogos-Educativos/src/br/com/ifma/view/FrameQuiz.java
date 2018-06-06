@@ -20,14 +20,11 @@ import br.com.ifma.view.components.utils.Fonte;
 import br.com.ifma.view.components.utils.GerenciadorQuizInterface;
 import br.com.ifma.view.components.utils.OpcoesQuizInterface;
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.FocusListener;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
@@ -40,7 +37,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.JTextComponent;
 
 /**
  *

@@ -152,6 +152,7 @@
       <file href="recursos/css/bootstrap.min.css" />
       <file href="recursos/js/bootstrap.min.js" />
       <file href="recursos/js/quiz.js" />
+      <file href="recursos/js/jspdf.min.js" />
       <file href="recursos/js/jquery.min.js" />
       <file href="recursos/css/fonts/FiraSans.ttf" />
       <file href="recursos/css/fonts/montserrat.ttf" />

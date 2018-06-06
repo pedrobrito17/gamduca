@@ -5,7 +5,6 @@ import br.com.ifma.model.Questao;
 import br.com.ifma.model.Quiz;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -17,11 +16,11 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import org.apache.commons.io.FileUtils;
 
 /**
  *
@@ -50,19 +49,8 @@ public class GeradorScorm {
 
     private static void exportarArquivo(String path, String nameArquivo) throws URISyntaxException, FileNotFoundException, IOException {
         URL url = GeradorJs.class.getClassLoader().getResource("frontend/scorm/" + nameArquivo);
-        File file = new File(url.toURI());
-        FileInputStream source = new FileInputStream(file);
-
-        FileChannel sourceChannel = source.getChannel();
-        FileChannel destinationChannel = new FileOutputStream(path + "/" + nameArquivo).getChannel();
-        sourceChannel.transferTo(0, sourceChannel.size(), destinationChannel);
-
-        if (sourceChannel.isOpen()) {
-            sourceChannel.close();
-        }
-        if (destinationChannel != null && destinationChannel.isOpen()) {
-            destinationChannel.close();
-        }
+        File file = new File(path + "/" + nameArquivo);
+        FileUtils.copyURLToFile(url, file);
     }
 
     private static String lerArquivo(InputStream file) throws UnsupportedEncodingException, IOException {
