@@ -774,10 +774,9 @@ function iniciarQuiz() {
 }
 
 function contagemDasTentativasDeResolucaoDoQuiz(){
-  var cookies = document.cookie;
-  var begin = cookies.charAt(10);
+  var begin = getCookie('tentativa');
 
-  if(cookies.length == 0){
+  if(begin == ''){
     console.log("tentativa 1");
     document.cookie = "tentativa=1";
     iniciarQuiz();
@@ -793,3 +792,18 @@ function contagemDasTentativasDeResolucaoDoQuiz(){
   }
 }
 
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+      }
+  }
+  return "";
+}
