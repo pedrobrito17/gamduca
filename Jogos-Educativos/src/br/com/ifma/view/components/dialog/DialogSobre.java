@@ -27,7 +27,7 @@ public final class DialogSobre extends JDialog {
     private JEditorPane textoIntrodutorio;
     private JScrollPane sp;
     private JPanel jpTextArea, jpJLabels, jpBotao;
-    private JLabel lbDev1, lbForca, lbDev2, lbPC, lbDev3, lbQuiz;
+    private JLabel lbDev1, lbForca, lbDev2, lbQuiz;
     private Botao botao;
 
     public DialogSobre() {
@@ -76,15 +76,9 @@ public final class DialogSobre extends JDialog {
         lbForca = new JLabel("Luiz Aristóteles Santos Silva");
         lbForca.setFont(Fonte.retornarFontePadrao());
         
-        lbDev2 = new JLabel("Desenvolvedor do Palavras Cruzadas:");
-        lbDev2.setBorder(new EmptyBorder(10, 0, 0, 0));
+        lbDev2 = new JLabel("Desenvolvedor do Quiz:");
         lbDev2.setFont(Fonte.retornarFontePadraoNegrito());
-        lbPC = new JLabel("Crysthian Fhylipe Ribeiro Marinho");
-        lbPC.setFont(Fonte.retornarFontePadrao());
-        
-        lbDev3 = new JLabel("Desenvolvedor do Quiz:");
-        lbDev3.setFont(Fonte.retornarFontePadraoNegrito());
-        lbDev3.setBorder(new EmptyBorder(10, 0, 0, 0));
+        lbDev2.setBorder(new EmptyBorder(10, 0, 0, 0));
         lbQuiz = new JLabel("Pedro Ítalo Aragão Brito");
         lbQuiz.setFont(Fonte.retornarFontePadrao());
         
@@ -93,8 +87,6 @@ public final class DialogSobre extends JDialog {
         jpJLabels.add(lbDev1);
         jpJLabels.add(lbForca);
         jpJLabels.add(lbDev2);
-        jpJLabels.add(lbPC);
-        jpJLabels.add(lbDev3);
         jpJLabels.add(lbQuiz);
     }
     
@@ -114,7 +106,7 @@ public final class DialogSobre extends JDialog {
     }
 
     private void inicializarDialog() {
-        this.setSize(320, 340);
+        this.setSize(320, 300);
         this.setLayout(new BorderLayout());
         this.setLocationRelativeTo(null);
         this.setResizable(false);
