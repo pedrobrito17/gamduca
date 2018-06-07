@@ -212,7 +212,11 @@ function inserirNoHtmlProximaQuestao() {
   document.getElementById("txtpergunta").innerHTML = questao.getPergunta().txtPergunta;
 
   //ATIVA O CRONOMETRO
-  if (cronometroAtivo && questao.getPergunta().tipoMultimidia == null) {
+  if(!cronometroAtivo){
+    document.getElementById("cronometro").parentElement.className = "invisible";
+    document.getElementById("col-progress").className = "col-md-12";
+  }
+  else if (cronometroAtivo && questao.getPergunta().tipoMultimidia == null) {
     document.getElementById("col-progress").className = "col-md-10";
     document.getElementById("cronometro").parentElement.className = "col-md-2 addmargin";
     document.getElementById("cronometro").className = "text-center alert alert-warning tempo";
