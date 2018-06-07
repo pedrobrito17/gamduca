@@ -51,14 +51,14 @@ public class DialogCustomizarQuiz extends JDialog{
     private void configJpMensagem(){
         jpMensagem = new JPanel(new FlowLayout(FlowLayout.LEFT));
         jpMensagem.setBorder(new EmptyBorder(10, 10, 10, 10));
-        msgAcerto = new JLabel("Messagem de acerto");
+        msgAcerto = new JLabel("Mensagem de acerto");
         msgAcerto.setFont(Fonte.retornarFontePadrao());
         txtAcerto = new JTextField(customizacao.getMsgAcerto());
         txtAcerto.setPreferredSize(new Dimension(width, heigth));
         jpMensagem.add(msgAcerto);
         jpMensagem.add(txtAcerto);
         
-        msgErro = new JLabel("Menssagem de erro");
+        msgErro = new JLabel("Mensagem de erro");
         msgErro.setFont(Fonte.retornarFontePadrao());
         txtErro = new JTextField(customizacao.getMsgErro());
         txtErro.setPreferredSize(new Dimension(width, heigth));
