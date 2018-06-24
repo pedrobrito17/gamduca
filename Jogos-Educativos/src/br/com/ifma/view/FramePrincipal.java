@@ -52,7 +52,7 @@ public class FramePrincipal extends JFrame{
         
         this.setJMenuBar(menuBar);
         this.add(jpanel);
-        
+
         this.setVisible(true);
     }  
 }

@@ -116,7 +116,7 @@ public class JpPergunta extends JPanel implements ItemListener{
                     panel1.limparResposta();
                     break;
                 case 2:
-                    JpRespostaVerdadeiroOuFaso panel2 = (JpRespostaVerdadeiroOuFaso) cardTipoResposta.getComponent(indexCorrente);
+                    JpRespostaVerdadeiroOuFalso panel2 = (JpRespostaVerdadeiroOuFalso) cardTipoResposta.getComponent(indexCorrente);
                     panel2.limparRespostas();
                     break;
                 default:

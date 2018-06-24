@@ -60,7 +60,7 @@ public class JpQuestao extends JPanel implements Comparable<JpQuestao>{
         return jpTipoQuestao.getJpRespostaPerguntaDireta();
     }
     
-    public JpRespostaVerdadeiroOuFaso getJpRespostaVerdadeiroOuFalso(){
+    public JpRespostaVerdadeiroOuFalso getJpRespostaVerdadeiroOuFalso(){
         return jpTipoQuestao.getJpRespostaVerdadeiroOuFaso();
     }
     

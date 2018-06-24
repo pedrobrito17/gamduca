@@ -17,7 +17,7 @@ import javax.swing.border.EmptyBorder;
  *
  * @author Pedro Brito
  */
-public class JpRespostaVerdadeiroOuFaso extends JPanel {
+public class JpRespostaVerdadeiroOuFalso extends JPanel {
 
     private JPanel jpRespostaA, jpRespostaB, jpRespostaC, jpRespostaD;
     private JLabel a, b, c, d;
@@ -26,7 +26,7 @@ public class JpRespostaVerdadeiroOuFaso extends JPanel {
     private JRadioButton rbVerdadeiroA, rbFalsoA, rbVerdadeiroB, rbFalsoB, rbVerdadeiroC, rbFalsoC, rbVerdadeiroD, rbFalsoD;
     private ButtonGroup groupA, groupB, groupC, groupD;
 
-    public JpRespostaVerdadeiroOuFaso() {
+    public JpRespostaVerdadeiroOuFalso() {
         configRespostas();
     }
 
