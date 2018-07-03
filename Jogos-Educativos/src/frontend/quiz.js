@@ -672,7 +672,7 @@ function toDataURL(src, callback) {
 
 function getDataAtual(){
   var dayName = new Array ("domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado") 
-  var monName = new Array ("janeiro", "fevereiro", "março", "abril", "Maio", "junho", "agosto", "outubro", "novembro", "dezembro")
+  var monName = new Array ("janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro")
   var data = new Date();
   return dayName[data.getDay()]+", "+data.getDate()+" de "+monName[data.getMonth()]+" de "+data.getFullYear()+".";
 }

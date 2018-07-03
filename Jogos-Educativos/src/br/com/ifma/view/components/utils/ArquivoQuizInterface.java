@@ -1,5 +1,4 @@
 package br.com.ifma.view.components.utils;
-
 /**
  *
  * @author Pedro Brito
