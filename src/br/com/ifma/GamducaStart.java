@@ -8,7 +8,7 @@ import javax.swing.SwingUtilities;
  *
  * @author Pedro Brito
  */
-public class JogosEducativos {
+public class GamducaStart {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
