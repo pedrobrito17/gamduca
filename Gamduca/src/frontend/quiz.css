@@ -1,0 +1,236 @@
+@font-face{
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  src: url('fonts/montserrat.ttf');
+}
+
+@font-face{
+  font-family: FiraSans;
+  font-style: normal;
+  font-weight: normal;
+  src: url('fonts/FiraSans.ttf');
+}
+
+@font-face{
+  font-family: FiraSans-Bold;
+  font-style: normal;
+  font-weight: normal;
+  src: url('fonts/FiraSans-Bold.ttf');
+}
+
+body {
+  background: #ccc;
+  border: none;
+  color: #444;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  line-height: 1.4;
+  margin: 0;
+  padding: 0;
+}
+
+.titulo {
+  font-family: 'FiraSans-Bold';
+  text-align: center;
+  width: 100%;
+  display: inline-block;
+  font-size: 2em;
+  margin-top: auto !important;
+  margin-bottom: auto !important;
+}
+
+.tituloQuestao{
+  font-family: 'FiraSans-Bold';
+  font-size: 22px;
+  width: 80%;
+}
+
+.pergunta{
+  font-family: 'FiraSans';
+  font-size: 20px;
+}
+
+.imagem {
+  max-width: 60%;
+  max-height: 40%;
+  padding: 10px;
+}
+
+.center {
+  margin: auto;
+  width: 80%;
+  padding: 5px;
+}
+
+.multimidia {
+  width: 60%;
+  display: block;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.questao {
+  margin-bottom: 2%;
+  padding: 1em;
+  width: 80%;
+  min-height: 300px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .1);
+  
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.info {
+  padding: 1em;
+  margin-right: 6%;
+  background: #fff;
+  width: 20%;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .1);
+}
+
+.section {
+  position: relative;
+  padding: 3% 0;
+}
+
+header {
+  padding: 0.5%;
+  background: #343434;
+  color: #fff;
+}
+
+.options {
+  min-width: 10%;
+  display: inline-block;
+  margin-right: 2%;
+  vertical-align: top;
+  margin-top: 20px;
+}
+
+.resp-text {
+  width: 100%;
+  display: inline-block;
+  padding: 0px;
+  margin: 0px;
+}
+
+.relative {
+  position: relative;
+}
+
+.center{
+  margin-right:  auto !important;
+  margin-left: auto !important;
+}
+
+aside h4 {
+  margin-top: 1px;
+  margin-bottom: 1px;
+  text-align: center;
+  font-family: 'FiraSans-Bold';
+}
+
+aside span {
+  margin-top: 2px;
+  padding-top: 5px;
+  font-size: 16px;
+}
+
+#fase-2,
+#fase-3 {
+  margin-top: 1em;
+}
+
+.mySpan {
+  font-family: 'FiraSans-Bold';
+  font-size: 22px;
+}
+
+.input {
+  max-width: 5%;
+  float: left;
+  padding-right: 2px;
+}
+
+.invisible{
+  display: none;
+}
+
+.visible{
+  display: block;
+}
+
+.position-btn {
+  width: 80%;
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+
+
+.mult-opcao {
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(211, 211, 211, 0.3);
+  border-radius: 0.25rem;
+}
+
+.desativado{
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(211, 211, 211, 0.3);
+  border-radius: 0.25rem;
+  background-color: rgba(211, 211, 211, 0.3);
+}
+
+.mult-opcao:hover{
+  cursor: pointer;
+  background-color: rgba(211, 211, 211, 0.3);
+}
+
+.mult-opcao label {
+  cursor: pointer;
+}
+
+.audio {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.tempo {
+  padding: 2px;
+  margin: 0px;
+}
+
+.margin {
+  margin-left: 5px;
+}
+
+.progress {
+  margin-bottom: 15px;
+}
+
+.addmargin {
+  margin-bottom: 15px;
+}
+
+.color-modal-success {
+  background-color: #28a745;
+  font-family: 'FiraSans-Bold', monospace;
+  color: #fff;
+}
+
+.color-modal-danger{
+  background-color: #dc3545;;
+  font-family: 'FiraSans-Bold', monospace;
+  color: #fff;
+}
+
+.width100 {
+  width: 100%;
+}

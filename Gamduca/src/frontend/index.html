@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt">
+  
+  <head>
+  <title>Quiz</title>
+  <meta charset="utf-8" />
+  <meta name="author" content="Pedro Brito" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="recursos/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="recursos/css/quiz.css" />
+</head>
+
+<body onload="contagemDasTentativasDeResolucaoDoQuiz()">
+
+  <header>
+    <h2 id="tituloQuiz" class="titulo"></h2>
+  </header>
+
+  <div class="section">
+    <main class="questao">
+      
+      <div class="container-fluid">
+        <div class="row">
+          <div id="col-progress" class="col-md-10">
+            
+            <div class="progress">
+              <div id="progressbar" class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 50%" aria-valuenow="50" 
+                   aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          
+          </div>          
+          <div class="col-md-2 addmargin">
+            <div id="cronometro" class="text-center alert alert-warning tempo" role="alert">
+              <span id="contador" class="mySpan"></span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h4 id="tituloQuestao" class="tituloQuestao"></h4>
+        <p id="txtpergunta" class="pergunta text-justify"></p>
+<!-- MULTIMÍDIA -->
+        <div id="multimidia" class="multimidia">
+          <img id="imagem" class="" src=""/>  
+          <div id="video" class=""></div>
+          <div id="youtube" class=""></div>
+          <div id="link" class=""></div>    
+          <div id="audio" class=""></div><br>
+        </div>
+      </div>
+
+<!-- TIPOS DE RESPOSTAS -->
+
+<!-- MULTIPLA ESCOLHA -->
+      <div id="multipla-escolha" class="invisible">
+        <div class="mult-opcao" onclick="verificarRespostaMult('a')">
+          <label id="op-a" class="text-justify" onclick="verificarRespostaMult('a')"></label>
+        </div>
+        <div class="mult-opcao" onclick="verificarRespostaMult('b')">
+          <label id="op-b" class="text-justify" onclick="verificarRespostaMult('b')"></label>
+        </div>
+        <div class="mult-opcao" onclick="verificarRespostaMult('c')">
+          <label id="op-c" class="text-justify" onclick="verificarRespostaMult('c')"></label>
+        </div>
+        <div class="mult-opcao" onclick="verificarRespostaMult('d')">
+          <label id="op-d" class="text-justify" onclick="verificarRespostaMult('d')"></label>
+        </div>
+      </div>
+
+<!-- VERDADEIRO OU FALSO -->
+      <div id="verdadeiro-falso" class="">
+
+        <div id="vf-a" class="mult-opcao">
+          <div class="custom-control custom-checkbox custom-control-inline">
+            <input type="checkbox" class="custom-control-input" id="v-a" onclick="verificarRespostaVerdadeiroOuFalso(true, 'a')">
+            <label class="custom-control-label" for="v-a">V</label>
+          </div>
+          <div class="custom-control custom-checkbox custom-control-inline">
+            <input type="checkbox" class="custom-control-input" id="f-a" onclick="verificarRespostaVerdadeiroOuFalso(false, 'a')">
+            <label class="custom-control-label" for="f-a">F</label>
+          </div>
+          <div class="resp-text">
+            <p id="option-a" class="text-justify"></p>
+          </div>
+        </div>
+        
+        <div id="vf-b" class="mult-opcao">
+          <div class="custom-control custom-checkbox custom-control-inline">
+            <input type="checkbox" class="custom-control-input" id="v-b" onclick="verificarRespostaVerdadeiroOuFalso(true, 'b')">
+            <label class="custom-control-label" for="v-b">V</label>
+          </div>
+          <div class="custom-control custom-checkbox custom-control-inline">
+            <input type="checkbox" class="custom-control-input" id="f-b" onclick="verificarRespostaVerdadeiroOuFalso(false, 'b')">
+            <label class="custom-control-label" for="f-b">F</label>
+          </div>
+          <div class="resp-text">
+            <p id="option-b" class="text-justify"></p>
+          </div>
+        </div>
+        
+        <div id="vf-c" class="mult-opcao">
+          <div class="custom-control custom-checkbox custom-control-inline">
+            <input type="checkbox" class="custom-control-input" id="v-c" onclick="verificarRespostaVerdadeiroOuFalso(true, 'c')">
+            <label class="custom-control-label" for="v-c">V</label>
+          </div>
+          <div class="custom-control custom-checkbox custom-control-inline">
+            <input type="checkbox" class="custom-control-input" id="f-c" onclick="verificarRespostaVerdadeiroOuFalso(false, 'c')">
+            <label class="custom-control-label" for="f-c">F</label>
+          </div>
+          <div class="resp-text">
+            <p id="option-c" class="text-justify"></p>
+          </div>
+        </div>
+        
+        <div id="vf-d" class="mult-opcao">
+          <div class="custom-control custom-checkbox custom-control-inline">
+            <input type="checkbox" class="custom-control-input" id="v-d" onclick="verificarRespostaVerdadeiroOuFalso(true, 'd')">
+            <label class="custom-control-label" for="v-d">V</label>
+          </div>
+          <div class="custom-control custom-checkbox custom-control-inline">
+            <input type="checkbox" class="custom-control-input" id="f-d" onclick="verificarRespostaVerdadeiroOuFalso(false, 'd')">
+            <label class="custom-control-label" for="f-d">F</label>
+          </div>
+          <div class="resp-text">
+            <p id="option-d" class="text-justify"></p>
+          </div>
+        </div>
+      </div>
+
+<!-- PERGUNTA DIRETA -->
+      <br>
+      <div id="pergunta-direta" class="invisible align-middle">
+        <form>
+          <input id="resposta-direta" class="form-control" type="text" role="row">
+        </form><br>
+        <button class="btn btn-info float-right" onclick="verificarRespostaPerguntaDireta()">Responder</button>
+        <div class="clearfix"></div>
+      </div>
+    </main>
+
+<!-- BOTÃO PRÓXIMA -->
+    <div class="position-btn">
+      <button id="btn-proxima" class="float-right btn btn-success" onclick="inserirNoHtmlProximaQuestao()" role="button">Próxima >></button>
+    </div><br>
+  </div>
+
+<!-- MODAL INSTRUÇÕES -->
+  <div class="modal" id="modal-instrucoes" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle"><b>Instruções</b></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <p class="text-justify" id="texto-instrucoes"></p>
+            <div id="tempoQuestao"></div>
+            <div id="detalhamento1"></div>
+            <div id="detalhamento2"></div>
+            <div id="detalhamento3"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" onclick="inserirNoHtmlProximaQuestao()" class="btn btn-primary width100" data-dismiss="modal">Começar</button>
+          </div>
+      </div>
+    </div>
+  </div>
+  
+<!-- MODAL DE ERRO E ACERTO -->
+  <div class="modal" id="modal-erro-acerto" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div id="modal-ea-color" class="modal-body text-center">
+          <h3 id="txtErroOuAcerto"></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- GAME OVER -->
+  <div class="modal" id="game-over" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content color-modal-danger">
+          <div id="modal-ea-color" class="modal-body text-center">
+            <h3>Fim do jogo</h3>
+            <p>Você teve duas tentativas e não alcançou a aprovação no Quiz.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  <!-- MODAL DE FIM DE FASE -->
+  <div class="modal" id="modal-fim-fase" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div id="color-modal" class="modal-body">
+          
+          <div id="aprovado" class="visible">
+            <div class="text-center">
+              <h2 id="f-success"></h2>
+            </div>
+            <hr>
+            <div id="resultado-final">
+              <div id="fase1"></div>
+              <div id="fase2"></div>
+              <div id="fase3"></div>
+              
+              <div id="exportar">
+                <hr>
+                <label id="labelnome">Digite seu nome completo</label>
+                <input id="nome" for="labelnome" class="form-control" type="text" role="row" required>
+                <br>
+                <button id="btn-modal-exportar" class="btn btn-primary width100 visible" onclick="exportarResultadoFinal()"
+                  >Exportar resultado final</button>
+              </div>
+
+            </div>
+            <div id="div-aprovado">
+              <h4>Parabéns! Você foi aprovado nesta fase do Quiz.</h4>
+              <h4 id="resultado-success"></h4>
+              <h4 id="taxa-acerto"></h4>
+              <h4 id="taxa-erro"></h4>
+            </div>
+            <br>
+            <button id="btn-modal-avancar" class="btn btn-light width100 invisible" data-dismiss="modal" onclick="avancarDeFase()">Próxima fase</button>
+          </div>
+          
+          <div id="reprovado" class="invisible">
+            <div class="text-center">
+              <h2 id="f-danger"></h2>
+            </div>
+            <hr>
+            <h5 id="texto-danger"></h5>
+            <h4 id="resultado-danger"></h4>
+            <h4 id="err-taxa-acerto"></h4>
+            <h4 id="err-taxa-erro"></h4>
+            <br>
+            <button class="btn btn-light width100" data-dismiss="modal">Fechar</button>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="recursos/js/jquery.min.js"></script>
+  <script type="text/javascript" src="recursos/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="recursos/js/jspdf.min.js"></script>
+  <script type="text/javascript" src="recursos/js/quiz.js"></script>
+</body>
+</html>
