@@ -38,7 +38,7 @@ public class DialogMoverQuestao extends JDialog {
                 options[0]);
 
         setContentPane(optionPane);
-        setSize(300, 130);
+        setSize(300, 180);
         setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);

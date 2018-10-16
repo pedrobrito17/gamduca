@@ -72,13 +72,13 @@ public final class DialogSobre extends JDialog {
     private void configJLabels(){
         lbDev1 = new JLabel("Desenvolvedor do Forca:");
         lbDev1.setFont(Fonte.retornarFontePadraoNegrito());
-        lbDev1.setBorder(new EmptyBorder(10, 0, 0, 0));
+        lbDev1.setBorder(new EmptyBorder(10, 0, 10, 0));
         lbForca = new JLabel("Luiz Aristóteles Santos Silva");
         lbForca.setFont(Fonte.retornarFontePadrao());
         
         lbDev2 = new JLabel("Desenvolvedor do Quiz:");
         lbDev2.setFont(Fonte.retornarFontePadraoNegrito());
-        lbDev2.setBorder(new EmptyBorder(10, 0, 0, 0));
+        lbDev2.setBorder(new EmptyBorder(10, 0, 10, 0));
         lbQuiz = new JLabel("Pedro Ítalo Aragão Brito");
         lbQuiz.setFont(Fonte.retornarFontePadrao());
         

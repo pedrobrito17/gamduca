@@ -259,27 +259,32 @@ public class FrameQuiz extends JFrame implements OpcoesQuizInterface,
         int numeroQuestao = 0;
 
         while ((numeroQuestao < 1) || (numeroQuestao > 10)) {
-            try {
-                acumulador = JOptionPane.showInputDialog(this, "Informe o "
-                        + "número da questão", "Deletar questão",
-                        JOptionPane.QUESTION_MESSAGE);
+            acumulador = JOptionPane.showInputDialog(this, "Informe o "
+                    + "número da questão", "Deletar questão",
+                    JOptionPane.QUESTION_MESSAGE);
 
+            if(acumulador == null){
+                break;
+            }
+
+            try{
                 numeroQuestao = Integer.parseInt(acumulador);
+            }catch(NumberFormatException e){
+                break;
+            }
 
-                JpFase jpFase = (JpFase) tabbed.getSelectedComponent();
-                if (jpFase.getJpQuestoes().size() == 3) {
-                    JOptionPane.showMessageDialog(this, "Cada fase deve ter "
-                            + "no mínimo 3 questões",
-                            "Erro", JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Informe apenas número de"
-                        + " 1 a 10");
+            JpFase jpFase = (JpFase) tabbed.getSelectedComponent();
+            if (jpFase.getJpQuestoes().size() == 3) {
+                JOptionPane.showMessageDialog(this, "Cada fase deve ter "
+                        + "no mínimo 3 questões",
+                        "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
-
-        JpFase jpFase = (JpFase) tabbed.getSelectedComponent();
-        jpFase.deletarQuestao(numeroQuestao);
+        
+        if((numeroQuestao > 0) && (numeroQuestao < 11)){
+            JpFase jpFase = (JpFase) tabbed.getSelectedComponent();
+            jpFase.deletarQuestao(numeroQuestao);
+        }
     }
 
     /* MÉTODOS DO MENU ARQUIVO */

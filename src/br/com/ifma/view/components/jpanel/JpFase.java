@@ -140,9 +140,16 @@ public class JpFase extends JPanel {
         jpQuestao.setTituloQuestao(paraPosicao);
 
         int mudarPosicao = paraPosicao - 1;
-        while (mudarPosicao < (numeroQuestao - 1)) {
-            jpQuestoes.get(mudarPosicao).setTituloQuestao((mudarPosicao + 2));
-            mudarPosicao++;
+        if(numeroQuestao > paraPosicao){
+            while (mudarPosicao < (numeroQuestao - 1)) {
+                jpQuestoes.get(mudarPosicao).setTituloQuestao((mudarPosicao + 2));
+                mudarPosicao++;
+            }
+        }else{
+            while(mudarPosicao > (numeroQuestao -1)){
+                jpQuestoes.get(mudarPosicao).setTituloQuestao(mudarPosicao);
+                mudarPosicao--;
+            }
         }
         Collections.sort(jpQuestoes);
 
